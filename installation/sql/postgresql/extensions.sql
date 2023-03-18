@@ -738,7 +738,7 @@ CREATE INDEX "#__redirect_links_idx_old_url" ON "#__redirect_links" ("old_url");
 CREATE INDEX "#__redirect_links_idx_link_modified" ON "#__redirect_links" ("modified_date");
 
 --
--- Table: #__sites_domains
+-- Table: #__site_groups
 --
 CREATE TABLE IF NOT EXISTS "#__site_groups" (
 	"id" serial NOT NULL,
@@ -754,13 +754,13 @@ CREATE TABLE IF NOT EXISTS "#__site_groups" (
 	"created_by" bigint DEFAULT 0 NOT NULL,
 	"modified" timestamp without time zone NOT NULL,
 	"modified_by" bigint DEFAULT 0 NOT NULL,
-	PRIMARY KEY ("id"),
+	PRIMARY KEY ("id")
 );
 CREATE INDEX "#__site_groups_idx_title" ON "#__site_groups" ("title");
 CREATE INDEX "#__site_groups_idx_state" ON "#__site_groups" ("state");
 
 --
--- Table: #__sites_domains
+-- Table: #__sites
 --
 CREATE TABLE IF NOT EXISTS "#__sites" (
 	"id" serial NOT NULL,
@@ -783,7 +783,7 @@ CREATE TABLE IF NOT EXISTS "#__sites" (
 	"created_by" bigint DEFAULT 0 NOT NULL,
 	"modified" timestamp without time zone NOT NULL,
 	"modified_by" bigint DEFAULT 0 NOT NULL,
-	PRIMARY KEY ("id"),
+	PRIMARY KEY ("id")
 );
 CREATE INDEX "#__sites_idx_type" ON "#__sites" ("type");
 CREATE INDEX "#__sites_idx_state" ON "#__sites" ("state");
