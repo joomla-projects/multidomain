@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="4.0" method="upgrade">
+  <name>com_sites</name>
+  <author>ITronic Harald Leithner</author>
+  <creationDate>March 2023</creationDate>
+  <copyright>(C) 2023 ITronic Harald Leithner</copyright>
+  <license>GNU General Public License version 3 or later; see LICENSE.txt</license>
+  <authorEmail>joomla@itronic.at</authorEmail>
+  <authorUrl>https://joomla.itronic.at</authorUrl>
+  <version>0.5.0</version>
+  <description>COM_SITES_XML_DESCRIPTION</description>
+  <namespace path="src">Joomla\Component\Sites</namespace>
+  <scriptfile>script.php</scriptfile>
+  <install>
+    <sql>
+      <file driver="mysql" charset="utf8">sql/install.mysql.sql</file>
+      <file driver="postgresql" charset="utf8">sql/install.postgresql.sql</file>
+    </sql>
+  </install>
+  <uninstall>
+    <sql>
+      <file driver="mysql" charset="utf8">sql/uninstall.mysql.sql</file>
+      <file driver="postgresql" charset="utf8">sql/uninstall.postgresql.sql</file>
+    </sql>
+  </uninstall>
+  <update>
+    <schemas>
+      <schemapath type="mysql">sql/mysql</schemapath>
+      <schemapath type="postgresql">sql/postgresql</schemapath>
+    </schemas>
+  </update>
+  <files folder="components/com_sites">
+    <folder>language</folder>
+    <folder>src</folder>
+    <folder>tmpl</folder>
+  </files>
+  <media destination="com_sites" folder="media/com_sites">
+    <file>joomla.asset.json</file>
+  </media>
+  <api folder="api/components/com_sites">
+    <folder>src</folder>
+  </api>
+  <administration>
+    <menu img="class:sites">COM_SITES</menu>
+    <submenu>
+      <menu link="option=com_sites&amp;view=sites">COM_SITES_SUBMENU_SITES</menu>
+      <menu link="option=com_sites&amp;view=domains">COM_SITES_SUBMENU_DOMAINS</menu>
+      <menu link="option=com_sites&amp;view=languages">COM_SITES_SUBMENU_LANGUAGES</menu>
+    </submenu>
+    <files folder="administrator/components/com_sites">
+      <filename>sites.xml</filename>
+      <filename>access.xml</filename>
+      <filename>config.xml</filename>
+      <folder>forms</folder>
+      <folder>language</folder>
+      <folder>services</folder>
+      <folder>sql</folder>
+      <folder>src</folder>
+      <folder>tmpl</folder>
+    </files>
+  </administration>
+  <dashboards>
+    <dashboard title="COM_SITES_DASHBOARD_TITLE" icon="icon-file-alt">sites</dashboard>
+  </dashboards>
+</extension>
