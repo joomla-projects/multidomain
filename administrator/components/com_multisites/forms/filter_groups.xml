@@ -4,8 +4,8 @@
 		<field
 			name="search"
 			type="text"
-			label="COM_SITES_FILTER_SEARCH_LABEL"
-			description="COM_SITES_FILTER_SEARCH_DESC"
+			label="COM_MULTISITES_FILTER_SEARCH_LABEL"
+			description="COM_MULTISITES_FILTER_SEARCH_DESC"
 			hint="JSEARCH_FILTER"
 		/>
 
@@ -33,8 +33,8 @@
 			<option value="a.ordering DESC">JGRID_HEADING_ORDERING_DESC</option>
 			<option value="a.state ASC">JSTATUS_ASC</option>
 			<option value="a.state DESC">JSTATUS_DESC</option>
-			<option value="a.created ASC">COM_SITES_SORT_CREATED_ASC</option>
-			<option value="a.created DESC">COM_SITES_SORT_CREATED_DESC</option>
+			<option value="a.created ASC">COM_MULTISITES_SORT_CREATED_ASC</option>
+			<option value="a.created DESC">COM_MULTISITES_SORT_CREATED_DESC</option>
 			<option value="a.id ASC">JGRID_HEADING_ID_ASC</option>
 			<option value="a.id DESC">JGRID_HEADING_ID_DESC</option>
 		</field>

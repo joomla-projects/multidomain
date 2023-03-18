@@ -106,7 +106,7 @@
 					type="componentlayout"
 					label="JFIELD_ALT_LAYOUT_LABEL"
 					class="form-select"
-					extension="com_sites"
+					extension="com_multisites"
 					view="website"
 					useglobal="true"
 				/>
@@ -126,7 +126,7 @@
 			label="JCONFIG_PERMISSIONS_LABEL"
 			validate="rules"
 			filter="rules"
-			component="com_sites"
+			component="com_multisites"
 			section="website"
 			hiddenLabel="true"
 		/>

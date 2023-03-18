@@ -1,12 +1,12 @@
 <?php
 /**
- * @package     Sites
+ * @package     Multisites
  *
  * @copyright   ITronic Harald Leithner
  * @license     GNU General Public License version 3 or later; see LICENSE.txt
  */
 
-namespace Joomla\Component\Sites\Administrator\Model;
+namespace Joomla\Component\Multisites\Administrator\Model;
 
 defined('_JEXEC') or die;
 
@@ -28,7 +28,7 @@ class WebsiteModel extends AdminModel
 	 * @var    string
 	 * @since  __DEPLOY_VERSION__
 	 */
-	protected $text_prefix = 'COM_SITES';
+	protected $text_prefix = 'COM_MULTISITES';
 
 		/**
 		 * Method to test whether a record can be deleted.
@@ -46,7 +46,7 @@ class WebsiteModel extends AdminModel
 						return false;
 				}
 
-				return $this->getCurrentUser()->authorise('core.delete', 'com_sites.website.' . (int) $record->id);
+				return $this->getCurrentUser()->authorise('core.delete', 'com_multisites.website.' . (int) $record->id);
 		}
 
 		/**
@@ -63,7 +63,7 @@ class WebsiteModel extends AdminModel
 				// Check for existing Website.
 				if (!empty($record->id))
 				{
-					return $this->getCurrentUser()->authorise('core.edit.state', 'com_sites.website.' . (int) $record->id);
+					return $this->getCurrentUser()->authorise('core.edit.state', 'com_multisites.website.' . (int) $record->id);
 				}
 
 				// Default to component settings if Website not known.
@@ -101,7 +101,7 @@ class WebsiteModel extends AdminModel
 				$app  = Factory::getApplication();
 
 				// Get the form.
-				$form = $this->loadForm('com_sites.website', 'website', array('control' => 'jform', 'load_data' => $loadData));
+				$form = $this->loadForm('com_multisites.website', 'website', array('control' => 'jform', 'load_data' => $loadData));
 
 				if (empty($form))
 				{
@@ -149,7 +149,7 @@ class WebsiteModel extends AdminModel
 		{
 				// Check the session for previously entered form data.
 				$app = Factory::getApplication();
-				$data = $app->getUserState('com_sites.edit.website.data', array());
+				$data = $app->getUserState('com_multisites.edit.website.data', array());
 
 				if (empty($data))
 				{
@@ -162,7 +162,7 @@ class WebsiteModel extends AdminModel
 						$data->params = $data->params->toArray();
 				}
 
-				$this->preprocessData('com_sites.website', $data);
+				$this->preprocessData('com_multisites.website', $data);
 
 				return $data;
 		}
@@ -182,7 +182,7 @@ class WebsiteModel extends AdminModel
 		 */
 		public function validate($form, $data, $group = null)
 		{
-				if (!Factory::getApplication()->getIdentity()->authorise('core.admin', 'com_sites'))
+				if (!Factory::getApplication()->getIdentity()->authorise('core.admin', 'com_multisites'))
 				{
 						if (isset($data['rules']))
 						{

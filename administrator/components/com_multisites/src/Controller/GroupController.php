@@ -1,12 +1,12 @@
 <?php
 /**
- * @package     Sites
+ * @package     Multisites
  *
  * @copyright   ITronic Harald Leithner
  * @license     GNU General Public License version 3 or later; see LICENSE.txt
  */
 
-namespace Joomla\Component\Sites\Administrator\Controller;
+namespace Joomla\Component\Multisites\Administrator\Controller;
 
 use Joomla\CMS\MVC\Controller\FormController;
 
@@ -23,7 +23,7 @@ class GroupController extends FormController
 		 * @var    string
 		 * @since  1.6
 		 */
-		protected $text_prefix = 'COM_SITES_GROUP';
+		protected $text_prefix = 'COM_MULTISITES_GROUP';
 
 		/**
 		 * Method override to check if you can edit an existing record.
@@ -46,12 +46,12 @@ class GroupController extends FormController
 				}
 
 				// Check edit on the record asset (explicit or inherited)
-				if ($user->authorise('core.edit', 'com_sites.group.' . $recordId)) {
+				if ($user->authorise('core.edit', 'com_multisites.group.' . $recordId)) {
 						return true;
 				}
 
 				// Check edit own on the record asset (explicit or inherited)
-				if ($user->authorise('core.edit.own', 'com_sites.group.' . $recordId)) {
+				if ($user->authorise('core.edit.own', 'com_multisites.group.' . $recordId)) {
 						// Existing record already has an owner, get it
 						$record = $this->getModel()->getItem($recordId);
 

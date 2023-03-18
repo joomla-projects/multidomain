@@ -1,12 +1,12 @@
 <?php
 /**
- * @package     Sites
+ * @package     Multisites
  *
  * @copyright   ITronic Harald Leithner
  * @license     GNU General Public License version 3 or later; see LICENSE.txt
  */
 
-namespace Joomla\Component\Sites\Administrator\Controller;
+namespace Joomla\Component\Multisites\Administrator\Controller;
 
 defined('_JEXEC') or die;
 
@@ -25,7 +25,7 @@ class GroupsController extends AdminController
 		 * @var    string
 		 * @since  1.6
 		 */
-		protected $text_prefix = 'COM_SITES_GROUPS';
+		protected $text_prefix = 'COM_MULTISITES_GROUPS';
 
 		/**
 		 * Proxy for getModel

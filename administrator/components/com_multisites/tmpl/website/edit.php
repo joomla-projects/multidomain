@@ -1,12 +1,12 @@
 <?php
 /**
- * @package     Sites
+ * @package     Multisites
  *
  * @copyright   ITronic Harald Leithner
  * @license     GNU General Public License version 3 or later; see LICENSE.txt
  */
 
-/** @var Joomla\Component\Sites\Administrator\View\Website\HtmlView $this */
+/** @var Joomla\Component\Multisites\Administrator\View\Website\HtmlView $this */
 
 defined('_JEXEC') or die;
 
@@ -36,7 +36,7 @@ $tmpl    = $isModal || $input->get('tmpl', '', 'cmd') === 'component' ? '&tmpl=c
 $fieldsets = $this->form->getFieldsets();
 $this->ignore_fieldsets = ['general'];
 ?>
-<form action="<?php echo Route::_('index.php?option=com_sites&layout=' . $layout . $tmpl . '&id=' . $this->item->id); ?>" method="post" name="adminForm" id="item-form" class="form-validate">
+<form action="<?php echo Route::_('index.php?option=com_multisites&layout=' . $layout . $tmpl . '&id=' . $this->item->id); ?>" method="post" name="adminForm" id="item-form" class="form-validate">
 	<?php echo LayoutHelper::render('joomla.edit.title_alias', $this); ?>
 
 	<div class="main-card">

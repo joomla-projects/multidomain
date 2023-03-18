@@ -1,12 +1,12 @@
 <?php
 /**
- * @package     Sites
+ * @package     Multisites
  *
  * @copyright   ITronic Harald Leithner
  * @license     GNU General Public License version 3 or later; see LICENSE.txt
  */
 
-namespace Joomla\Component\Sites\Administrator\Model;
+namespace Joomla\Component\Multisites\Administrator\Model;
 
 defined('_JEXEC') or die;
 
@@ -17,7 +17,7 @@ use Joomla\Database\ParameterType;
 use function substr;
 
 /**
- * Websites Component Sites Model
+ * Websites Component Multisites Model
  *
  * @since  __DEPLOY_VERSION__
  */
@@ -118,7 +118,7 @@ class WebsitesModel extends ListModel
 							]
 						)
 					)
-					->from($db->quoteName('#__websites', 'a'))
+					->from($db->quoteName('#__multisites_websites', 'a'))
 					->join(
 						'LEFT',
 						$db->quoteName('#__users', 'ua'),

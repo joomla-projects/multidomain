@@ -1,12 +1,12 @@
 <?php
 /**
- * @package     Sites
+ * @package     Multisites
  *
  * @copyright   ITronic Harald Leithner
  * @license     GNU General Public License version 3 or later; see LICENSE.txt
  */
 
-namespace Joomla\Component\Sites\Administrator\Model;
+namespace Joomla\Component\Multisites\Administrator\Model;
 
 defined('_JEXEC') or die;
 
@@ -28,7 +28,7 @@ class GroupModel extends AdminModel
 	 * @var    string
 	 * @since  __DEPLOY_VERSION__
 	 */
-	protected $text_prefix = 'COM_SITES';
+	protected $text_prefix = 'COM_MULTISITES';
 
 		/**
 		 * Method to test whether a record can be deleted.
@@ -46,7 +46,7 @@ class GroupModel extends AdminModel
 						return false;
 				}
 
-				return $this->getCurrentUser()->authorise('core.delete', 'com_sites.group.' . (int) $record->id);
+				return $this->getCurrentUser()->authorise('core.delete', 'com_multisites.group.' . (int) $record->id);
 		}
 
 		/**
@@ -63,7 +63,7 @@ class GroupModel extends AdminModel
 				// Check for existing Group.
 				if (!empty($record->id))
 				{
-					return $this->getCurrentUser()->authorise('core.edit.state', 'com_sites.group.' . (int) $record->id);
+					return $this->getCurrentUser()->authorise('core.edit.state', 'com_multisites.group.' . (int) $record->id);
 				}
 
 				// Default to component settings if Group not known.
@@ -101,7 +101,7 @@ class GroupModel extends AdminModel
 				$app  = Factory::getApplication();
 
 				// Get the form.
-				$form = $this->loadForm('com_sites.group', 'group', array('control' => 'jform', 'load_data' => $loadData));
+				$form = $this->loadForm('com_multisites.group', 'group', array('control' => 'jform', 'load_data' => $loadData));
 
 				if (empty($form))
 				{
@@ -149,7 +149,7 @@ class GroupModel extends AdminModel
 		{
 				// Check the session for previously entered form data.
 				$app = Factory::getApplication();
-				$data = $app->getUserState('com_sites.edit.group.data', array());
+				$data = $app->getUserState('com_multisites.edit.group.data', array());
 
 				if (empty($data))
 				{
@@ -162,7 +162,7 @@ class GroupModel extends AdminModel
 						$data->params = $data->params->toArray();
 				}
 
-				$this->preprocessData('com_sites.group', $data);
+				$this->preprocessData('com_multisites.group', $data);
 
 				return $data;
 		}
@@ -182,7 +182,7 @@ class GroupModel extends AdminModel
 		 */
 		public function validate($form, $data, $group = null)
 		{
-				if (!Factory::getApplication()->getIdentity()->authorise('core.admin', 'com_sites'))
+				if (!Factory::getApplication()->getIdentity()->authorise('core.admin', 'com_multisites'))
 				{
 						if (isset($data['rules']))
 						{

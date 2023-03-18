@@ -1,12 +1,12 @@
 <?php
 /**
- * @package     Sites
+ * @package     Multisites
  *
  * @copyright   ITronic Harald Leithner
  * @license     GNU General Public License version 3 or later; see LICENSE.txt
  */
 
-namespace Joomla\Component\Sites\Administrator\View\Website;
+namespace Joomla\Component\Multisites\Administrator\View\Website;
 
 defined('_JEXEC') or die;
 
@@ -15,7 +15,7 @@ use Joomla\CMS\MVC\View\FormView;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 
 /**
- * Website view class for the Sites package.
+ * Website view class for the Multisites package.
  *
  * @since  __DEPLOY_VERSION__
  */
@@ -31,14 +31,14 @@ class HtmlView extends FormView
 				// Set the component name if not passed
 				if (empty($config['option']))
 				{
-						$this->option = 'com_sites';
+						$this->option = 'com_multisites';
 				}
 
 				$config['toolbar_icon'] = 'user-cog';
 
 				parent::__construct($config);
 
-				$this->canDo = ContentHelper::getActions('com_sites');
+				$this->canDo = ContentHelper::getActions('com_multisites');
 		}
 
 		/**

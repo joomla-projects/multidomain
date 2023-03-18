@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Sites
+ * @package     Multisites
  *
  * @copyright   ITronic Harald Leithner
  * @license     GNU General Public License version 3 or later; see LICENSE.txt
@@ -8,8 +8,6 @@
 
 namespace Joomla\Component\Multisites\Administrator\Extension;
 
-use Joomla\CMS\Component\Router\RouterServiceInterface;
-use Joomla\CMS\Component\Router\RouterServiceTrait;
 use Joomla\CMS\Extension\BootableExtensionInterface;
 use Joomla\CMS\Extension\MVCComponent;
 use Joomla\CMS\Factory;
@@ -56,7 +54,7 @@ class MultisitesComponent extends MVCComponent implements
      */
     public function getContexts(): array
     {
-        Factory::getApplication()->getLanguage()->load('com_sites', JPATH_ADMINISTRATOR);
+        Factory::getApplication()->getLanguage()->load('com_multisites', JPATH_ADMINISTRATOR);
 
         $contexts = array(
             'com_multisites.groups' => Text::_('COM_MULTISITES_GROUPS'),

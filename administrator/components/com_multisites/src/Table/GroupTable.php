@@ -1,12 +1,12 @@
 <?php
 /**
- * @package     Sites
+ * @package     Multisites
  *
  * @copyright   ITronic Harald Leithner
  * @license     GNU General Public License version 3 or later; see LICENSE.txt
  */
 
-namespace Joomla\Component\Sites\Administrator\Table;
+namespace Joomla\Component\Multisites\Administrator\Table;
 
 defined('_JEXEC') or die;
 
@@ -117,7 +117,7 @@ class GroupTable extends Table
 
 				// Check for valid title
 				if (trim($this->title) == '') {
-						$this->setError(Text::_('COM_SITES_WARNING_PROVIDE_VALID_TITLE'));
+						$this->setError(Text::_('COM_MULTISITES_WARNING_PROVIDE_VALID_TITLE'));
 
 						return false;
 				}
@@ -158,7 +158,7 @@ class GroupTable extends Table
 		protected function _getAssetParentId(Table $table = null, $id = null)
 		{
 				$asset = new Asset($this->_db);
-				$asset->loadByName('com_sites');
+				$asset->loadByName('com_multisites');
 
 				if ((int)$asset->id) {
 						$assetId = (int)$asset->id;

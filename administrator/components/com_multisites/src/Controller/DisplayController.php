@@ -1,12 +1,12 @@
 <?php
 /**
- * @package     Sites
+ * @package     Multisites
  *
  * @copyright   ITronic Harald Leithner
  * @license     GNU General Public License version 3 or later; see LICENSE.txt
  */
 
-namespace Joomla\Component\Sites\Administrator\Controller;
+namespace Joomla\Component\Multisites\Administrator\Controller;
 
 defined('_JEXEC') or die;
 
@@ -15,7 +15,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
 
 /**
- * Sites display controller.
+ * Multisites display controller.
  *
  * @since  __DEPLOY_VERSION__
  */
@@ -27,7 +27,7 @@ class DisplayController extends BaseController
 	 * @var     string
 	 * @since   __DEPLOY_VERSION__
 	 */
-	protected $default_view = 'Sites';
+	protected $default_view = 'Groups';
 
 	/**
 	 * Method to display a view.
@@ -55,7 +55,7 @@ class DisplayController extends BaseController
 		];
 
 		// Check for edit form.
-		if (array_key_exists($view, $editViews) && $layout == 'edit' && !$this->checkEditId('com_sites.edit.' . $view, $id))
+		if (array_key_exists($view, $editViews) && $layout == 'edit' && !$this->checkEditId('com_multisites.edit.' . $view, $id))
 		{
 			// Somehow the person just went to the form - we don't allow that.
 			if (empty($this->app->getMessageQueue()))
@@ -63,7 +63,7 @@ class DisplayController extends BaseController
 					$this->setMessage(Text::sprintf('JLIB_APPLICATION_ERROR_UNHELD_ID', $id), 'error');
 			}
 
-			$this->setRedirect(Route::_('index.php?option=com_sites&view=' . $editViews[$view], false));
+			$this->setRedirect(Route::_('index.php?option=com_multisites&view=' . $editViews[$view], false));
 
 			return $this;
 		}

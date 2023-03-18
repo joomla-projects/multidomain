@@ -41,7 +41,7 @@
 		<field
 			name="websites"
 			type="text"
-			label="COM_SITES_WEBSITE"
+			label="COM_MULTISITES_WEBSITE"
 			required="true"
 			maxlength="255"
 		/>
@@ -114,7 +114,7 @@
 					type="componentlayout"
 					label="JFIELD_ALT_LAYOUT_LABEL"
 					class="form-select"
-					extension="com_sites"
+					extension="com_multisites"
 					view="group"
 					useglobal="true"
 				/>
@@ -134,7 +134,7 @@
 			label="JCONFIG_PERMISSIONS_LABEL"
 			validate="rules"
 			filter="rules"
-			component="com_sites"
+			component="com_multisites"
 			section="group"
 			hiddenLabel="true"
 		/>

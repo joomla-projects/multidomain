@@ -167,9 +167,9 @@
 		<menuitem
 			title="MOD_MENU_MANAGE_SITES"
 			type="component"
-			element="com_sites"
-			link="index.php?option=com_sites&amp;view=sites"
-			permission="core.manage;com_sites"
+			element="com_multisites"
+			link="index.php?option=com_multisites&amp;view=groups"
+			permission="core.manage;com_multisites"
 		/>
 
 		<menuitem

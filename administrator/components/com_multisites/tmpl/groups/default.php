@@ -1,12 +1,12 @@
 <?php
 /**
- * @package     Sites
+ * @package     Multisites
  *
  * @copyright   ITronic Harald Leithner
  * @license     GNU General Public License version 3 or later; see LICENSE.txt
  */
 
-/** @var Joomla\Component\Sites\Administrator\View\Groups\HtmlView $this */
+/** @var Joomla\Component\Multisites\Administrator\View\Groups\HtmlView $this */
 
 defined('_JEXEC') or die;
 
@@ -28,12 +28,12 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 $saveOrder = $listOrder == 'a.ordering';
 
 if ($saveOrder && !empty($this->items)) :
-		$saveOrderingUrl = 'index.php?option=com_sites&task=groups.saveOrderAjax&tmpl=component&' . Session::getFormToken() . '=1';
+		$saveOrderingUrl = 'index.php?option=com_multisites&task=groups.saveOrderAjax&tmpl=component&' . Session::getFormToken() . '=1';
 		HTMLHelper::_('draggablelist.draggable');
 endif;
 
 ?>
-<form action="<?php echo Route::_('index.php?option=com_sites&view=groups'); ?>" method="post" name="adminForm" id="adminForm">
+<form action="<?php echo Route::_('index.php?option=com_multisites&view=groups'); ?>" method="post" name="adminForm" id="adminForm">
 	<div class="row">
 		<div class="col-md-12">
 			<div id="j-main-container" class="j-main-container">
@@ -45,7 +45,7 @@ endif;
 				<?php else : ?>
           <table class="table itemList" id="articleList">
 						<caption class="visually-hidden">
-							<?php echo Text::_('COM_SITES_TABLE_CAPTION'); ?>
+							<?php echo Text::_('COM_MULTISITES_TABLE_CAPTION'); ?>
               <span id="orderedBy"><?php echo Text::_('JGLOBAL_SORTED_BY'); ?> </span>,
               <span id="filteredBy"><?php echo Text::_('JGLOBAL_FILTERED_BY'); ?></span>
 						</caption>
@@ -61,10 +61,10 @@ endif;
 									<?php echo HTMLHelper::_('searchtools.sort', 'JSTATUS', 'a.state', $listDirn, $listOrder); ?>
 								</th>
 								<th scope="col">
-									<?php echo HTMLHelper::_('searchtools.sort', 'COM_SITES_HEADING_TITLE', 'a.title', $listDirn, $listOrder); ?>
+									<?php echo HTMLHelper::_('searchtools.sort', 'COM_MULTISITES_HEADING_TITLE', 'a.title', $listDirn, $listOrder); ?>
 								</th>
                 <th scope="col" class="w-5">
-									<?php echo HTMLHelper::_('searchtools.sort', 'COM_SITES_HEADING_CREATED', 'a.created', $listDirn, $listOrder); ?>
+									<?php echo HTMLHelper::_('searchtools.sort', 'COM_MULTISITES_HEADING_CREATED', 'a.created', $listDirn, $listOrder); ?>
 								</th>
 								<th scope="col" class="w-1 d-none d-md-table-cell">
 									<?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_ID', 'a.id', $listDirn, $listOrder); ?>
@@ -73,10 +73,10 @@ endif;
 						</thead>
             <tbody<?php if ($saveOrder) : ?> class="js-draggable" data-url="<?php echo $saveOrderingUrl; ?>" data-direction="<?php echo strtolower($listDirn); ?>" data-nested="false"<?php endif; ?>>
 							<?php foreach ($this->items as $i => $item) :
-                $canEdit          = $user->authorise('core.edit',       'com_sites.group.' . $item->id);
+                $canEdit          = $user->authorise('core.edit',       'com_multisites.group.' . $item->id);
                 $canCheckin       = $user->authorise('core.manage',     'com_checkin') || $item->checked_out == $userId || is_null($item->checked_out);
-                $canEditOwn       = $user->authorise('core.edit.own',   'com_sites.group.' . $item->id) && $item->created_by == $userId;
-                $canChange        = $user->authorise('core.edit.state', 'com_sites.group.' . $item->id) && $canCheckin;
+                $canEditOwn       = $user->authorise('core.edit.own',   'com_multisites.group.' . $item->id) && $item->created_by == $userId;
+                $canChange        = $user->authorise('core.edit.state', 'com_multisites.group.' . $item->id) && $canCheckin;
                   ?>
 								<tr class="row<?php echo $i % 2; ?>" data-draggable-group="0">
 									<td class="text-center">
@@ -109,7 +109,7 @@ endif;
 														<?php echo HTMLHelper::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'groups.', $canCheckin); ?>
 												<?php endif; ?>
 												<?php if ($canEdit || $canEditOwn) : ?>
-                          <a href="<?php echo Route::_('index.php?option=com_sites&task=group.edit&id=' . $item->id); ?>" title="<?php echo Text::_('JACTION_EDIT'); ?> <?php echo $this->escape($item->title); ?>">
+                          <a href="<?php echo Route::_('index.php?option=com_multisites&task=group.edit&id=' . $item->id); ?>" title="<?php echo Text::_('JACTION_EDIT'); ?> <?php echo $this->escape($item->title); ?>">
 															<?php echo $this->escape($item->title); ?></a>
 												<?php else : ?>
                           <span><?php echo $this->escape($item->title); ?></span>

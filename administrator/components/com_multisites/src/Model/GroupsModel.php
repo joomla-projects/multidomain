@@ -1,12 +1,12 @@
 <?php
 /**
- * @package     Sites
+ * @package     Multisites
  *
  * @copyright   ITronic Harald Leithner
  * @license     GNU General Public License version 3 or later; see LICENSE.txt
  */
 
-namespace Joomla\Component\Sites\Administrator\Model;
+namespace Joomla\Component\Multisites\Administrator\Model;
 
 defined('_JEXEC') or die;
 
@@ -17,7 +17,7 @@ use Joomla\Database\ParameterType;
 use function substr;
 
 /**
- * Sites Component Groups Model
+ * Multisites Component Groups Model
  *
  * @since  __DEPLOY_VERSION__
  */
