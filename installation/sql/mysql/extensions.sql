@@ -780,82 +780,59 @@ CREATE TABLE IF NOT EXISTS `#__redirect_links` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `#__sites_sites`
+-- Table structure for table `#__site_groups`
 --
 
-CREATE TABLE IF NOT EXISTS `#__sites_sites` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
-    `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-    `alias` varchar(400) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '',
-    `description` text NOT NULL,
-    `state` tinyint NOT NULL DEFAULT 0,
-    `params` text NOT NULL,
-    `checked_out` int unsigned,
-    `checked_out_time` datetime,
-    `publish_up` datetime,
-    `publish_down` datetime,
-    `created` datetime NOT NULL,
-    `created_by` int unsigned NOT NULL DEFAULT 0,
-    `created_by_alias` varchar(255) NOT NULL DEFAULT '',
-    `modified` datetime NOT NULL,
-    `modified_by` int unsigned NOT NULL DEFAULT 0,
-    PRIMARY KEY (`id`),
-    KEY `title` (`title`)
+CREATE TABLE IF NOT EXISTS `#__site_groups` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `alias` varchar(400) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '',
+  `note` text NOT NULL,
+  `state` tinyint NOT NULL DEFAULT 0,
+  `params` text NOT NULL,
+  `checked_out` int unsigned,
+  `checked_out_time` datetime,
+  `created` datetime NOT NULL,
+  `created_by` int unsigned NOT NULL DEFAULT 0,
+  `modified` datetime NOT NULL,
+  `modified_by` int unsigned NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  KEY `idx_title` (`title`),
+  KEY `idx_state` (`state`),
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `#__sites_domains`
+-- Table structure for table `#__sites`
 --
 
-CREATE TABLE IF NOT EXISTS `#__sites_domains` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
-    `site_id` int(11) NOT NULL,
-    `domain` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-    `description` text NOT NULL,
-    `state` tinyint NOT NULL DEFAULT 0,
-    `metakey` text,
-    `params` text NOT NULL,
-    `checked_out` int unsigned,
-    `checked_out_time` datetime,
-    `publish_up` datetime,
-    `publish_down` datetime,
-    `created` datetime NOT NULL,
-    `created_by` int unsigned NOT NULL DEFAULT 0,
-    `created_by_alias` varchar(255) NOT NULL DEFAULT '',
-    `modified` datetime NOT NULL,
-    `modified_by` int unsigned NOT NULL DEFAULT 0,
-    PRIMARY KEY (`id`),
-    KEY `domain` (`domain`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `#__sites_languages`
---
-
-CREATE TABLE IF NOT EXISTS `#__sites_languages` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
-    `domain_id` int(11) NOT NULL,
-    `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-    `alias` varchar(400) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '',
-    `description` text NOT NULL,
-    `state` tinyint NOT NULL DEFAULT 0,
-    `metakey` text,
-    `params` text NOT NULL,
-    `checked_out` int unsigned,
-    `checked_out_time` datetime,
-    `publish_up` datetime,
-    `publish_down` datetime,
-    `created` datetime NOT NULL,
-    `created_by` int unsigned NOT NULL DEFAULT 0,
-    `created_by_alias` varchar(255) NOT NULL DEFAULT '',
-    `modified` datetime NOT NULL,
-    `modified_by` int unsigned NOT NULL DEFAULT 0,
-    PRIMARY KEY (`id`),
-    KEY `title` (`title`)
+CREATE TABLE IF NOT EXISTS `#__sites` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title_native` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `baseurl` varchar(400) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` tinyint(1) DEFAULT 1,
+  `note` text NOT NULL,
+  `state` tinyint NOT NULL DEFAULT 0,
+  `params` text NOT NULL,
+  `metakey` text NOT NULL,
+  `metadesc` text NOT NULL,
+  `sitename` varchar(1024) DEFAULT '' NOT NULL,
+  `image` varchar(50) NOT NULL,
+  `langcode` varchar(7) NOT NULL,
+  `checked_out` int unsigned,
+  `checked_out_time` datetime,
+  `created` datetime NOT NULL,
+  `created_by` int unsigned NOT NULL DEFAULT 0,
+  `modified` datetime NOT NULL,
+  `modified_by` int unsigned NOT NULL DEFAULT 0,
+  `access` int DEFAULT 0 NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_type` (`type`),
+  KEY `idx_state` (`state`,`type`),
+  KEY `idx_base_url` (`baseurl`),
+  KEY `idx_langcode` (`langcode`),
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
