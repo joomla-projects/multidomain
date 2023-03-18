@@ -50,7 +50,7 @@ class GroupTable extends Table
 		 */
 		public function __construct(DatabaseInterface $db)
 		{
-				parent::__construct('#__site_groups', 'id', $db);
+				parent::__construct('#__multisites_groups', 'id', $db);
 
 				$this->setColumnAlias('title', 'name');
 				$this->setColumnAlias('published', 'state');
