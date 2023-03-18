@@ -812,8 +812,7 @@ CREATE TABLE IF NOT EXISTS `#__sites_sites` (
 CREATE TABLE IF NOT EXISTS `#__sites_domains` (
     `id` int(11) NOT NULL AUTO_INCREMENT,
     `site_id` int(11) NOT NULL,
-    `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-    `alias` varchar(400) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '',
+    `domain` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
     `description` text NOT NULL,
     `state` tinyint NOT NULL DEFAULT 0,
     `metakey` text,
@@ -828,7 +827,7 @@ CREATE TABLE IF NOT EXISTS `#__sites_domains` (
     `modified` datetime NOT NULL,
     `modified_by` int unsigned NOT NULL DEFAULT 0,
     PRIMARY KEY (`id`),
-    KEY `title` (`title`)
+    KEY `domain` (`domain`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------

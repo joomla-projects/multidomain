@@ -742,8 +742,7 @@ CREATE INDEX "#__redirect_links_idx_link_modified" ON "#__redirect_links" ("modi
 --
 CREATE TABLE IF NOT EXISTS "#__sites_sites" (
     "id" serial NOT NULL,
-    "title" varchar(255) DEFAULT '' NOT NULL,
-    "alias" varchar(255) DEFAULT '' NOT NULL,
+    "domain" varchar(255) DEFAULT '' NOT NULL,
     "description" text DEFAULT '' NOT NULL,
     -- MVC_LANDMARK_SiteFIELDS
     "state" smallint DEFAULT 0 NOT NULL,
@@ -760,7 +759,7 @@ CREATE TABLE IF NOT EXISTS "#__sites_sites" (
     "modified_by" bigint DEFAULT 0 NOT NULL,
     PRIMARY KEY ("id"),
 );
-CREATE INDEX "#__sites_sites_idx_title" ON "#__sites_sites" ("title");
+CREATE INDEX "#__sites_sites_idx_title" ON "#__sites_sites" ("domain");
 
 --
 -- Table: #__sites_domains
