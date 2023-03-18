@@ -5,7 +5,7 @@
 	</config>
 	<fieldset>
 		<field
-			name="idLanguage"
+			name="id"
 			type="hidden"
 			label="JGLOBAL_FIELD_ID_LABEL"
 			default="0"
