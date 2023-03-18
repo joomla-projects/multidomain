@@ -15,11 +15,19 @@
 		/>
 
 		<field
-			name="site"
+			name="title"
 			type="text"
-			label="COM_SITES_SITE"
+			label="JGLOBAL_TITLE"
 			required="true"
 			maxlength="255"
+		/>
+
+		<field
+			name="alias"
+			type="text"
+			label="JFIELD_ALIAS_LABEL"
+			description="JFIELD_ALIAS_DESC"
+			hint="JFIELD_ALIAS_PLACEHOLDER"
 		/>
 
 		<field

@@ -29,12 +29,21 @@
 			description="JFIELD_ALIAS_DESC"
 			hint="JFIELD_ALIAS_PLACEHOLDER"
 		/>
+
 		<field
 			name="description"
 			type="editor"
 			label="JGLOBAL_DESCRIPTION"
 			filter="JComponentHelper::filterText"
 			buttons="true"
+		/>
+
+		<field
+			name="sites"
+			type="text"
+			label="COM_SITES_SITE"
+			required="true"
+			maxlength="255"
 		/>
 
 		<field
