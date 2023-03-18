@@ -38,7 +38,7 @@ class SitesModel extends ListModel
 				if (empty($config['filter_fields'])) {
 						$config['filter_fields'] = [
 							'id',
-							'a.idSite',
+							'a.id',
 							'state',
 							'a.state',
 							'ordering',
@@ -61,7 +61,7 @@ class SitesModel extends ListModel
 		 *
 		 * @since   0.5.0
 		 */
-		protected function populateState($ordering = 'a.idSite', $direction = 'asc')
+		protected function populateState($ordering = 'a.id', $direction = 'asc')
 		{
 				// List state information.
 				parent::populateState($ordering, $direction);
@@ -108,7 +108,7 @@ class SitesModel extends ListModel
 					->select(
 						$db->quoteName(
 							[
-								'a.idSite',
+								'a.id',
 								'a.title',
 								'a.checked_out',
 								'a.checked_out_time',
@@ -116,7 +116,7 @@ class SitesModel extends ListModel
 								'a.created',
 								'a.created_by',
 								'a.modified',
-								'a.ordering',
+								// 'a.ordering',
 							]
 						)
 					)
@@ -168,7 +168,7 @@ class SitesModel extends ListModel
 				if (!empty($search)) {
 						if (stripos($search, 'id:') === 0) {
 								$search = (int)substr($search, 3);
-								$query->where($db->quoteName('a.idSite') . ' = :search')
+								$query->where($db->quoteName('a.id') . ' = :search')
 								      ->bind(':search', $search, ParameterType::INTEGER);
 						} elseif (stripos($search, 'author:') === 0) {
 								$search = '%' . substr($search, 7) . '%';
@@ -189,11 +189,11 @@ class SitesModel extends ListModel
 				}
 
 				// Add the list ordering clause
-				$orderCol  = $this->state->get('list.ordering', 'a.idSite');
+				$orderCol  = $this->state->get('list.ordering', 'a.id');
 				$orderDirn = $this->state->get('list.direction', 'ASC');
 
 				$query->order($db->escape($orderCol) . ' ' . $db->escape($orderDirn));
-				$query->order($db->escape('a.idSite') . ' ' . $db->escape($orderDirn));
+				$query->order($db->escape('a.id') . ' ' . $db->escape($orderDirn));
 
 				return $query;
 		}

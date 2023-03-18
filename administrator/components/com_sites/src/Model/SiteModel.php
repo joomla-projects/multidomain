@@ -11,6 +11,7 @@ namespace Joomla\Component\Sites\Administrator\Model;
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\Registry;
 use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\Object\CMSObject;
 
@@ -40,12 +41,12 @@ class SiteModel extends AdminModel
 		 */
 		protected function canDelete($record)
 		{
-				if (empty($record->idSite) || ($record->state != -2))
+				if (empty($record->id) || ($record->state != -2))
 				{
 						return false;
 				}
 
-				return $this->getCurrentUser()->authorise('core.delete', 'com_sites.site.' . (int) $record->idSite);
+				return $this->getCurrentUser()->authorise('core.delete', 'com_sites.site.' . (int) $record->id);
 		}
 
 		/**
@@ -60,9 +61,9 @@ class SiteModel extends AdminModel
 		protected function canEditState($record)
 		{
 				// Check for existing Site.
-				if (!empty($record->idSite))
+				if (!empty($record->id))
 				{
-					return $this->getCurrentUser()->authorise('core.edit.state', 'com_sites.site.' . (int) $record->idSite);
+					return $this->getCurrentUser()->authorise('core.edit.state', 'com_sites.site.' . (int) $record->id);
 				}
 
 				// Default to component settings if Site not known.
@@ -81,8 +82,6 @@ class SiteModel extends AdminModel
 		public function getItem($pk = null)
 		{
 				$item = parent::getItem($pk);
-				// TODO Can be removed when https://github.com/joomla/joomla-cms/pull/39067 is merged
-				$item->id = $item->idSite;
 
 				return $item;
 		}
@@ -118,7 +117,7 @@ class SiteModel extends AdminModel
 				// On edit, we get ID from the state, but on save, we use data from input
 				$id = (int) $this->getState('site.id', $idFromInput);
 
-				$record->idSite = $id;
+				$record->id = $id;
 
 				// Modify the form based on Edit State access controls.
 				if (!$this->canEditState($record))

@@ -12,6 +12,7 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\MVC\Controller\BaseController;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Router\Route;
 
 /**
  * Sites display controller.

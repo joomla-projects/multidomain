@@ -50,7 +50,7 @@ class SiteTable extends Table
 		 */
 		public function __construct(DatabaseInterface $db)
 		{
-				parent::__construct('#__sites_sites', 'idSite', $db);
+				parent::__construct('#__sites_sites', 'id', $db);
 
 				$this->setColumnAlias('title', 'name');
 				$this->setColumnAlias('published', 'state');
