@@ -45,7 +45,7 @@ class SiteGroupsField extends ComponentsField
         $options = [];
         $options[] = HTMLHelper::_('select.option', '*', Text::_('JALL'));
 
-        $component = $app->bootComponent('com_sites');
+        $component = $app->bootComponent('com_multisites');
         $model = $component->getMVCFactory()->createModel('Groups', 'Administrator', ['ignore_request' => true]);
 
         // @todo: add a filter to the model to get the correct groups
