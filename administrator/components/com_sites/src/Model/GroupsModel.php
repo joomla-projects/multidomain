@@ -118,7 +118,7 @@ class GroupsModel extends ListModel
 							]
 						)
 					)
-					->from($db->quoteName('#__sites_groups', 'a'))
+					->from($db->quoteName('#__site_groups', 'a'))
 					->join(
 						'LEFT',
 						$db->quoteName('#__users', 'ua'),

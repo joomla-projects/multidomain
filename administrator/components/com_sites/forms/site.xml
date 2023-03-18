@@ -17,7 +17,7 @@
 		<field
 			name="site"
 			type="text"
-			label="COM_SITES_DOMAIN"
+			label="COM_SITES_SITE"
 			required="true"
 			maxlength="255"
 		/>

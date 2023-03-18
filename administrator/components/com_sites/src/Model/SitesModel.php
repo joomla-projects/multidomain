@@ -60,7 +60,7 @@ class SitesModel extends ListModel
 		 *
 		 * @since   __DEPLOY_VERSION__
 		 */
-		protected function populateState($ordering = 'a.idSites', $direction = 'asc')
+		protected function populateState($ordering = 'a.id', $direction = 'asc')
 		{
 				// List state information.
 				parent::populateState($ordering, $direction);
@@ -107,7 +107,7 @@ class SitesModel extends ListModel
 					->select(
 						$db->quoteName(
 							[
-								'a.idSites',
+								'a.id',
 								'a.title',
 								'a.checked_out',
 								'a.checked_out_time',
@@ -115,11 +115,10 @@ class SitesModel extends ListModel
 								'a.created',
 								'a.created_by',
 								'a.modified',
-								'a.ordering',
 							]
 						)
 					)
-					->from($db->quoteName('#__sites_site', 'a'))
+					->from($db->quoteName('#__sites', 'a'))
 					->join(
 						'LEFT',
 						$db->quoteName('#__users', 'ua'),
@@ -167,7 +166,7 @@ class SitesModel extends ListModel
 				if (!empty($search)) {
 						if (stripos($search, 'id:') === 0) {
 								$search = (int)substr($search, 3);
-								$query->where($db->quoteName('a.idSite') . ' = :search')
+								$query->where($db->quoteName('a.id') . ' = :search')
 								      ->bind(':search', $search, ParameterType::INTEGER);
 						} elseif (stripos($search, 'author:') === 0) {
 								$search = '%' . substr($search, 7) . '%';
@@ -192,7 +191,7 @@ class SitesModel extends ListModel
 				$orderDirn = $this->state->get('list.direction', 'ASC');
 
 				$query->order($db->escape($orderCol) . ' ' . $db->escape($orderDirn));
-				$query->order($db->escape('a.idSite') . ' ' . $db->escape($orderDirn));
+				$query->order($db->escape('a.id') . ' ' . $db->escape($orderDirn));
 
 				return $query;
 		}

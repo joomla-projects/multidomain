@@ -36,7 +36,7 @@ $tmpl    = $isModal || $input->get('tmpl', '', 'cmd') === 'component' ? '&tmpl=c
 $fieldsets = $this->form->getFieldsets();
 $this->ignore_fieldsets = ['general'];
 ?>
-<form action="<?php echo Route::_('index.php?option=com_sites&layout=' . $layout . $tmpl . '&idDomain=' . $this->item->idDomain); ?>" method="post" name="adminForm" id="item-form" class="form-validate">
+<form action="<?php echo Route::_('index.php?option=com_sites&layout=' . $layout . $tmpl . '&id=' . $this->item->idDomain); ?>" method="post" name="adminForm" id="item-form" class="form-validate">
 	<?php echo LayoutHelper::render('joomla.edit.title_alias', $this); ?>
 
 	<div class="main-card">
