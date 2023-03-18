@@ -366,6 +366,14 @@
 		/>
 
 		<menuitem
+			title="MOD_MENU_MANAGE_SITES"
+			type="component"
+			element="com_sites"
+			link="index.php?option=com_sites&amp;view=sites"
+			permission="core.manage;com_sites"
+		/>
+
+		<menuitem
 			title="MOD_MENU_MANAGE_SCHEDULED_TASKS"
 			type="component"
 			element="com_scheduler"

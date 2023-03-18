@@ -165,11 +165,27 @@
 		/>
 
 		<menuitem
+			title="MOD_MENU_MANAGE_SITES"
+			type="component"
+			element="com_sites"
+			link="index.php?option=com_sites&amp;view=sites"
+			permission="core.manage;com_sites"
+		/>
+
+		<menuitem
 			title="MOD_MENU_MANAGE_GUIDEDTOURS"
 			type="component"
 			element="com_guidedtours"
 			link="index.php?option=com_guidedtours&amp;view=tours"
 			permission="core.manage;com_guidedtours"
+		/>
+
+		<menuitem
+			title="MOD_MENU_MANAGE_SITES"
+			type="component"
+			element="com_sites"
+			link="index.php?option=com_sites&amp;view=sites"
+			permission="core.manage;com_sites"
 		/>
 
 		<menuitem
