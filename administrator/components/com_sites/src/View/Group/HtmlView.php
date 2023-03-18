@@ -6,7 +6,7 @@
  * @license     GNU General Public License version 3 or later; see LICENSE.txt
  */
 
-namespace Joomla\Component\Sites\Administrator\View\Site;
+namespace Joomla\Component\Sites\Administrator\View\Group;
 
 defined('_JEXEC') or die;
 
@@ -16,7 +16,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 
 /**
- * Site view class for the Sites package.
+ * Group view class for the Sites package.
  *
  * @since  __DEPLOY_VERSION__
  */

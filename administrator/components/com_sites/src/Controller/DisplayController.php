@@ -51,7 +51,7 @@ class DisplayController extends BaseController
 		$layout = strtolower($layout);
 
 		$editViews = [
-			'site' => 'sites',
+			'group' => 'groups',
 		];
 
 		// Check for edit form.

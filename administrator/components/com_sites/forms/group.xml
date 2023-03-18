@@ -101,12 +101,12 @@
 		<fieldset name="display" label="JGLOBAL_FIELDSET_DISPLAY_OPTIONS">
 			<fieldset name="basic" label="JGLOBAL_FIELDSET_DISPLAY_OPTIONS">
 				<field
-					name="site_layout"
+					name="group_layout"
 					type="componentlayout"
 					label="JFIELD_ALT_LAYOUT_LABEL"
 					class="form-select"
 					extension="com_sites"
-					view="site"
+					view="group"
 					useglobal="true"
 				/>
 			</fieldset>
@@ -126,7 +126,7 @@
 			validate="rules"
 			filter="rules"
 			component="com_sites"
-			section="site"
+			section="group"
 			hiddenLabel="true"
 		/>
 	</fieldset>

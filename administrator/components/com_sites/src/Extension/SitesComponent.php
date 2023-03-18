@@ -61,7 +61,7 @@ class SitesComponent extends MVCComponent implements
         Factory::getApplication()->getLanguage()->load('com_sites', JPATH_ADMINISTRATOR);
 
         $contexts = array(
-            'com_sites.sites' => Text::_('COM_SITES_SITES'),
+            'com_sites.groups' => Text::_('COM_SITES_GROUPS'),
         );
 
         return $contexts;

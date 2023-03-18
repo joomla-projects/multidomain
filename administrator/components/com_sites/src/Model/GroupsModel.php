@@ -13,16 +13,15 @@ defined('_JEXEC') or die;
 use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\Database\ParameterType;
-use Joomla\Utilities\ArrayHelper;
 
 use function substr;
 
 /**
- * Sites Component Sites Model
+ * Sites Component Groups Model
  *
  * @since  __DEPLOY_VERSION__
  */
-class SitesModel extends ListModel
+class GroupsModel extends ListModel
 {
 		/**
 		 * Constructor
@@ -119,7 +118,7 @@ class SitesModel extends ListModel
 							]
 						)
 					)
-					->from($db->quoteName('#__sites_sites', 'a'))
+					->from($db->quoteName('#__sites_groups', 'a'))
 					->join(
 						'LEFT',
 						$db->quoteName('#__users', 'ua'),

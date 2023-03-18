@@ -17,11 +17,11 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Table\Asset;
 
 /**
- * Site table
+ * Group table
  *
  * @since  __DEPLOY_VERSION__
  */
-class SiteTable extends Table
+class GroupTable extends Table
 {
 		/**
 		 * An array of key names to be json encoded in the bind function
@@ -50,14 +50,14 @@ class SiteTable extends Table
 		 */
 		public function __construct(DatabaseInterface $db)
 		{
-				parent::__construct('#__sites_sites', 'id', $db);
+				parent::__construct('#__sites_groups', 'id', $db);
 
 				$this->setColumnAlias('title', 'name');
 				$this->setColumnAlias('published', 'state');
 		}
 
 		/**
-		 * Stores a Site.
+		 * Stores a Group.
 		 *
 		 * @param boolean $updateNulls True to update fields even if they are null.
 		 *

@@ -13,11 +13,11 @@ defined('_JEXEC') or die;
 use Joomla\CMS\MVC\Controller\AdminController;
 
 /**
- * Sites controller.
+ * Groups controller.
  *
  * @since  __DEPLOY_VERSION__
  */
-class SitesController extends AdminController
+class GroupsController extends AdminController
 {
 		/**
 		 * The prefix to use with controller messages.
@@ -25,7 +25,7 @@ class SitesController extends AdminController
 		 * @var    string
 		 * @since  1.6
 		 */
-		protected $text_prefix = 'COM_SITES_SITES';
+		protected $text_prefix = 'COM_SITES_GROUPS';
 
 		/**
 		 * Proxy for getModel
@@ -38,7 +38,7 @@ class SitesController extends AdminController
 		 *
 		 * @since   __DEPLOY_VERSION__
 		 */
-		public function getModel($name = 'Site', $prefix = 'Administrator', $config = array('ignore_request' => true))
+		public function getModel($name = 'Group', $prefix = 'Administrator', $config = array('ignore_request' => true))
 		{
 				return parent::getModel($name, $prefix, $config);
 		}
