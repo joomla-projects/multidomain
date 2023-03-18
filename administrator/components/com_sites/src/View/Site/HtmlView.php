@@ -6,17 +6,16 @@
  * @license     GNU General Public License version 3 or later; see LICENSE.txt
  */
 
-namespace Joomla\Component\Sites\Administrator\View\Domain;
+namespace Joomla\Component\Sites\Administrator\View\Site;
 
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Helper\ContentHelper;
 use Joomla\CMS\MVC\View\FormView;
-use Joomla\CMS\Language\Text;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 
 /**
- * Domain view class for the Sites package.
+ * Site view class for the Sites package.
  *
  * @since  __DEPLOY_VERSION__
  */

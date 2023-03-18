@@ -6,7 +6,7 @@
  * @license     GNU General Public License version 3 or later; see LICENSE.txt
  */
 
-namespace Joomla\Component\Sites\Administrator\View\Domains;
+namespace Joomla\Component\Sites\Administrator\View\Sites;
 
 defined('_JEXEC') or die;
 
@@ -14,7 +14,7 @@ use Joomla\CMS\Helper\ContentHelper;
 use Joomla\CMS\MVC\View\ListView;
 
 /**
- * Domain view class for the Sites package.
+ * Site view class for the Sites package.
  *
  * @since  __DEPLOY_VERSION__
  */

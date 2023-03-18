@@ -11,11 +11,11 @@ namespace Joomla\Component\Sites\Administrator\Controller;
 use Joomla\CMS\MVC\Controller\FormController;
 
 /**
- * Domain controller.
+ * Site controller.
  *
  * @since  __DEPLOY_VERSION__
  */
-class DomainController extends FormController
+class SiteController extends FormController
 {
 		/**
 		 * The prefix to use with controller messages.
@@ -23,7 +23,7 @@ class DomainController extends FormController
 		 * @var    string
 		 * @since  1.6
 		 */
-		protected $text_prefix = 'COM_SITES_DOMAIN';
+		protected $text_prefix = 'COM_SITES_SITE';
 
 		/**
 		 * Method override to check if you can edit an existing record.
@@ -46,12 +46,12 @@ class DomainController extends FormController
 				}
 
 				// Check edit on the record asset (explicit or inherited)
-				if ($user->authorise('core.edit', 'com_sites.domain.' . $recordId)) {
+				if ($user->authorise('core.edit', 'com_sites.site.' . $recordId)) {
 						return true;
 				}
 
 				// Check edit own on the record asset (explicit or inherited)
-				if ($user->authorise('core.edit.own', 'com_sites.domain.' . $recordId)) {
+				if ($user->authorise('core.edit.own', 'com_sites.site.' . $recordId)) {
 						// Existing record already has an owner, get it
 						$record = $this->getModel()->getItem($recordId);
 

@@ -6,7 +6,7 @@
  * @license     GNU General Public License version 3 or later; see LICENSE.txt
  */
 
-/** @var Joomla\Component\Sites\Administrator\View\Domains\HtmlView $this */
+/** @var Joomla\Component\Sites\Administrator\View\Sites\HtmlView $this */
 
 defined('_JEXEC') or die;
 
@@ -28,12 +28,12 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 $saveOrder = $listOrder == 'a.ordering';
 
 if ($saveOrder && !empty($this->items)) :
-		$saveOrderingUrl = 'index.php?option=com_sites&task=domains.saveOrderAjax&tmpl=component&' . Session::getFormToken() . '=1';
+		$saveOrderingUrl = 'index.php?option=com_sites&task=sites.saveOrderAjax&tmpl=component&' . Session::getFormToken() . '=1';
 		HTMLHelper::_('draggablelist.draggable');
 endif;
 
 ?>
-<form action="<?php echo Route::_('index.php?option=com_sites&view=domains'); ?>" method="post" name="adminForm" id="adminForm">
+<form action="<?php echo Route::_('index.php?option=com_sites&view=sites'); ?>" method="post" name="adminForm" id="adminForm">
 	<div class="row">
 		<div class="col-md-12">
 			<div id="j-main-container" class="j-main-container">
@@ -73,10 +73,10 @@ endif;
 						</thead>
             <tbody<?php if ($saveOrder) : ?> class="js-draggable" data-url="<?php echo $saveOrderingUrl; ?>" data-direction="<?php echo strtolower($listDirn); ?>" data-nested="false"<?php endif; ?>>
 							<?php foreach ($this->items as $i => $item) :
-                $canEdit          = $user->authorise('core.edit',       'com_sites.domain.' . $item->idDomain);
+                $canEdit          = $user->authorise('core.edit',       'com_sites.site.' . $item->idDomain);
                 $canCheckin       = $user->authorise('core.manage',     'com_checkin') || $item->checked_out == $userId || is_null($item->checked_out);
-                $canEditOwn       = $user->authorise('core.edit.own',   'com_sites.domain.' . $item->idDomain) && $item->created_by == $userId;
-                $canChange        = $user->authorise('core.edit.state', 'com_sites.domain.' . $item->idDomain) && $canCheckin;
+                $canEditOwn       = $user->authorise('core.edit.own',   'com_sites.site.' . $item->idDomain) && $item->created_by == $userId;
+                $canChange        = $user->authorise('core.edit.state', 'com_sites.site.' . $item->idDomain) && $canCheckin;
                   ?>
 								<tr class="row<?php echo $i % 2; ?>" data-draggable-group="0">
 									<td class="text-center">
@@ -100,16 +100,16 @@ endif;
                   </td>
 									<td class="text-center">
 										<div class="btn-group">
-											<?php echo HTMLHelper::_('jgrid.published', $item->state, $i, 'domains.', $canChange, 'cb'); ?>
+											<?php echo HTMLHelper::_('jgrid.published', $item->state, $i, 'sites.', $canChange, 'cb'); ?>
 										</div>
 									</td>
 									<th scope="row" class="small d-none d-md-table-cell">
                     <div class="break-word">
 												<?php if ($item->checked_out) : ?>
-														<?php echo HTMLHelper::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'domains.', $canCheckin); ?>
+														<?php echo HTMLHelper::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'sites.', $canCheckin); ?>
 												<?php endif; ?>
 												<?php if ($canEdit || $canEditOwn) : ?>
-                          <a href="<?php echo Route::_('index.php?option=com_sites&task=domain.edit&idDomain=' . $item->idDomain); ?>" title="<?php echo Text::_('JACTION_EDIT'); ?> <?php echo $this->escape($item->title); ?>">
+                          <a href="<?php echo Route::_('index.php?option=com_sites&task=site.edit&idDomain=' . $item->idDomain); ?>" title="<?php echo Text::_('JACTION_EDIT'); ?> <?php echo $this->escape($item->title); ?>">
 															<?php echo $this->escape($item->title); ?></a>
 												<?php else : ?>
                           <span><?php echo $this->escape($item->title); ?></span>

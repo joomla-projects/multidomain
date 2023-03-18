@@ -6,7 +6,7 @@
  * @license     GNU General Public License version 3 or later; see LICENSE.txt
  */
 
-/** @var Joomla\Component\Sites\Administrator\View\Domain\HtmlView $this */
+/** @var Joomla\Component\Sites\Administrator\View\Site\HtmlView $this */
 
 defined('_JEXEC') or die;
 

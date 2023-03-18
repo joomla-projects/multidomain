@@ -13,16 +13,15 @@ defined('_JEXEC') or die;
 use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\Database\ParameterType;
-use Joomla\Utilities\ArrayHelper;
 
 use function substr;
 
 /**
- * Sites Component Domains Model
+ * Sites Component Sites Model
  *
  * @since  __DEPLOY_VERSION__
  */
-class DomainsModel extends ListModel
+class SitesModel extends ListModel
 {
 		/**
 		 * Constructor
@@ -61,7 +60,7 @@ class DomainsModel extends ListModel
 		 *
 		 * @since   __DEPLOY_VERSION__
 		 */
-		protected function populateState($ordering = 'a.idDomain', $direction = 'asc')
+		protected function populateState($ordering = 'a.idSites', $direction = 'asc')
 		{
 				// List state information.
 				parent::populateState($ordering, $direction);
@@ -108,7 +107,7 @@ class DomainsModel extends ListModel
 					->select(
 						$db->quoteName(
 							[
-								'a.idDomain',
+								'a.idSites',
 								'a.title',
 								'a.checked_out',
 								'a.checked_out_time',
@@ -120,7 +119,7 @@ class DomainsModel extends ListModel
 							]
 						)
 					)
-					->from($db->quoteName('#__sites_domains', 'a'))
+					->from($db->quoteName('#__sites_site', 'a'))
 					->join(
 						'LEFT',
 						$db->quoteName('#__users', 'ua'),
@@ -168,7 +167,7 @@ class DomainsModel extends ListModel
 				if (!empty($search)) {
 						if (stripos($search, 'id:') === 0) {
 								$search = (int)substr($search, 3);
-								$query->where($db->quoteName('a.idDomain') . ' = :search')
+								$query->where($db->quoteName('a.idSite') . ' = :search')
 								      ->bind(':search', $search, ParameterType::INTEGER);
 						} elseif (stripos($search, 'author:') === 0) {
 								$search = '%' . substr($search, 7) . '%';
@@ -193,7 +192,7 @@ class DomainsModel extends ListModel
 				$orderDirn = $this->state->get('list.direction', 'ASC');
 
 				$query->order($db->escape($orderCol) . ' ' . $db->escape($orderDirn));
-				$query->order($db->escape('a.idDomain') . ' ' . $db->escape($orderDirn));
+				$query->order($db->escape('a.idSite') . ' ' . $db->escape($orderDirn));
 
 				return $query;
 		}

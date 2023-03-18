@@ -16,11 +16,11 @@ use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\Object\CMSObject;
 
 /**
- * Domain Model
+ * Site Model
  *
  * @since  __DEPLOY_VERSION__
  */
-class DomainModel extends AdminModel
+class SiteModel extends AdminModel
 {
 	/**
 	 * The prefix to use with controller messages.
@@ -46,7 +46,7 @@ class DomainModel extends AdminModel
 						return false;
 				}
 
-				return $this->getCurrentUser()->authorise('core.delete', 'com_sites.domain.' . (int) $record->idDomain);
+				return $this->getCurrentUser()->authorise('core.delete', 'com_sites.site.' . (int) $record->idDomain);
 		}
 
 		/**
@@ -60,13 +60,13 @@ class DomainModel extends AdminModel
 		 */
 		protected function canEditState($record)
 		{
-				// Check for existing Domain.
+				// Check for existing Site.
 				if (!empty($record->idDomain))
 				{
-					return $this->getCurrentUser()->authorise('core.edit.state', 'com_sites.domain.' . (int) $record->idDomain);
+					return $this->getCurrentUser()->authorise('core.edit.state', 'com_sites.site.' . (int) $record->idDomain);
 				}
 
-				// Default to component settings if Domain not known.
+				// Default to component settings if Site not known.
 				return parent::canEditState($record);
 		}
 
@@ -82,8 +82,6 @@ class DomainModel extends AdminModel
 		public function getItem($pk = null)
 		{
 				$item = parent::getItem($pk);
-				// TODO Can be removed when https://github.com/joomla/joomla-cms/pull/39067 is merged
-				$item->id = $item->idDomain;
 
 				return $item;
 		}
@@ -103,21 +101,21 @@ class DomainModel extends AdminModel
 				$app  = Factory::getApplication();
 
 				// Get the form.
-				$form = $this->loadForm('com_sites.domain', 'domain', array('control' => 'jform', 'load_data' => $loadData));
+				$form = $this->loadForm('com_sites.site', 'site', array('control' => 'jform', 'load_data' => $loadData));
 
 				if (empty($form))
 				{
 						return false;
 				}
 
-				// Object uses for checking edit state permission of Domain
+				// Object uses for checking edit state permission of Site
 				$record = new \stdClass;
 
 				// Get ID from input
 				$idFromInput = (int) $app->input->get('id', 0, 'INT');
 
 				// On edit, we get ID from the state, but on save, we use data from input
-				$id = (int) $this->getState('domain.id', $idFromInput);
+				$id = (int) $this->getState('site.id', $idFromInput);
 
 				$record->idDomain = $id;
 
@@ -127,7 +125,7 @@ class DomainModel extends AdminModel
 						$form->setFieldAttribute('state', 'disabled', 'true');
 
 						// Disable fields while saving.
-						// The controller has already verified this is a Domain you can edit.
+						// The controller has already verified this is a Site you can edit.
 						$form->setFieldAttribute('state', 'filter', 'unset');
 				}
 
@@ -151,7 +149,7 @@ class DomainModel extends AdminModel
 		{
 				// Check the session for previously entered form data.
 				$app = Factory::getApplication();
-				$data = $app->getUserState('com_sites.edit.domain.data', array());
+				$data = $app->getUserState('com_sites.edit.site.data', array());
 
 				if (empty($data))
 				{
@@ -164,7 +162,7 @@ class DomainModel extends AdminModel
 						$data->params = $data->params->toArray();
 				}
 
-				$this->preprocessData('com_sites.domain', $data);
+				$this->preprocessData('com_sites.site', $data);
 
 				return $data;
 		}
