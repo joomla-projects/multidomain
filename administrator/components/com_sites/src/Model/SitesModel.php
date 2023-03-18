@@ -116,7 +116,6 @@ class SitesModel extends ListModel
 								'a.created',
 								'a.created_by',
 								'a.modified',
-								// 'a.ordering',
 							]
 						)
 					)
