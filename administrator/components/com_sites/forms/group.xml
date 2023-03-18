@@ -39,9 +39,9 @@
 		/>
 
 		<field
-			name="sites"
+			name="websites"
 			type="text"
-			label="COM_SITES_SITE"
+			label="COM_SITES_WEBSITE"
 			required="true"
 			maxlength="255"
 		/>

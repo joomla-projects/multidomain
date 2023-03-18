@@ -738,9 +738,9 @@ CREATE INDEX "#__redirect_links_idx_old_url" ON "#__redirect_links" ("old_url");
 CREATE INDEX "#__redirect_links_idx_link_modified" ON "#__redirect_links" ("modified_date");
 
 --
--- Table: #__site_groups
+-- Table: #__website_groups
 --
-CREATE TABLE IF NOT EXISTS "#__site_groups" (
+CREATE TABLE IF NOT EXISTS "#__website_groups" (
 	"id" serial NOT NULL,
 	"title" varchar(255) DEFAULT '' NOT NULL,
 	"alias" varchar(400) DEFAULT '' NOT NULL,
@@ -756,13 +756,13 @@ CREATE TABLE IF NOT EXISTS "#__site_groups" (
 	"modified_by" bigint DEFAULT 0 NOT NULL,
 	PRIMARY KEY ("id")
 );
-CREATE INDEX "#__site_groups_idx_title" ON "#__site_groups" ("title");
-CREATE INDEX "#__site_groups_idx_state" ON "#__site_groups" ("state");
+CREATE INDEX "#__website_groups_idx_title" ON "#__website_groups" ("title");
+CREATE INDEX "#__website_groups_idx_state" ON "#__website_groups" ("state");
 
 --
--- Table: #__sites
+-- Table: #__websites
 --
-CREATE TABLE IF NOT EXISTS "#__sites" (
+CREATE TABLE IF NOT EXISTS "#__websites" (
 	"id" serial NOT NULL,
 	"title" varchar(255) DEFAULT '' NOT NULL,
 	"title_native" varchar(255) DEFAULT '' NOT NULL,
@@ -785,10 +785,10 @@ CREATE TABLE IF NOT EXISTS "#__sites" (
 	"modified_by" bigint DEFAULT 0 NOT NULL,
 	PRIMARY KEY ("id")
 );
-CREATE INDEX "#__sites_idx_type" ON "#__sites" ("type");
-CREATE INDEX "#__sites_idx_state" ON "#__sites" ("state");
-CREATE INDEX "#__sites_idx_baseurl" ON "#__sites" ("baseurl");
-CREATE INDEX "#__sites_idx_langcode" ON "#__sites" ("langcode");
+CREATE INDEX "#__websites_idx_type" ON "#__websites" ("type");
+CREATE INDEX "#__websites_idx_state" ON "#__websites" ("state");
+CREATE INDEX "#__websites_idx_baseurl" ON "#__websites" ("baseurl");
+CREATE INDEX "#__websites_idx_langcode" ON "#__websites" ("langcode");
 
 --
 -- Table: #__action_logs

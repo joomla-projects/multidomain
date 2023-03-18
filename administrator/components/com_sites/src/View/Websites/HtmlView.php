@@ -6,21 +6,21 @@
  * @license     GNU General Public License version 3 or later; see LICENSE.txt
  */
 
-namespace Joomla\Component\Sites\Administrator\View\Site;
+namespace Joomla\Component\Sites\Administrator\View\Websites;
 
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Helper\ContentHelper;
-use Joomla\CMS\MVC\View\FormView;
-use Joomla\CMS\Toolbar\ToolbarHelper;
+use Joomla\CMS\MVC\View\ListView;
 
 /**
- * Site view class for the Sites package.
+ * Websites view class for the Sites package.
  *
  * @since  __DEPLOY_VERSION__
  */
-class HtmlView extends FormView
+class HtmlView extends ListView
 {
+
 		/**
 		 * Constructor
 		 *
@@ -34,27 +34,11 @@ class HtmlView extends FormView
 						$this->option = 'com_sites';
 				}
 
-				$config['toolbar_icon'] = 'user-cog';
+				$config['toolbar_icon'] = 'users-cog';
+				$config['supports_batch'] = false;
 
 				parent::__construct($config);
 
 				$this->canDo = ContentHelper::getActions('com_sites');
-		}
-
-		/**
-		 * Add the page title and toolbar.
-		 *
-		 * @return  void
-		 */
-		protected function addToolbar()
-		{
-				// We don't need toolbar in the modal window.
-				if ($this->getLayout() === 'modal') {
-						return;
-				}
-
-				parent::addToolbar();
-
-				ToolbarHelper::inlinehelp();
 		}
 }

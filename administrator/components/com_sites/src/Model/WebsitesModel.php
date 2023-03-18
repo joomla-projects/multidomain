@@ -17,11 +17,11 @@ use Joomla\Database\ParameterType;
 use function substr;
 
 /**
- * Sites Component Sites Model
+ * Websites Component Sites Model
  *
  * @since  __DEPLOY_VERSION__
  */
-class SitesModel extends ListModel
+class WebsitesModel extends ListModel
 {
 		/**
 		 * Constructor
@@ -118,7 +118,7 @@ class SitesModel extends ListModel
 							]
 						)
 					)
-					->from($db->quoteName('#__sites', 'a'))
+					->from($db->quoteName('#__websites', 'a'))
 					->join(
 						'LEFT',
 						$db->quoteName('#__users', 'ua'),

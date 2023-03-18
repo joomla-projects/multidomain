@@ -16,11 +16,11 @@ use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\Object\CMSObject;
 
 /**
- * Site Model
+ * Website Model
  *
  * @since  __DEPLOY_VERSION__
  */
-class SiteModel extends AdminModel
+class WebsiteModel extends AdminModel
 {
 	/**
 	 * The prefix to use with controller messages.
@@ -46,7 +46,7 @@ class SiteModel extends AdminModel
 						return false;
 				}
 
-				return $this->getCurrentUser()->authorise('core.delete', 'com_sites.site.' . (int) $record->id);
+				return $this->getCurrentUser()->authorise('core.delete', 'com_sites.website.' . (int) $record->id);
 		}
 
 		/**
@@ -60,13 +60,13 @@ class SiteModel extends AdminModel
 		 */
 		protected function canEditState($record)
 		{
-				// Check for existing Site.
+				// Check for existing Website.
 				if (!empty($record->id))
 				{
-					return $this->getCurrentUser()->authorise('core.edit.state', 'com_sites.site.' . (int) $record->id);
+					return $this->getCurrentUser()->authorise('core.edit.state', 'com_sites.website.' . (int) $record->id);
 				}
 
-				// Default to component settings if Site not known.
+				// Default to component settings if Website not known.
 				return parent::canEditState($record);
 		}
 
@@ -101,21 +101,21 @@ class SiteModel extends AdminModel
 				$app  = Factory::getApplication();
 
 				// Get the form.
-				$form = $this->loadForm('com_sites.site', 'site', array('control' => 'jform', 'load_data' => $loadData));
+				$form = $this->loadForm('com_sites.website', 'website', array('control' => 'jform', 'load_data' => $loadData));
 
 				if (empty($form))
 				{
 						return false;
 				}
 
-				// Object uses for checking edit state permission of Site
+				// Object uses for checking edit state permission of Website
 				$record = new \stdClass;
 
 				// Get ID from input
 				$idFromInput = (int) $app->input->get('id', 0, 'INT');
 
 				// On edit, we get ID from the state, but on save, we use data from input
-				$id = (int) $this->getState('site.id', $idFromInput);
+				$id = (int) $this->getState('website.id', $idFromInput);
 
 				$record->id = $id;
 
@@ -125,7 +125,7 @@ class SiteModel extends AdminModel
 						$form->setFieldAttribute('state', 'disabled', 'true');
 
 						// Disable fields while saving.
-						// The controller has already verified this is a Site you can edit.
+						// The controller has already verified this is a Website you can edit.
 						$form->setFieldAttribute('state', 'filter', 'unset');
 				}
 
@@ -149,7 +149,7 @@ class SiteModel extends AdminModel
 		{
 				// Check the session for previously entered form data.
 				$app = Factory::getApplication();
-				$data = $app->getUserState('com_sites.edit.site.data', array());
+				$data = $app->getUserState('com_sites.edit.website.data', array());
 
 				if (empty($data))
 				{
@@ -162,7 +162,7 @@ class SiteModel extends AdminModel
 						$data->params = $data->params->toArray();
 				}
 
-				$this->preprocessData('com_sites.site', $data);
+				$this->preprocessData('com_sites.website', $data);
 
 				return $data;
 		}
