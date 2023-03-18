@@ -740,76 +740,55 @@ CREATE INDEX "#__redirect_links_idx_link_modified" ON "#__redirect_links" ("modi
 --
 -- Table: #__sites_domains
 --
-CREATE TABLE IF NOT EXISTS "#__sites_sites" (
-    "id" serial NOT NULL,
-    "domain" varchar(255) DEFAULT '' NOT NULL,
-    "description" text DEFAULT '' NOT NULL,
-    -- MVC_LANDMARK_SiteFIELDS
-    "state" smallint DEFAULT 0 NOT NULL,
-    "metakey" text,
-    "params" text DEFAULT '' NOT NULL,
-    "checked_out" integer,
-    "checked_out_time" timestamp without time zone,
-    "publish_up" timestamp without time zone,
-    "publish_down" timestamp without time zone,
-    "created" timestamp without time zone NOT NULL,
-    "created_by" bigint DEFAULT 0 NOT NULL,
-    "created_by_alias" varchar(255) DEFAULT '' NOT NULL,
-    "modified" timestamp without time zone NOT NULL,
-    "modified_by" bigint DEFAULT 0 NOT NULL,
-    PRIMARY KEY ("id"),
+CREATE TABLE IF NOT EXISTS "#__site_groups" (
+	"id" serial NOT NULL,
+	"title" varchar(255) DEFAULT '' NOT NULL,
+	"alias" varchar(400) DEFAULT '' NOT NULL,
+	"note" text DEFAULT '' NOT NULL,
+	-- MVC_LANDMARK_SiteFIELDS
+	"state" smallint DEFAULT 0 NOT NULL,
+	"params" text DEFAULT '' NOT NULL,
+	"checked_out" integer,
+	"checked_out_time" timestamp without time zone,
+	"created" timestamp without time zone NOT NULL,
+	"created_by" bigint DEFAULT 0 NOT NULL,
+	"modified" timestamp without time zone NOT NULL,
+	"modified_by" bigint DEFAULT 0 NOT NULL,
+	PRIMARY KEY ("id"),
 );
-CREATE INDEX "#__sites_sites_idx_title" ON "#__sites_sites" ("domain");
+CREATE INDEX "#__site_groups_idx_title" ON "#__site_groups" ("title");
+CREATE INDEX "#__site_groups_idx_state" ON "#__site_groups" ("state");
 
 --
 -- Table: #__sites_domains
 --
-CREATE TABLE IF NOT EXISTS "#__sites_domains" (
-    "id" serial NOT NULL,
-    "title" varchar(255) DEFAULT '' NOT NULL,
-    "alias" varchar(255) DEFAULT '' NOT NULL,
-    "description" text DEFAULT '' NOT NULL,
-    -- MVC_LANDMARK_DomainFIELDS
-    "state" smallint DEFAULT 0 NOT NULL,
-    "metakey" text,
-    "params" text DEFAULT '' NOT NULL,
-    "checked_out" integer,
-    "checked_out_time" timestamp without time zone,
-    "publish_up" timestamp without time zone,
-    "publish_down" timestamp without time zone,
-    "created" timestamp without time zone NOT NULL,
-    "created_by" bigint DEFAULT 0 NOT NULL,
-    "created_by_alias" varchar(255) DEFAULT '' NOT NULL,
-    "modified" timestamp without time zone NOT NULL,
-    "modified_by" bigint DEFAULT 0 NOT NULL,
-    PRIMARY KEY ("id"),
+CREATE TABLE IF NOT EXISTS "#__sites" (
+	"id" serial NOT NULL,
+	"title" varchar(255) DEFAULT '' NOT NULL,
+	"title_native" varchar(255) DEFAULT '' NOT NULL,
+	"baseurl" varchar(400) DEFAULT '' NOT NULL,
+	"type" smallint DEFAULT 1 NOT NULL,
+	"note" text DEFAULT '' NOT NULL,
+	-- MVC_LANDMARK_DomainFIELDS
+	"state" smallint DEFAULT 0 NOT NULL,
+	"params" text DEFAULT '' NOT NULL,
+	"metakey" text DEFAULT '' NOT NULL,
+	"metadesc" text DEFAULT '' NOT NULL,
+	"sitename" varchar(255) DEFAULT '' NOT NULL,
+	"image" varchar(50) NOT NULL,
+	"langcode" varchar(7) NOT NULL,
+	"checked_out" integer,
+	"checked_out_time" timestamp without time zone,
+	"created" timestamp without time zone NOT NULL,
+	"created_by" bigint DEFAULT 0 NOT NULL,
+	"modified" timestamp without time zone NOT NULL,
+	"modified_by" bigint DEFAULT 0 NOT NULL,
+	PRIMARY KEY ("id"),
 );
-CREATE INDEX "#__sites_domains_idx_title" ON "#__sites_domains" ("title");
-
---
--- Table: #__sites_languages
---
-CREATE TABLE IF NOT EXISTS "#__sites_languages" (
-    "id" serial NOT NULL,
-    "title" varchar(255) DEFAULT '' NOT NULL,
-    "alias" varchar(255) DEFAULT '' NOT NULL,
-    "description" text DEFAULT '' NOT NULL,
-    -- MVC_LANDMARK_LanguageFIELDS
-    "state" smallint DEFAULT 0 NOT NULL,
-    "metakey" text,
-    "params" text DEFAULT '' NOT NULL,
-    "checked_out" integer,
-    "checked_out_time" timestamp without time zone,
-    "publish_up" timestamp without time zone,
-    "publish_down" timestamp without time zone,
-    "created" timestamp without time zone NOT NULL,
-    "created_by" bigint DEFAULT 0 NOT NULL,
-    "created_by_alias" varchar(255) DEFAULT '' NOT NULL,
-    "modified" timestamp without time zone NOT NULL,
-    "modified_by" bigint DEFAULT 0 NOT NULL,
-    PRIMARY KEY ("id"),
-);
-CREATE INDEX "#__sites_languages_idx_title" ON "#__sites_languages" ("title");
+CREATE INDEX "#__sites_idx_type" ON "#__sites" ("type");
+CREATE INDEX "#__sites_idx_state" ON "#__sites" ("state");
+CREATE INDEX "#__sites_idx_baseurl" ON "#__sites" ("baseurl");
+CREATE INDEX "#__sites_idx_langcode" ON "#__sites" ("langcode");
 
 --
 -- Table: #__action_logs
@@ -1196,43 +1175,43 @@ DECLARE
   pos int = 1;
 BEGIN
   WHILE length(soundex) < 4 LOOP
-    char = upper(substr(input, pos, 1));
-    pos = pos + 1;
-    CASE char
-    WHEN '' THEN
-      -- End of input string
-      IF soundex = '' THEN
-        RETURN '';
-      ELSE
-        RETURN rpad(soundex, 4, '0');
-      END IF;
-    WHEN 'B', 'F', 'P', 'V' THEN
-      symbol = '1';
-    WHEN 'C', 'G', 'J', 'K', 'Q', 'S', 'X', 'Z' THEN
-      symbol = '2';
-    WHEN 'D', 'T' THEN
-      symbol = '3';
-    WHEN 'L' THEN
-      symbol = '4';
-    WHEN 'M', 'N' THEN
-      symbol = '5';
-    WHEN 'R' THEN
-      symbol = '6';
-    ELSE
-      -- Not a consonant; no output, but next similar consonant will be re-recorded
-      symbol = '';
-    END CASE;
+	char = upper(substr(input, pos, 1));
+	pos = pos + 1;
+	CASE char
+	WHEN '' THEN
+	  -- End of input string
+	  IF soundex = '' THEN
+		RETURN '';
+	  ELSE
+		RETURN rpad(soundex, 4, '0');
+	  END IF;
+	WHEN 'B', 'F', 'P', 'V' THEN
+	  symbol = '1';
+	WHEN 'C', 'G', 'J', 'K', 'Q', 'S', 'X', 'Z' THEN
+	  symbol = '2';
+	WHEN 'D', 'T' THEN
+	  symbol = '3';
+	WHEN 'L' THEN
+	  symbol = '4';
+	WHEN 'M', 'N' THEN
+	  symbol = '5';
+	WHEN 'R' THEN
+	  symbol = '6';
+	ELSE
+	  -- Not a consonant; no output, but next similar consonant will be re-recorded
+	  symbol = '';
+	END CASE;
 
-    IF soundex = '' THEN
-      -- First character; only accept strictly English ASCII characters
-      IF char ~>=~ 'A' AND char ~<=~ 'Z' THEN
-        soundex = char;
-        last_symbol = symbol;
-      END IF;
-    ELSIF last_symbol != symbol THEN
-      soundex = soundex || symbol;
-      last_symbol = symbol;
-    END IF;
+	IF soundex = '' THEN
+	  -- First character; only accept strictly English ASCII characters
+	  IF char ~>=~ 'A' AND char ~<=~ 'Z' THEN
+		soundex = char;
+		last_symbol = symbol;
+	  END IF;
+	ELSIF last_symbol != symbol THEN
+	  soundex = soundex || symbol;
+	  last_symbol = symbol;
+	END IF;
   END LOOP;
 
   RETURN soundex;
