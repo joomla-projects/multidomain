@@ -11,6 +11,7 @@ namespace Joomla\Component\Sites\Administrator\Controller;
 defined('_JEXEC') or die;
 
 use Joomla\CMS\MVC\Controller\BaseController;
+use Joomla\CMS\Language\Text;
 
 /**
  * Sites display controller.
@@ -56,7 +57,7 @@ class DisplayController extends BaseController
 		if (array_key_exists($view, $editViews) && $layout == 'edit' && !$this->checkEditId('com_sites.edit.' . $view, $id))
 		{
 			// Somehow the person just went to the form - we don't allow that.
-			if (!\count($this->app->getMessageQueue()))
+			if (empty($this->app->getMessageQueue()))
 			{
 					$this->setMessage(Text::sprintf('JLIB_APPLICATION_ERROR_UNHELD_ID', $id), 'error');
 			}

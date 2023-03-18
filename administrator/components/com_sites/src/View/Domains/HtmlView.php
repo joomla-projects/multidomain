@@ -11,10 +11,7 @@ namespace Joomla\Component\Sites\Administrator\View\Domains;
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Helper\ContentHelper;
-use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\ListView;
-use Joomla\CMS\Plugin\PluginHelper;
-use Joomla\CMS\Toolbar\ToolbarHelper;
 
 /**
  * Domain view class for the Sites package.
@@ -69,7 +66,7 @@ class HtmlView extends ListView
 
 				$this->total = $this->get('Total');
 
-				if (!\count($this->items))
+				if (empty($this->items))
 				{
 						$this->isEmptyState = $this->get('IsEmptyState');
 
