@@ -15,7 +15,7 @@ use Joomla\CMS\Layout\LayoutHelper;
 $displayData = [
     'textPrefix' => 'COM_SITES_SITES',
     'formURL'    => 'index.php?option=com_sites&view=sites',
-    'icon'       => 'icon-users order',
+    'icon'       => 'icon-bookmark order',
 ];
 
 if ($this->getCurrentUser()->authorise('core.create', 'com_sites')) {
