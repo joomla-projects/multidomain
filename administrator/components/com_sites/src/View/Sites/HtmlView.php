@@ -20,19 +20,6 @@ use Joomla\CMS\MVC\View\ListView;
  */
 class HtmlView extends ListView
 {
-		/**
-		 * The total number of records
-		 *
-		 * @var integer
-		 */
-		public $total;
-
-		/**
-		 * Is this view an Empty State
-		 *
-		 * @var  boolean
-		 */
-		private $isEmptyState = false;
 
 		/**
 		 * Constructor
@@ -53,27 +40,5 @@ class HtmlView extends ListView
 				parent::__construct($config);
 
 				$this->canDo = ContentHelper::getActions('com_sites');
-		}
-
-		/**
-		 * Prepare view data
-		 *
-		 * @return  void
-		 */
-		protected function initializeView()
-		{
-				parent::initializeView();
-
-				$this->total = $this->get('Total');
-
-				if (empty($this->items))
-				{
-						$this->isEmptyState = $this->get('IsEmptyState');
-
-						if ($this->isEmptyState)
-						{
-								$this->setLayout('emptystate');
-						}
-				}
 		}
 }
