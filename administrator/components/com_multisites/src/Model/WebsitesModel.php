@@ -121,6 +121,21 @@ class WebsitesModel extends ListModel
 					->from($db->quoteName('#__multisites_websites', 'a'))
 					->join(
 						'LEFT',
+						$db->quoteName('#__multisites_groups', 'mg'),
+						$db->quoteName('mg.id') . ' = ' . $db->quoteName('a.group_id')
+					)
+					->select(
+						$db->quoteName(
+							[
+								'mg.name',
+							],
+							[
+								'group_name',
+							]
+						)
+					)
+					->join(
+						'LEFT',
 						$db->quoteName('#__users', 'ua'),
 						$db->quoteName('ua.id') . ' = ' . $db->quoteName('a.created_by')
 					)
