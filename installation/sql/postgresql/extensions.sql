@@ -738,9 +738,9 @@ CREATE INDEX "#__redirect_links_idx_old_url" ON "#__redirect_links" ("old_url");
 CREATE INDEX "#__redirect_links_idx_link_modified" ON "#__redirect_links" ("modified_date");
 
 --
--- Table: #__website_groups
+-- Table: #__multisites_groups
 --
-CREATE TABLE IF NOT EXISTS "#__website_groups" (
+CREATE TABLE IF NOT EXISTS "#__multisites_groups" (
 	"id" serial NOT NULL,
 	"title" varchar(255) DEFAULT '' NOT NULL,
 	"alias" varchar(400) DEFAULT '' NOT NULL,
@@ -760,13 +760,14 @@ CREATE INDEX "#__website_groups_idx_title" ON "#__website_groups" ("title");
 CREATE INDEX "#__website_groups_idx_state" ON "#__website_groups" ("state");
 
 --
--- Table: #__websites
+-- Table: #__multisites_websites
 --
-CREATE TABLE IF NOT EXISTS "#__websites" (
+CREATE TABLE IF NOT EXISTS "#__multisites_websites" (
 	"id" serial NOT NULL,
 	"title" varchar(255) DEFAULT '' NOT NULL,
 	"title_native" varchar(255) DEFAULT '' NOT NULL,
 	"baseurl" varchar(400) DEFAULT '' NOT NULL,
+  "group_id" integer,
 	"type" smallint DEFAULT 1 NOT NULL,
 	"note" text DEFAULT '' NOT NULL,
 	-- MVC_LANDMARK_DomainFIELDS

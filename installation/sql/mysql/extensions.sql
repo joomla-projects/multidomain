@@ -780,10 +780,10 @@ CREATE TABLE IF NOT EXISTS `#__redirect_links` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `#__website_groups`
+-- Table structure for table `#__multisites_groups`
 --
 
-CREATE TABLE IF NOT EXISTS `#__website_groups` (
+CREATE TABLE IF NOT EXISTS `#__multisites_groups` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `alias` varchar(400) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '',
@@ -804,14 +804,15 @@ CREATE TABLE IF NOT EXISTS `#__website_groups` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `#__websites`
+-- Table structure for table `#__multisites_websites`
 --
 
-CREATE TABLE IF NOT EXISTS `#__websites` (
+CREATE TABLE IF NOT EXISTS `#__multisites_websites` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `title_native` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `baseurl` varchar(400) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `group_id` int(11) NOT NULL,
   `type` tinyint(1) DEFAULT 1,
   `note` text NOT NULL,
   `state` tinyint NOT NULL DEFAULT 0,
