@@ -738,6 +738,81 @@ CREATE INDEX "#__redirect_links_idx_old_url" ON "#__redirect_links" ("old_url");
 CREATE INDEX "#__redirect_links_idx_link_modified" ON "#__redirect_links" ("modified_date");
 
 --
+-- Table: #__sites_domains
+--
+CREATE TABLE IF NOT EXISTS "#__sites_sites" (
+    "id" serial NOT NULL,
+    "title" varchar(255) DEFAULT '' NOT NULL,
+    "alias" varchar(255) DEFAULT '' NOT NULL,
+    "description" text DEFAULT '' NOT NULL,
+    -- MVC_LANDMARK_SiteFIELDS
+    "state" smallint DEFAULT 0 NOT NULL,
+    "metakey" text,
+    "params" text DEFAULT '' NOT NULL,
+    "checked_out" integer,
+    "checked_out_time" timestamp without time zone,
+    "publish_up" timestamp without time zone,
+    "publish_down" timestamp without time zone,
+    "created" timestamp without time zone NOT NULL,
+    "created_by" bigint DEFAULT 0 NOT NULL,
+    "created_by_alias" varchar(255) DEFAULT '' NOT NULL,
+    "modified" timestamp without time zone NOT NULL,
+    "modified_by" bigint DEFAULT 0 NOT NULL,
+    PRIMARY KEY ("id"),
+);
+CREATE INDEX "#__sites_sites_idx_title" ON "#__sites_sites" ("title");
+
+--
+-- Table: #__sites_domains
+--
+CREATE TABLE IF NOT EXISTS "#__sites_domains" (
+    "id" serial NOT NULL,
+    "title" varchar(255) DEFAULT '' NOT NULL,
+    "alias" varchar(255) DEFAULT '' NOT NULL,
+    "description" text DEFAULT '' NOT NULL,
+    -- MVC_LANDMARK_DomainFIELDS
+    "state" smallint DEFAULT 0 NOT NULL,
+    "metakey" text,
+    "params" text DEFAULT '' NOT NULL,
+    "checked_out" integer,
+    "checked_out_time" timestamp without time zone,
+    "publish_up" timestamp without time zone,
+    "publish_down" timestamp without time zone,
+    "created" timestamp without time zone NOT NULL,
+    "created_by" bigint DEFAULT 0 NOT NULL,
+    "created_by_alias" varchar(255) DEFAULT '' NOT NULL,
+    "modified" timestamp without time zone NOT NULL,
+    "modified_by" bigint DEFAULT 0 NOT NULL,
+    PRIMARY KEY ("id"),
+);
+CREATE INDEX "#__sites_domains_idx_title" ON "#__sites_domains" ("title");
+
+--
+-- Table: #__sites_languages
+--
+CREATE TABLE IF NOT EXISTS "#__sites_languages" (
+    "id" serial NOT NULL,
+    "title" varchar(255) DEFAULT '' NOT NULL,
+    "alias" varchar(255) DEFAULT '' NOT NULL,
+    "description" text DEFAULT '' NOT NULL,
+    -- MVC_LANDMARK_LanguageFIELDS
+    "state" smallint DEFAULT 0 NOT NULL,
+    "metakey" text,
+    "params" text DEFAULT '' NOT NULL,
+    "checked_out" integer,
+    "checked_out_time" timestamp without time zone,
+    "publish_up" timestamp without time zone,
+    "publish_down" timestamp without time zone,
+    "created" timestamp without time zone NOT NULL,
+    "created_by" bigint DEFAULT 0 NOT NULL,
+    "created_by_alias" varchar(255) DEFAULT '' NOT NULL,
+    "modified" timestamp without time zone NOT NULL,
+    "modified_by" bigint DEFAULT 0 NOT NULL,
+    PRIMARY KEY ("id"),
+);
+CREATE INDEX "#__sites_languages_idx_title" ON "#__sites_languages" ("title");
+
+--
 -- Table: #__action_logs
 --
 CREATE TABLE "#__action_logs" (

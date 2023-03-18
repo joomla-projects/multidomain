@@ -1,1 +1,0 @@
--- Postgresql update file for component version 0.5.0
