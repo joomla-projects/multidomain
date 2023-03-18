@@ -7,7 +7,7 @@
   <license>GNU General Public License version 3 or later; see LICENSE.txt</license>
   <authorEmail>joomla@itronic.at</authorEmail>
   <authorUrl>https://joomla.itronic.at</authorUrl>
-  <version>0.5.0</version>
+  <version>5.0.0</version>
   <description>COM_SITES_XML_DESCRIPTION</description>
   <namespace path="src">Joomla\Component\Sites</namespace>
   <administration>
