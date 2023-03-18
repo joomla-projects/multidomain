@@ -22,7 +22,7 @@ use Joomla\CMS\Language\Text;
  *
  * @since  5.0.0
  */
-class SitesField extends ComponentsField
+class WebsitesField extends ComponentsField
 {
     /**
      * The form field type.
