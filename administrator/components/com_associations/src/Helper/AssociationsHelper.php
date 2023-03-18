@@ -657,7 +657,7 @@ class AssociationsHelper extends ContentHelper
             ->select($db->quoteName('extension_id'))
             ->from($db->quoteName('#__extensions'))
             ->where($db->quoteName('folder') . ' = ' . $db->quote('system'))
-            ->where($db->quoteName('element') . ' = ' . $db->quote('languagefilter'));
+            ->where($db->quoteName('element') . ' = ' . $db->quote('multisite'));
         $db->setQuery($query);
 
         try {

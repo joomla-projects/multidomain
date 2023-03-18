@@ -3,11 +3,11 @@
 /**
  * Joomla! Content Management System
  *
- * @copyright  (C) 2012 Open Source Matters, Inc. <https://www.joomla.org>
+ * @copyright  (C) 2023 Open Source Matters, Inc. <https://www.joomla.org>
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace Joomla\CMS\Language;
+namespace Joomla\CMS\Site;
 
 use Joomla\CMS\Application\CMSApplication;
 use Joomla\CMS\Factory;
@@ -18,30 +18,30 @@ use Joomla\Database\DatabaseInterface;
 // phpcs:enable PSR1.Files.SideEffects
 
 /**
- * Utility class for multilang
+ * Utility class for multisite
  *
- * @since  2.5.4
+ * @since  __DEPLOY_VERSION__
  */
-class Multilanguage
+class Multisite
 {
     /**
-     * Flag indicating multilanguage functionality is enabled.
+     * Flag indicating multisite functionality is enabled.
      *
      * @var    boolean
-     * @since  4.0.0
+     * @since  __DEPLOY_VERSION__
      */
     public static $enabled = false;
 
     /**
      * Method to determine if the language filter plugin is enabled.
-     * This works for both site and administrator.
+     * This works for all clients.
      *
      * @param   CMSApplication     $app  The application
      * @param   DatabaseInterface  $db   The database
      *
-     * @return  boolean  True if site is supporting multiple languages; false otherwise.
+     * @return  boolean  True if site is supporting multiple sites; false otherwise.
      *
-     * @since   2.5.4
+     * @since   __DEPLOY_VERSION__
      */
     public static function isEnabled(CMSApplication $app = null, DatabaseInterface $db = null)
     {
