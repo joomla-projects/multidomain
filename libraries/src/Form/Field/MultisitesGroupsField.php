@@ -22,7 +22,7 @@ use Joomla\CMS\Language\Text;
  *
  * @since  5.0.0
  */
-class SiteGroupsField extends ComponentsField
+class MultisitesGroupsField extends ComponentsField
 {
     /**
      * The form field type.
@@ -30,7 +30,7 @@ class SiteGroupsField extends ComponentsField
      * @var     string
      * @since  5.0.0
      */
-    protected $type = 'SiteGroups';
+    protected $type = 'MultisitesGroups';
 
     /**
      * Method to get a list of options for a list input.
