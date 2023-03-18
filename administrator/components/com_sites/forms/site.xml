@@ -94,7 +94,7 @@
 		<fieldset name="display" label="JGLOBAL_FIELDSET_DISPLAY_OPTIONS">
 			<fieldset name="basic" label="JGLOBAL_FIELDSET_DISPLAY_OPTIONS">
 				<field
-					name="domain_layout"
+					name="site_layout"
 					type="componentlayout"
 					label="JFIELD_ALT_LAYOUT_LABEL"
 					class="form-select"

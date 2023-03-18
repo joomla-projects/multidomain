@@ -24,7 +24,7 @@
 			name="fullordering"
 			type="list"
 			label="JGLOBAL_SORT_BY"
-			default="a.idDomain ASC"
+			default="a.idSite ASC"
 			statuses="*,0,1,2,-2"
 			onchange="this.form.submit();"
 			>
