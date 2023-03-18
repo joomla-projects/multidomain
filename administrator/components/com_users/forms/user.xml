@@ -134,7 +134,7 @@
 		/>
 
 		<field
-			name="multisiteGroups"
+			name="multisitesGroups"
 			type="multisitesGroups"
 			label="COM_USERS_MULTIGROUPS_FIELD"
 			default="*"
