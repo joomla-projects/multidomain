@@ -30,7 +30,7 @@ class SitesField extends ComponentsField
      * @var     string
      * @since  5.0.0
      */
-    protected $type = 'Sites';
+    protected $type = 'Websites';
 
     /**
      * Method to get a list of options for a list input.
