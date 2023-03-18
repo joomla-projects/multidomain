@@ -798,7 +798,7 @@ CREATE TABLE IF NOT EXISTS `#__site_groups` (
   `modified_by` int unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `idx_title` (`title`),
-  KEY `idx_state` (`state`),
+  KEY `idx_state` (`state`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -832,7 +832,7 @@ CREATE TABLE IF NOT EXISTS `#__sites` (
   KEY `idx_type` (`type`),
   KEY `idx_state` (`state`,`type`),
   KEY `idx_base_url` (`baseurl`),
-  KEY `idx_langcode` (`langcode`),
+  KEY `idx_langcode` (`langcode`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
