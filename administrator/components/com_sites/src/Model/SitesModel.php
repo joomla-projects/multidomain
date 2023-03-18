@@ -37,7 +37,7 @@ class SitesModel extends ListModel
 				if (empty($config['filter_fields'])) {
 						$config['filter_fields'] = [
 							'id',
-							'a.idDomain',
+							'a.id',
 							'state',
 							'a.state',
 							'ordering',
@@ -187,7 +187,7 @@ class SitesModel extends ListModel
 				}
 
 				// Add the list ordering clause
-				$orderCol  = $this->state->get('list.ordering', 'a.idDomain');
+				$orderCol  = $this->state->get('list.ordering', 'a.id');
 				$orderDirn = $this->state->get('list.direction', 'ASC');
 
 				$query->order($db->escape($orderCol) . ' ' . $db->escape($orderDirn));

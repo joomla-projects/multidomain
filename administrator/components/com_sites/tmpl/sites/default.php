@@ -67,20 +67,20 @@ endif;
 									<?php echo HTMLHelper::_('searchtools.sort', 'COM_SITES_HEADING_CREATED', 'a.created', $listDirn, $listOrder); ?>
 								</th>
 								<th scope="col" class="w-1 d-none d-md-table-cell">
-									<?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_ID', 'a.idDomain', $listDirn, $listOrder); ?>
+									<?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_ID', 'a.id', $listDirn, $listOrder); ?>
 								</th>
 							</tr>
 						</thead>
             <tbody<?php if ($saveOrder) : ?> class="js-draggable" data-url="<?php echo $saveOrderingUrl; ?>" data-direction="<?php echo strtolower($listDirn); ?>" data-nested="false"<?php endif; ?>>
 							<?php foreach ($this->items as $i => $item) :
-                $canEdit          = $user->authorise('core.edit',       'com_sites.site.' . $item->idDomain);
+                $canEdit          = $user->authorise('core.edit',       'com_sites.site.' . $item->id);
                 $canCheckin       = $user->authorise('core.manage',     'com_checkin') || $item->checked_out == $userId || is_null($item->checked_out);
-                $canEditOwn       = $user->authorise('core.edit.own',   'com_sites.site.' . $item->idDomain) && $item->created_by == $userId;
-                $canChange        = $user->authorise('core.edit.state', 'com_sites.site.' . $item->idDomain) && $canCheckin;
+                $canEditOwn       = $user->authorise('core.edit.own',   'com_sites.site.' . $item->id) && $item->created_by == $userId;
+                $canChange        = $user->authorise('core.edit.state', 'com_sites.site.' . $item->id) && $canCheckin;
                   ?>
 								<tr class="row<?php echo $i % 2; ?>" data-draggable-group="0">
 									<td class="text-center">
-									<?php echo HTMLHelper::_('grid.id', $i, $item->idDomain, false, 'cid', 'cb', $item->title); ?>
+									<?php echo HTMLHelper::_('grid.id', $i, $item->id, false, 'cid', 'cb', $item->title); ?>
 									</td>
                   <td class="text-center d-none d-md-table-cell">
                     <?php
@@ -109,7 +109,7 @@ endif;
 														<?php echo HTMLHelper::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'sites.', $canCheckin); ?>
 												<?php endif; ?>
 												<?php if ($canEdit || $canEditOwn) : ?>
-                          <a href="<?php echo Route::_('index.php?option=com_sites&task=site.edit&idDomain=' . $item->idDomain); ?>" title="<?php echo Text::_('JACTION_EDIT'); ?> <?php echo $this->escape($item->title); ?>">
+                          <a href="<?php echo Route::_('index.php?option=com_sites&task=site.edit&id=' . $item->id); ?>" title="<?php echo Text::_('JACTION_EDIT'); ?> <?php echo $this->escape($item->title); ?>">
 															<?php echo $this->escape($item->title); ?></a>
 												<?php else : ?>
                           <span><?php echo $this->escape($item->title); ?></span>
@@ -120,7 +120,7 @@ endif;
 										<?php echo $item->created > 0 ? HTMLHelper::_('date', $item->created, Text::_('DATE_FORMAT_LC4')) : '-'; ?>
 									</td>
 									<td class="text-center d-none d-md-table-cell">
-										<?php echo $item->idDomain; ?>
+										<?php echo $item->id; ?>
 									</td>
 								</tr>
 							<?php endforeach; ?>

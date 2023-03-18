@@ -41,12 +41,12 @@ class SiteModel extends AdminModel
 		 */
 		protected function canDelete($record)
 		{
-				if (empty($record->idDomain) || ($record->state != -2))
+				if (empty($record->id) || ($record->state != -2))
 				{
 						return false;
 				}
 
-				return $this->getCurrentUser()->authorise('core.delete', 'com_sites.site.' . (int) $record->idDomain);
+				return $this->getCurrentUser()->authorise('core.delete', 'com_sites.site.' . (int) $record->id);
 		}
 
 		/**
@@ -61,9 +61,9 @@ class SiteModel extends AdminModel
 		protected function canEditState($record)
 		{
 				// Check for existing Site.
-				if (!empty($record->idDomain))
+				if (!empty($record->id))
 				{
-					return $this->getCurrentUser()->authorise('core.edit.state', 'com_sites.site.' . (int) $record->idDomain);
+					return $this->getCurrentUser()->authorise('core.edit.state', 'com_sites.site.' . (int) $record->id);
 				}
 
 				// Default to component settings if Site not known.
@@ -117,7 +117,7 @@ class SiteModel extends AdminModel
 				// On edit, we get ID from the state, but on save, we use data from input
 				$id = (int) $this->getState('site.id', $idFromInput);
 
-				$record->idDomain = $id;
+				$record->id = $id;
 
 				// Modify the form based on Edit State access controls.
 				if (!$this->canEditState($record))
