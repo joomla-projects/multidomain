@@ -15,7 +15,7 @@ use Joomla\CMS\MVC\Controller\FormController;
  *
  * @since  __DEPLOY_VERSION__
  */
-class SiteController extends FormController
+class WebsiteController extends FormController
 {
 		/**
 		 * The prefix to use with controller messages.

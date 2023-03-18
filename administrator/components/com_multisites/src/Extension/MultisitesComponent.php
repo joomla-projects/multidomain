@@ -6,7 +6,7 @@
  * @license     GNU General Public License version 3 or later; see LICENSE.txt
  */
 
-namespace Joomla\Component\Sites\Administrator\Extension;
+namespace Joomla\Component\Multisites\Administrator\Extension;
 
 use Joomla\CMS\Component\Router\RouterServiceInterface;
 use Joomla\CMS\Component\Router\RouterServiceTrait;
@@ -18,15 +18,13 @@ use Joomla\CMS\Language\Text;
 use Psr\Container\ContainerInterface;
 
 /**
- * Component class for com_sites
+ * Component class for com_multisites
  *
  * @since __DEPLOY_VERSION__
  */
-class SitesComponent extends MVCComponent implements
-    BootableExtensionInterface,
-    RouterServiceInterface
+class MultisitesComponent extends MVCComponent implements
+    BootableExtensionInterface
 {
-    use RouterServiceTrait;
     use HTMLRegistryAwareTrait;
 
     private ContainerInterface $container;
@@ -61,7 +59,7 @@ class SitesComponent extends MVCComponent implements
         Factory::getApplication()->getLanguage()->load('com_sites', JPATH_ADMINISTRATOR);
 
         $contexts = array(
-            'com_sites.groups' => Text::_('COM_SITES_GROUPS'),
+            'com_multisites.groups' => Text::_('COM_MULTISITES_GROUPS'),
         );
 
         return $contexts;
