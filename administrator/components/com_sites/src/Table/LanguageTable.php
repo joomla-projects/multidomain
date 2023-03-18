@@ -19,7 +19,7 @@ use Joomla\CMS\Table\Asset;
 /**
  * Language table
  *
- * @since  0.5.0
+ * @since  __DEPLOY_VERSION__
  */
 class LanguageTable extends Table
 {
@@ -27,7 +27,7 @@ class LanguageTable extends Table
 		 * An array of key names to be json encoded in the bind function
 		 *
 		 * @var    array
-		 * @since  0.5.0
+		 * @since  __DEPLOY_VERSION__
 		 */
 		protected $_jsonEncode = [
 			'params'
@@ -37,7 +37,7 @@ class LanguageTable extends Table
 		 * Indicates that columns fully support the NULL value in the database
 		 *
 		 * @var    boolean
-		 * @since 0.5.0
+		 * @since __DEPLOY_VERSION__
 		 */
 		protected $_supportNullValue = true;
 
@@ -46,7 +46,7 @@ class LanguageTable extends Table
 		 *
 		 * @param DatabaseInterface $db Database driver object.
 		 *
-		 * @since   0.5.0
+		 * @since   __DEPLOY_VERSION__
 		 */
 		public function __construct(DatabaseInterface $db)
 		{
@@ -63,7 +63,7 @@ class LanguageTable extends Table
 		 *
 		 * @return  boolean  True on success, false on failure.
 		 *
-		 * @since 0.5.0
+		 * @since __DEPLOY_VERSION__
 		 */
 		public function store($updateNulls = true)
 		{
@@ -103,7 +103,7 @@ class LanguageTable extends Table
 		 * @return  boolean  True on success, false on failure
 		 *
 		 * @see     \JTable::check
-		 * @since   0.5.0
+		 * @since   __DEPLOY_VERSION__
 		 */
 		public function check()
 		{
@@ -138,7 +138,7 @@ class LanguageTable extends Table
 		 *
 		 * @return  string
 		 *
-		 * @since   0.5.0
+		 * @since   __DEPLOY_VERSION__
 		 */
 		protected function _getAssetTitle()
 		{
@@ -153,7 +153,7 @@ class LanguageTable extends Table
 		 *
 		 * @return  integer
 		 *
-		 * @since   0.5.0
+		 * @since   __DEPLOY_VERSION__
 		 */
 		protected function _getAssetParentId(Table $table = null, $id = null)
 		{

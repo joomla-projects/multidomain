@@ -20,7 +20,7 @@ use Psr\Container\ContainerInterface;
 /**
  * Component class for com_sites
  *
- * @since 0.5.0
+ * @since __DEPLOY_VERSION__
  */
 class SitesComponent extends MVCComponent implements
     BootableExtensionInterface,
@@ -42,7 +42,7 @@ class SitesComponent extends MVCComponent implements
      *
      * @return  void
      *
-     * @since 0.5.0
+     * @since __DEPLOY_VERSION__
      */
     public function boot(ContainerInterface $container)
     {
@@ -54,7 +54,7 @@ class SitesComponent extends MVCComponent implements
      *
      * @return  string[]
      *
-     * @since 0.5.0
+     * @since __DEPLOY_VERSION__
      */
     public function getContexts(): array
     {

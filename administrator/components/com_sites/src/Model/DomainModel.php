@@ -18,7 +18,7 @@ use Joomla\CMS\Object\CMSObject;
 /**
  * Domain Model
  *
- * @since  0.5.0
+ * @since  __DEPLOY_VERSION__
  */
 class DomainModel extends AdminModel
 {
@@ -26,7 +26,7 @@ class DomainModel extends AdminModel
 	 * The prefix to use with controller messages.
 	 *
 	 * @var    string
-	 * @since  0.5.0
+	 * @since  __DEPLOY_VERSION__
 	 */
 	protected $text_prefix = 'COM_SITES';
 
@@ -37,7 +37,7 @@ class DomainModel extends AdminModel
 		 *
 		 * @return  boolean  True if allowed to delete the record. Defaults to the permission set in the component.
 		 *
-		 * @since 0.5.0
+		 * @since __DEPLOY_VERSION__
 		 */
 		protected function canDelete($record)
 		{
@@ -56,7 +56,7 @@ class DomainModel extends AdminModel
 		 *
 		 * @return  boolean  True if allowed to change the state of the record. Defaults to the permission set in the component.
 		 *
-		 * @since 0.5.0
+		 * @since __DEPLOY_VERSION__
 		 */
 		protected function canEditState($record)
 		{
@@ -77,7 +77,7 @@ class DomainModel extends AdminModel
 		 *
 		 * @return  CMSObject|boolean  Object on success, false on failure.
 		 *
-		 * @since   0.5.0
+		 * @since   __DEPLOY_VERSION__
 		 */
 		public function getItem($pk = null)
 		{
@@ -96,7 +96,7 @@ class DomainModel extends AdminModel
 		 *
 		 * @return  Form|boolean  A Form object on success, false on failure
 		 *
-		 * @since 0.5.0
+		 * @since __DEPLOY_VERSION__
 		 */
 		public function getForm($data = array(), $loadData = true)
 		{
@@ -145,7 +145,7 @@ class DomainModel extends AdminModel
 		 *
 		 * @return  mixed  The data for the form.
 		 *
-		 * @since 0.5.0
+		 * @since __DEPLOY_VERSION__
 		 */
 		protected function loadFormData()
 		{
@@ -180,7 +180,7 @@ class DomainModel extends AdminModel
 		 *
 		 * @see     \Joomla\CMS\Form\FormRule
 		 * @see     JFilterInput
-		 * @since 0.5.0
+		 * @since __DEPLOY_VERSION__
 		 */
 		public function validate($form, $data, $group = null)
 		{

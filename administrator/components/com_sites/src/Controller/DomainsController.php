@@ -15,7 +15,7 @@ use Joomla\CMS\MVC\Controller\AdminController;
 /**
  * Domains controller.
  *
- * @since  0.5.0
+ * @since  __DEPLOY_VERSION__
  */
 class DomainsController extends AdminController
 {
@@ -36,7 +36,7 @@ class DomainsController extends AdminController
 		 *
 		 * @return  \Joomla\CMS\MVC\Model\BaseDatabaseModel  The model.
 		 *
-		 * @since   0.5.0
+		 * @since   __DEPLOY_VERSION__
 		 */
 		public function getModel($name = 'Domain', $prefix = 'Administrator', $config = array('ignore_request' => true))
 		{

@@ -15,7 +15,7 @@ use Joomla\CMS\MVC\Controller\AdminController;
 /**
  * Languages controller.
  *
- * @since  0.5.0
+ * @since  __DEPLOY_VERSION__
  */
 class LanguagesController extends AdminController
 {
@@ -36,7 +36,7 @@ class LanguagesController extends AdminController
 		 *
 		 * @return  \Joomla\CMS\MVC\Model\BaseDatabaseModel  The model.
 		 *
-		 * @since   0.5.0
+		 * @since   __DEPLOY_VERSION__
 		 */
 		public function getModel($name = 'Language', $prefix = 'Administrator', $config = array('ignore_request' => true))
 		{

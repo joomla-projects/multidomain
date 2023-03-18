@@ -20,7 +20,7 @@ use function substr;
 /**
  * Sites Component Languages Model
  *
- * @since  0.5.0
+ * @since  __DEPLOY_VERSION__
  */
 class LanguagesModel extends ListModel
 {
@@ -31,7 +31,7 @@ class LanguagesModel extends ListModel
 		 * @param MVCFactoryInterface $factory The factory.
 		 *
 		 * @throws  \Exception
-		 * @since   0.5.0
+		 * @since   __DEPLOY_VERSION__
 		 */
 		public function __construct($config = [], MVCFactoryInterface $factory = null)
 		{
@@ -59,7 +59,7 @@ class LanguagesModel extends ListModel
 		 *
 		 * @return  void
 		 *
-		 * @since   0.5.0
+		 * @since   __DEPLOY_VERSION__
 		 */
 		protected function populateState($ordering = 'a.idLanguage', $direction = 'asc')
 		{
@@ -78,7 +78,7 @@ class LanguagesModel extends ListModel
 		 *
 		 * @return  string  A store id.
 		 *
-		 * @since   0.5.0
+		 * @since   __DEPLOY_VERSION__
 		 */
 		protected function getStoreId($id = '')
 		{
@@ -96,7 +96,7 @@ class LanguagesModel extends ListModel
 		 *
 		 * @return  \Joomla\Database\DatabaseQuery
 		 *
-		 * @since   0.5.0
+		 * @since   __DEPLOY_VERSION__
 		 */
 		protected function getListQuery()
 		{

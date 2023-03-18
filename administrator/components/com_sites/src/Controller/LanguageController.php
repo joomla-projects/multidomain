@@ -13,7 +13,7 @@ use Joomla\CMS\MVC\Controller\FormController;
 /**
  * Language controller.
  *
- * @since  0.5.0
+ * @since  __DEPLOY_VERSION__
  */
 class LanguageController extends FormController
 {
@@ -33,7 +33,7 @@ class LanguageController extends FormController
 		 *
 		 * @return  boolean
 		 *
-		 * @since 0.5.0
+		 * @since __DEPLOY_VERSION__
 		 */
 		protected function allowEdit($data = array(), $key = 'id')
 		{

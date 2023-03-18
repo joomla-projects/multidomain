@@ -15,7 +15,7 @@ use Joomla\CMS\MVC\Controller\AdminController;
 /**
  * Sites controller.
  *
- * @since  0.5.0
+ * @since  __DEPLOY_VERSION__
  */
 class SitesController extends AdminController
 {
@@ -36,7 +36,7 @@ class SitesController extends AdminController
 		 *
 		 * @return  \Joomla\CMS\MVC\Model\BaseDatabaseModel  The model.
 		 *
-		 * @since   0.5.0
+		 * @since   __DEPLOY_VERSION__
 		 */
 		public function getModel($name = 'Site', $prefix = 'Administrator', $config = array('ignore_request' => true))
 		{

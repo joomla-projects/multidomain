@@ -27,7 +27,7 @@ return new class implements ServiceProviderInterface {
 		 *
 		 * @return  void
 		 *
-		 * @since   0.5.0
+		 * @since   __DEPLOY_VERSION__
 		 */
 		public function register(Container $container)
 		{

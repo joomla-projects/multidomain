@@ -16,7 +16,7 @@ use Joomla\CMS\MVC\View\ListView;
 /**
  * Site view class for the Sites package.
  *
- * @since  0.5.0
+ * @since  __DEPLOY_VERSION__
  */
 class HtmlView extends ListView
 {

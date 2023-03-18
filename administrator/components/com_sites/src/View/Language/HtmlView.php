@@ -18,7 +18,7 @@ use Joomla\CMS\Toolbar\ToolbarHelper;
 /**
  * Language view class for the Sites package.
  *
- * @since  0.5.0
+ * @since  __DEPLOY_VERSION__
  */
 class HtmlView extends FormView
 {

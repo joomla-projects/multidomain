@@ -13,7 +13,7 @@ use Joomla\CMS\MVC\Controller\FormController;
 /**
  * Site controller.
  *
- * @since  0.5.0
+ * @since  __DEPLOY_VERSION__
  */
 class SiteController extends FormController
 {
@@ -33,7 +33,7 @@ class SiteController extends FormController
 		 *
 		 * @return  boolean
 		 *
-		 * @since 0.5.0
+		 * @since __DEPLOY_VERSION__
 		 */
 		protected function allowEdit($data = array(), $key = 'id')
 		{
