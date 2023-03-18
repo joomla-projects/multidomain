@@ -58,6 +58,10 @@
       <folder>src</folder>
       <folder>tmpl</folder>
     </files>
+		<languages folder="admin">
+			<language tag="en-GB">language/en-GB/com_sites.ini</language>
+			<language tag="en-GB">language/en-GB/com_sites.sys.ini</language>
+		</languages>
   </administration>
   <dashboards>
     <dashboard title="COM_SITES_DASHBOARD_TITLE" icon="icon-file-alt">sites</dashboard>
