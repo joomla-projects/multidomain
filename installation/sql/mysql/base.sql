@@ -953,7 +953,7 @@ CREATE TABLE IF NOT EXISTS `#__users` (
   `password` varchar(100) NOT NULL DEFAULT '',
   `block` tinyint NOT NULL DEFAULT 0,
   `sendEmail` tinyint DEFAULT 0,
-  `multisitesGroupId` int NOT NULL DEFAULT '0',
+  `multisitesGroupId` int NOT NULL DEFAULT 0,
   `registerDate` datetime NOT NULL,
   `lastvisitDate` datetime,
   `activation` varchar(100) NOT NULL DEFAULT '',
@@ -967,7 +967,8 @@ CREATE TABLE IF NOT EXISTS `#__users` (
   PRIMARY KEY (`id`),
   KEY `idx_name` (`name`(100)),
   KEY `idx_block` (`block`),
-  UNIQUE KEY `idx_username` (`username`),
+  UNIQUE KEY `idx_mailgroup` (`email`, `multisitesGroupId`),
+  UNIQUE KEY `idx_namegroup` (`username`, `multisitesGroupId`),
   KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
