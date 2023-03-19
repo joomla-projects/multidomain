@@ -788,7 +788,7 @@ CREATE TABLE IF NOT EXISTS `#__multisites_groups` (
   `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `alias` varchar(400) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '',
   `note` text NOT NULL,
-  `extensionassignment` tinyint unsigned NOT NULL DEFAULT 0,
+  `extensionassignment` tinyint signed NOT NULL DEFAULT 0,
   `extensionsassigned` text NOT NULL,
   `state` tinyint NOT NULL DEFAULT 0,
   `checked_out` int unsigned,

@@ -15,6 +15,7 @@ use Joomla\CMS\HTML\Registry;
 use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\Object\CMSObject;
 use Joomla\Database\ParameterType;
+use Joomla\Utilities\ArrayHelper;
 
 /**
  * Group Model
@@ -78,16 +79,36 @@ class GroupModel extends AdminModel
 		 *
 		 * @return  CMSObject|boolean  Object on success, false on failure.
 		 *
-		 * @since   __DEPLOY_VERSION__
+		 * @since   __DEPLOY _VERSION__
 		 */
 		public function getItem($pk = null)
 		{
 				$item = parent::getItem($pk);
 
+				// Convert the extensionsassigned field to an array.
+				$registry     = new \Joomla\Registry\Registry($item->extensionsassigned);
+				$item->extensionsassigned = ArrayHelper::toInteger($registry->toArray());
+
 				return $item;
 		}
 
-		/**
+	/**
+	 * Method to save the form data.
+	 *
+	 * @param   array  $data  The form data.
+	 *
+	 * @return  boolean  True on success, False on error.
+	 *
+     * @since __DEPLOY_VERSION__
+	 */
+		public function save($data)
+		{
+			$data['extensionsassigned'] = empty($data['extensionsassigned']) ? [] : $data['extensionsassigned'];
+
+			return parent::save($data);
+		}
+
+	/**
 		 * Method to get the record form.
 		 *
 		 * @param   array    $data      Data for the form.
@@ -157,12 +178,6 @@ class GroupModel extends AdminModel
 						$data = $this->getItem();
 				}
 
-				// If there are params fieldsets in the form it will fail with a registry object
-				if (isset($data->params) && $data->params instanceof Registry)
-				{
-						$data->params = $data->params->toArray();
-				}
-
 				$this->preprocessData('com_multisites.group', $data);
 
 				return $data;
@@ -194,30 +209,37 @@ class GroupModel extends AdminModel
 				return parent::validate($form, $data, $group);
 		}
 
-        public function getExtensions()
-        {
-            $db = $this->getDatabase();
-            $query = $db->getQuery(true);
+		/**
+		 * Method to get the list of unprotected extensions
+		 *
+		 * @return  mixed  The list grouped by extension types.
+		 *
+		 * @since __DEPLOY_VERSION__
+		 */
+		public function getExtensions()
+		{
+			$db = $this->getDatabase();
+			$query = $db->getQuery(true);
 
-            $extensions = ["plugin" => [],"component" => [],"module" => []];
+			$extensions = ["plugin" => [],"component" => [],"module" => []];
 
-            $query->select($db->quoteName([
-                'e.extension_id',
-                'e.name',
-                'e.type',
-                'e.enabled'
-            ]))
-                ->from($db->quoteName('#__extensions', 'e'))
-                ->where($db->quoteName('e.protected') . ' = 0')
-                ->whereIn('type', array_keys($extensions), ParameterType::STRING);
+			$query->select($db->quoteName([
+				'e.extension_id',
+				'e.name',
+				'e.type',
+				'e.enabled'
+			]))
+				->from($db->quoteName('#__extensions', 'e'))
+				->where($db->quoteName('e.protected') . ' = 0')
+				->whereIn('type', array_keys($extensions), ParameterType::STRING);
 
-            $rows = $db->setQuery($query)->loadObjectList();
+			$rows = $db->setQuery($query)->loadObjectList();
 
-            foreach ($rows as $row)
-            {
-                $extensions[$row->type][] = $row;
-            }
+			foreach ($rows as $row)
+			{
+				$extensions[$row->type][] = $row;
+			}
 
-            return $extensions;
-        }
+			return $extensions;
+		}
 }
