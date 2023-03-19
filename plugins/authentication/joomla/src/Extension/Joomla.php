@@ -11,6 +11,7 @@
 namespace Joomla\Plugin\Authentication\Joomla\Extension;
 
 use Joomla\CMS\Authentication\Authentication;
+use Joomla\CMS\Language\Text;
 use Joomla\CMS\Plugin\CMSPlugin;
 use Joomla\CMS\User\User;
 use Joomla\CMS\User\UserHelper;
@@ -77,11 +78,17 @@ final class Joomla extends CMSPlugin
 
                 if ($this->getApplication()->isClient('administrator')) {
                     $response->language = $user->getParam('admin_language');
+
+                    if ($user->multisitesGroupId) {
+                        // User does not have access to backend, only to the frontend of a website
+                        $_status       = Authentication::STATUS_FAILURE;
+                        $_errorMessage = Text::_('JLIB_LOGIN_DENIED');
+                    }
                 } else {
                     $response->language = $user->getParam('language');
 
                     if ($this->getApplication()->get('offline') && !$user->authorise('core.login.offline')) {
-                        // User do not have access in offline mode
+                        // User does not have access in offline mode
                         $_status       = Authentication::STATUS_FAILURE;
                         $_errorMessage = Text::_('JLIB_LOGIN_DENIED');
                     }
