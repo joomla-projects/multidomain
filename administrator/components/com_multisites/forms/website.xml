@@ -23,6 +23,15 @@
 		/>
 
 		<field
+			name="title_native"
+			type="text"
+			label="COM_MULTISITES_FIELD_TITLE_NATIVE_LABEL"
+			description="COM_MULTISITES_FIELD_TITLE_NATIVE_DESC"
+			required="true"
+			maxlength="255"
+		/>
+
+		<field
 			name="alias"
 			type="text"
 			label="JFIELD_ALIAS_LABEL"
@@ -31,7 +40,24 @@
 		/>
 
 		<field
-			name="description"
+			name="baseurl"
+			type="text"
+			label="COM_MULTISITES_FIELD_BASEURL_LABEL"
+			description="COM_MULTISITES_FIELD_BASEURL_DESC"
+			required="true"
+			maxlength="400"
+		/>
+
+		<field
+			name="group_id"
+			type="text"
+			label="COM_MULTISITES_FIELD_GROUP_ID_LABEL"
+			description="COM_MULTISITES_FIELD_GROUP_ID_DESC"
+			required="true"
+		/>
+
+		<field
+			name="note"
 			type="editor"
 			label="JGLOBAL_DESCRIPTION"
 			filter="JComponentHelper::filterText"

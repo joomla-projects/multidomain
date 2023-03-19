@@ -195,4 +195,64 @@ class GroupsModel extends ListModel
 
 				return $query;
 		}
+
+        /**
+         * Method to get an array of data items.
+         *
+         * @return  mixed  An array of data items on success, false on failure.
+         *
+         * @since  __DEPLOY_VERSION__
+         */
+        public function getItems()
+        {
+            $items = parent::getItems();
+
+            if ($items) {
+                $this->countItems($items);
+            }
+
+            return $items;
+        }
+
+        /**
+         * Add the number of websites to all group items
+         *
+         * @param   array  $items  The group items
+         *
+         * @return  mixed  An array of data items on success, false on failure.
+         *
+         * @since  __DEPLOY_VERSION__
+         */
+        protected function countItems($items)
+        {
+            $db = $this->getDatabase();
+
+            $ids = [0];
+
+            foreach ($items as $item) {
+                $ids[] = (int) $item->id;
+
+                $item->count_websites = 0;
+            }
+
+            $query = $db->getQuery(true);
+
+            $query->select(
+                [
+                    $db->quoteName('group_id'),
+                    'COUNT(*) AS ' . $db->quoteName('count'),
+                ]
+            )
+                ->from($db->quoteName('#__multisites_websites'))
+                ->whereIn($db->quoteName('group_id'), $ids)
+                ->group($db->quoteName('group_id'));
+
+            $status = $db->setQuery($query)->loadObjectList('group_id');
+
+            foreach ($items as $item) {
+                if (isset($status[$item->id])) {
+                    $item->count_websites = (int) $status[$item->id]->count;
+                }
+            }
+        }
 }

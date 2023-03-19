@@ -31,19 +31,11 @@
 		/>
 
 		<field
-			name="description"
+			name="note"
 			type="editor"
 			label="JGLOBAL_DESCRIPTION"
 			filter="JComponentHelper::filterText"
 			buttons="true"
-		/>
-
-		<field
-			name="websites"
-			type="text"
-			label="COM_MULTISITES_WEBSITE"
-			required="true"
-			maxlength="255"
 		/>
 
 		<field
