@@ -413,7 +413,7 @@ class UsersModel extends ListModel
         $multisitesGroupId = $this->getState('filter.multisitesGroupId');
 
         if (!empty($multisitesGroupId)) {
-
+            $query->where($db->quoteName('a.multisitesGroupId') . '=' . (int) $multisitesGroupId);
         }
 
         // Filter the items over the search string if set.
