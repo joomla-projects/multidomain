@@ -54,6 +54,6 @@ class WebsitesField extends ListField
             $options[] = HTMLHelper::_('select.option', $website->id, $website->title . ' (' . $website->language . ')');
         }
 
-        return $options;
+        return array_merge(parent::getOptions(), $options);
     }
 }
