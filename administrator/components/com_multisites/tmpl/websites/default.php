@@ -25,12 +25,6 @@ $user      = $this->getCurrentUser();
 $userId    = $user->get('id');
 $listOrder = $this->escape($this->state->get('list.ordering'));
 $listDirn  = $this->escape($this->state->get('list.direction'));
-$saveOrder = $listOrder == 'a.ordering';
-
-if ($saveOrder && !empty($this->items)) :
-        $saveOrderingUrl = 'index.php?option=com_multisites&task=websites.saveOrderAjax&tmpl=component&' . Session::getFormToken() . '=1';
-        HTMLHelper::_('draggablelist.draggable');
-endif;
 
 ?>
 <form action="<?php echo Route::_('index.php?option=com_multisites&view=websites'); ?>" method="post" name="adminForm" id="adminForm">
@@ -54,9 +48,6 @@ endif;
                                 <td class="w-1 text-center">
                                     <?php echo HTMLHelper::_('grid.checkall'); ?>
                                 </td>
-                                <th scope="col" class="w-1 text-center d-none d-md-table-cell">
-                                    <?php echo HTMLHelper::_('searchtools.sort', '', 'a.ordering', $listDirn, $listOrder, null, 'asc', 'JGRID_HEADING_ORDERING', 'icon-sort'); ?>
-                                </th>
                                 <th scope="col" class="w-5 text-center">
                                     <?php echo HTMLHelper::_('searchtools.sort', 'JSTATUS', 'a.state', $listDirn, $listOrder); ?>
                                 </th>
@@ -70,7 +61,7 @@ endif;
                                     <?php echo HTMLHelper::_('searchtools.sort', 'COM_MULTISITES_HEADING_BASEURL', 'a.baseurl', $listDirn, $listOrder); ?>
                                 </th>
                                 <th scope="col">
-                                    <?php echo HTMLHelper::_('searchtools.sort', 'COM_MULTISITES_HEADING_LANGCODE', 'a.langcode', $listDirn, $listOrder); ?>
+                                    <?php echo HTMLHelper::_('searchtools.sort', 'COM_MULTISITES_HEADING_LANG_CODE', 'a.lang_code', $listDirn, $listOrder); ?>
                                 </th>
                                 <th scope="col">
                                     <?php echo HTMLHelper::_('searchtools.sort', 'COM_MULTISITES_HEADING_LANGUAGE', 'a.language', $listDirn, $listOrder); ?>
@@ -83,7 +74,7 @@ endif;
                                 </th>
                             </tr>
                         </thead>
-                        <tbody<?php if ($saveOrder) : ?> class="js-draggable" data-url="<?php echo $saveOrderingUrl; ?>" data-direction="<?php echo strtolower($listDirn); ?>" data-nested="false"<?php endif; ?>>
+                        <tbody>
                             <?php foreach ($this->items as $i => $item) :
                                 $canEdit          = $user->authorise('core.edit',       'com_multisites.website.' . $item->id);
                                 $canCheckin       = $user->authorise('core.manage',     'com_checkin') || $item->checked_out == $userId || is_null($item->checked_out);
@@ -93,22 +84,6 @@ endif;
                             <tr class="row<?php echo $i % 2; ?>" data-draggable-group="0">
                                 <td class="text-center">
                                     <?php echo HTMLHelper::_('grid.id', $i, $item->id, false, 'cid', 'cb', $item->title); ?>
-                                </td>
-                                <td class="text-center d-none d-md-table-cell">
-                                    <?php
-                                    $iconClass = '';
-                                    if (!$canChange) :
-                                        $iconClass = ' inactive';
-                                    elseif (!$saveOrder) :
-                                        $iconClass = ' inactive" title="' . Text::_('JORDERINGDISABLED');
-                                    endif;
-                                    ?>
-                                    <span class="sortable-handler<?php echo $iconClass ?>">
-                                        <span class="icon-ellipsis-v" aria-hidden="true"></span>
-                                    </span>
-                                    <?php if ($canChange && $saveOrder) : ?>
-                                    <input type="text" name="order[]" size="5" value="<?php echo $item->ordering; ?>" class="width-20 text-area-order hidden">
-                                    <?php endif; ?>
                                 </td>
                                 <td class="text-center">
                                     <div class="btn-group">
@@ -136,7 +111,7 @@ endif;
                                     <?php echo $this->escape($item->baseurl); ?>
                                 </td>
                                 <td class="d-none d-md-table-cell">
-                                    <?php echo $this->escape($item->langcode); ?>
+                                    <?php echo $this->escape($item->lang_code); ?>
                                 </td>
                                 <td class="d-none d-md-table-cell">
                                     <?php echo $this->escape($item->language); ?>

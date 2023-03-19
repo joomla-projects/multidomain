@@ -1,5 +1,7 @@
 <?php
 
+namespace Joomla\Plugin\System\Multisitefilter\Extension;
+
 /**
  * @package     Joomla.Plugin
  * @subpackage  System.multisitefilter
@@ -9,7 +11,6 @@
  */
 
 use Joomla\CMS\Application\ApplicationHelper;
-use Joomla\CMS\Application\CMSApplication;
 use Joomla\CMS\Application\CMSWebApplicationInterface;
 use Joomla\CMS\Association\AssociationServiceInterface;
 use Joomla\CMS\Component\ComponentHelper;
@@ -26,6 +27,7 @@ use Joomla\CMS\Router\Router;
 use Joomla\CMS\Router\SiteRouter;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Component\Menus\Administrator\Helper\MenusHelper;
+use Joomla\Event\SubscriberInterface;
 use Joomla\Registry\Registry;
 use Joomla\String\StringHelper;
 
@@ -105,11 +107,11 @@ final class Multisitefilter extends CMSPlugin implements SubscriberInterface
     {
         return [
             'onAfterInitialise' => 'onAfterInitialise',
-            'onAfterRoute' => 'onAfterRoute',
-            'onUserBeforeSave' => 'onUserBeforeSave',
-            'onUserAfterSave' => 'onUserAfterSave',
-            'onUserLogin' => 'onUserLogin',
-            'onAfterDispatch' => 'onAfterDispatch',
+            'onAfterRoute'      => 'onAfterRoute',
+            'onUserBeforeSave'  => 'onUserBeforeSave',
+            'onUserAfterSave'   => 'onUserAfterSave',
+            'onUserLogin'       => 'onUserLogin',
+            'onAfterDispatch'   => 'onAfterDispatch',
         ];
     }
 
@@ -183,6 +185,7 @@ final class Multisitefilter extends CMSPlugin implements SubscriberInterface
         }
 
         // Attach parse rule.
+        $router->attachParseRule([$this, 'detectWebsiteRule'], Router::PROCESS_BEFORE);
         $router->attachParseRule([$this, 'parseRule'], Router::PROCESS_BEFORE);
     }
 
@@ -293,6 +296,52 @@ final class Multisitefilter extends CMSPlugin implements SubscriberInterface
      *
      * @return  void
      *
+     * @since   __DEPLOY_VERSION__
+     */
+    public function detectWebsiteRule(&$router, &$uri)
+    {
+        // Did we find the current and existing website yet?
+        $found = false;
+
+        $host = $uri->getHost();
+        $port = $uri->getPort();
+        $path = $uri->getPath();
+        $hostQuery = '%' . $host . '%';
+
+        $db = Factory::getDbo();
+        $query = $db->getQuery(true);
+        $query->select('*')
+            ->from('#__multisites_websites')
+            ->where('baseurl like :host')
+            ->bind(':host', $hostQuery);
+
+        $db->setQuery($query);
+        $websites = $db->loadAssocList();
+
+        if (count($websites) === 0) {
+            throw new \Exception('No matching website found');
+        }
+
+        foreach($websites as $website) {
+            if (
+                $website['host'] !== $host
+            ) {
+                continue;
+            }
+            $this->websiteId = $website['id'];
+            break;
+
+        }
+    }
+
+    /**
+     * Add parse rule to router.
+     *
+     * @param   Router  &$router  Router object.
+     * @param   Uri     &$uri     Uri object.
+     *
+     * @return  void
+     *
      * @since   1.6
      */
     public function parseRule(&$router, &$uri)
@@ -313,7 +362,7 @@ final class Multisitefilter extends CMSPlugin implements SubscriberInterface
                 if ($this->params->get('remove_default_prefix', 0)) {
                     if ($parts[0]) {
                         // We load a default site language page
-                        $lang_code = $this->default_lang;
+                        $lang_code = $this->defaulparseRult_lang;
                     } else {
                         // We check for an existing language cookie
                         $lang_code = $this->getLanguageCookie();
