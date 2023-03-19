@@ -127,7 +127,7 @@ class WebsitesModel extends ListModel
 					->select(
 						$db->quoteName(
 							[
-								'mg.name',
+								'mg.title',
 							],
 							[
 								'group_name',
