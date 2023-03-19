@@ -14,6 +14,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\Registry;
 use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\Object\CMSObject;
+use Joomla\Database\ParameterType;
 
 /**
  * Group Model
@@ -192,4 +193,30 @@ class GroupModel extends AdminModel
 
 				return parent::validate($form, $data, $group);
 		}
+
+        public function getExtensions()
+        {
+            $db = $this->getDatabase();
+            $query = $db->getQuery(true);
+
+            $extensions = ["plugin" => [],"component" => [],"module" => []];
+
+            $query->select($db->quoteName([
+                'e.extension_id',
+                'e.name',
+                'e.type',
+                'e.enabled'
+            ]))
+                ->from($db->quoteName('#__extensions', 'e'))
+                ->whereIn('type', array_keys($extensions), ParameterType::STRING);
+
+            $rows = $db->setQuery($query)->loadObjectList();
+
+            foreach ($rows as $row)
+            {
+                $extensions[$row->type][] = $row;
+            }
+
+            return $extensions;
+        }
 }

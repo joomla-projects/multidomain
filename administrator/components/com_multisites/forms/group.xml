@@ -38,6 +38,21 @@
 		/>
 
 		<field
+			name="extensionassignment"
+			type="list"
+			label="COM_MULTISITES_FIELD_ASSIGNMENT_LABEL"
+		>
+			<option value="0">COM_MULTISITES_OPTION_ASSIGNMENT_ALL</option>
+			<option value="1">COM_MULTISITES_OPTION_ASSIGNMENT_INCLUDE</option>
+			<option value="-1">COM_MULTISITES_OPTION_ASSIGNMENT_EXCLUDE</option>
+		</field>
+
+		<field
+			name="extensionsassigned"
+			type="hidden"
+		/>
+
+		<field
 			name="state"
 			type="list"
 			label="JSTATUS"
@@ -51,10 +66,6 @@
 			<option value="2">JARCHIVED</option>
 			<option value="-2">JTRASHED</option>
 		</field>
-	</fieldset>
-
-	<fieldset name="general" label="JGLOBAL_FIELDSET_CONTENT">
-		<!-- MVC_LANDMARK_FIELDS -->
 	</fieldset>
 
 	<fieldset name="publishing" label="JGLOBAL_FIELDSET_PUBLISHING">

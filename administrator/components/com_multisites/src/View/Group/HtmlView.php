@@ -41,7 +41,14 @@ class HtmlView extends FormView
 				$this->canDo = ContentHelper::getActions('com_multisites');
 		}
 
-		/**
+		protected function initializeView()
+		{
+			$this->extensions = $this->get('Extensions');
+
+			parent::initializeView();
+		}
+
+    /**
 		 * Add the page title and toolbar.
 		 *
 		 * @return  void

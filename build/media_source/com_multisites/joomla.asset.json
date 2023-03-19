@@ -1,0 +1,32 @@
+{
+  "$schema": "https://developer.joomla.org/schemas/json-schema/web_assets.json",
+  "name": "com_multisites",
+  "version": "4.0.0",
+  "description": "Joomla CMS",
+  "license": "GPL-2.0-or-later",
+  "assets": [
+    {
+      "name": "com_multisites.admin-group-edit-assignment.es5",
+      "type": "script",
+      "uri": "com_multisites/admin-group-edit_assignment-es5.min.js",
+      "dependencies": [
+        "core"
+      ],
+      "attributes": {
+        "nomodule": true,
+        "defer": true
+      }
+    },
+    {
+      "name": "com_multisites.admin-group-edit-assignment",
+      "type": "script",
+      "uri": "com_multisites/admin-group-edit_assignment.min.js",
+      "dependencies": [
+        "com_multisites.admin-group-edit-assignment.es5"
+      ],
+      "attributes": {
+        "type": "module"
+      }
+    }
+  ]
+}
