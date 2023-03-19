@@ -1,5 +1,7 @@
 <?php
 
+namespace Joomla\Plugin\System\Multisitefilter\Extension;
+
 /**
  * @package     Joomla.Plugin
  * @subpackage  System.multisitefilter
@@ -26,6 +28,7 @@ use Joomla\CMS\Router\Router;
 use Joomla\CMS\Router\SiteRouter;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Component\Menus\Administrator\Helper\MenusHelper;
+use Joomla\Event\SubscriberInterface;
 use Joomla\Registry\Registry;
 use Joomla\String\StringHelper;
 
@@ -105,11 +108,11 @@ final class Multisitefilter extends CMSPlugin implements SubscriberInterface
     {
         return [
             'onAfterInitialise' => 'onAfterInitialise',
-            'onAfterRoute' => 'onAfterRoute',
-            'onUserBeforeSave' => 'onUserBeforeSave',
-            'onUserAfterSave' => 'onUserAfterSave',
-            'onUserLogin' => 'onUserLogin',
-            'onAfterDispatch' => 'onAfterDispatch',
+            'onAfterRoute'      => 'onAfterRoute',
+            'onUserBeforeSave'  => 'onUserBeforeSave',
+            'onUserAfterSave'   => 'onUserAfterSave',
+            'onUserLogin'       => 'onUserLogin',
+            'onAfterDispatch'   => 'onAfterDispatch',
         ];
     }
 
@@ -293,6 +296,25 @@ final class Multisitefilter extends CMSPlugin implements SubscriberInterface
      *
      * @return  void
      *
+     * @since   __DEPLOY_VERSION__
+     */
+    public function detectSiteRule(&$router, &$uri)
+    {
+        // Did we find the current and existing website yet?
+        $found = false;
+
+
+
+    }
+
+    /**
+     * Add parse rule to router.
+     *
+     * @param   Router  &$router  Router object.
+     * @param   Uri     &$uri     Uri object.
+     *
+     * @return  void
+     *
      * @since   1.6
      */
     public function parseRule(&$router, &$uri)
@@ -313,7 +335,7 @@ final class Multisitefilter extends CMSPlugin implements SubscriberInterface
                 if ($this->params->get('remove_default_prefix', 0)) {
                     if ($parts[0]) {
                         // We load a default site language page
-                        $lang_code = $this->default_lang;
+                        $lang_code = $this->defaulparseRult_lang;
                     } else {
                         // We check for an existing language cookie
                         $lang_code = $this->getLanguageCookie();
