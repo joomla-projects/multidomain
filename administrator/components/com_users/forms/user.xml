@@ -137,10 +137,10 @@
 			name="multisitesGroupId"
 			type="multisitesGroups"
 			label="COM_USERS_MULTIGROUPS_FIELD"
-			default="*"
+			default="0"
 			validate="options"
 			>
-			<option value="*">JALL</option>
+			<option value="0">JALL</option>
 		</field>
 
 	</fieldset>
