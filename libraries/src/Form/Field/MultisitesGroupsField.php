@@ -22,7 +22,7 @@ use Joomla\CMS\Language\Text;
  *
  * @since  5.0.0
  */
-class MultisitesGroupsField extends ComponentsField
+class MultisitesGroupsField extends ListField
 {
     /**
      * The form field type.
