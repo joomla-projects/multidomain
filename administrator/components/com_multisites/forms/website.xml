@@ -41,19 +41,11 @@
 
 		<field
 			name="baseurl"
-			type="text"
+			type="url"
 			label="COM_MULTISITES_FIELD_BASEURL_LABEL"
 			description="COM_MULTISITES_FIELD_BASEURL_DESC"
 			required="true"
 			maxlength="400"
-		/>
-
-		<field
-			name="group_id"
-			type="text"
-			label="COM_MULTISITES_FIELD_GROUP_ID_LABEL"
-			description="COM_MULTISITES_FIELD_GROUP_ID_DESC"
-			required="true"
 		/>
 
 		<field
