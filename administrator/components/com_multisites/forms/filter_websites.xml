@@ -19,6 +19,16 @@
 		</field>
 	</fields>
 
+	<field
+			name="default"
+			type="list"
+			label="JOPTION_SELECT_DEFAULTGROUP"
+			class="js-select-submit-on-change"
+	>
+		<option value="">JOPTION_SELECT_DEFAULT</option>
+		<option value="1">JOPTION_SELECT_DEFAULT_SET</option>
+	</field>
+
 	<fields name="list">
 		<field
 			name="fullordering"
