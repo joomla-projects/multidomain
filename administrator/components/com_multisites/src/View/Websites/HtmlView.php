@@ -121,8 +121,6 @@ class HtmlView extends ListView
                 $childBar->standardButton('featured', 'JDEFAULT', 'websites.default')
                     ->listCheck(true);
 
-                $childBar->archive('websites.archive')->listCheck(true);
-
                 $childBar->checkin('websites.checkin');
 
                 if ($this->state->get('filter.published') != ContentComponent::CONDITION_TRASHED) {
