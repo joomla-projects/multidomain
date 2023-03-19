@@ -7,7 +7,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace Joomla\CMS\Site;
+namespace Joomla\CMS\Multisites;
 
 use Joomla\CMS\Application\CMSApplication;
 use Joomla\CMS\Factory;
