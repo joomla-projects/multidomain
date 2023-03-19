@@ -62,10 +62,10 @@ $this->document->getWebAssetManager()
                                         $id = 'jform_extensionselect';
 
                                         $selected = 0;
-                                        if ($this->item->assignment == 0) {
+                                        if ($this->item->extensionassignment == 0) {
                                             $selected = 0;
                                         } else {
-                                            $selected = in_array(-$extension->extension_id, $this->item->extensionsassigned);
+                                            $selected = in_array($extension->extension_id, $this->item->extensionsassigned, true);
                                         }
                                         ?>
                                         <input type="checkbox" class="novalidate form-check-input" name="jform[extensionsassigned][]" id="<?php echo $id . $extension->extension_id; ?>" value="<?php echo (int) $extension->extension_id; ?>"<?php echo $selected ? ' checked="checked"' : ''; ?> />
