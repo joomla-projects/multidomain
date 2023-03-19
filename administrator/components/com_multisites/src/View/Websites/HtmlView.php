@@ -27,6 +27,12 @@ use Joomla\Component\Content\Administrator\Extension\ContentComponent;
  */
 class HtmlView extends ListView
 {
+    /**
+     * The ID of the group we're in
+     *
+     * @var int
+     */
+    protected $groupId;
 
     /**
      * Constructor
@@ -56,7 +62,15 @@ class HtmlView extends ListView
     protected function initializeView(){
         parent::initializeView();
 
-        if (!\count($this->items) && $this->isEmptyState = $this->get('IsEmptyState')) {
+        $group = $this->get('Group');
+
+        if (empty($group->id)) {
+            throw new \Exception(Text::_('JERROR_ALERTNOAUTHOR'), 403);
+        }
+
+        $this->groupId = $group->id;
+
+        if (empty($this->items) && $this->isEmptyState = $this->get('IsEmptyState')) {
             $this->setLayout('emptystate');
         }
     }
@@ -66,7 +80,7 @@ class HtmlView extends ListView
      *
      * @return  void
      *
-     * @since   1.6
+     * @since   __DEPLOY_VERSION__
      */
     protected function addToolbar()
     {
@@ -74,7 +88,7 @@ class HtmlView extends ListView
         $user = $this->getCurrentUser();
         $toolbar = Toolbar::getInstance();
 
-        ToolbarHelper::title(Text::_('COM_MULTISITES_MANAGER_GROUPS'), 'copy websites');
+        ToolbarHelper::title(Text::_('COM_MULTISITES_MANAGER_WEBSITES'), 'copy websites');
 
         $arrow  = Factory::getApplication()->getLanguage()->isRtl() ? 'arrow-right' : 'arrow-left';
 

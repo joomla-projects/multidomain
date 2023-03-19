@@ -43,7 +43,7 @@ endif;
                         <?php echo Text::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
                     </div>
                 <?php else : ?>
-                    <table class="table itemList" id="articleList">
+                    <table class="table itemList" id="websiteList">
                         <caption class="visually-hidden">
                             <?php echo Text::_('COM_MULTISITES_TABLE_CAPTION'); ?>
                             <span id="orderedBy"><?php echo Text::_('JGLOBAL_SORTED_BY'); ?> </span>,
@@ -65,6 +65,15 @@ endif;
                                 </th>
                                 <th scope="col">
                                     <?php echo HTMLHelper::_('searchtools.sort', 'COM_MULTISITES_HEADING_TITLE', 'a.title', $listDirn, $listOrder); ?>
+                                </th>
+                                <th scope="col">
+                                    <?php echo HTMLHelper::_('searchtools.sort', 'COM_MULTISITES_HEADING_BASEURL', 'a.baseurl', $listDirn, $listOrder); ?>
+                                </th>
+                                <th scope="col">
+                                    <?php echo HTMLHelper::_('searchtools.sort', 'COM_MULTISITES_HEADING_LANGCODE', 'a.langcode', $listDirn, $listOrder); ?>
+                                </th>
+                                <th scope="col">
+                                    <?php echo HTMLHelper::_('searchtools.sort', 'COM_MULTISITES_HEADING_LANGUAGE', 'a.language', $listDirn, $listOrder); ?>
                                 </th>
                                 <th scope="col" class="w-5">
                                     <?php echo HTMLHelper::_('searchtools.sort', 'COM_MULTISITES_HEADING_CREATED', 'a.created', $listDirn, $listOrder); ?>
@@ -124,6 +133,15 @@ endif;
                                     </div>
                                 </th>
                                 <td class="d-none d-md-table-cell">
+                                    <?php echo $this->escape($item->baseurl); ?>
+                                </td>
+                                <td class="d-none d-md-table-cell">
+                                    <?php echo $this->escape($item->langcode); ?>
+                                </td>
+                                <td class="d-none d-md-table-cell">
+                                    <?php echo $this->escape($item->language); ?>
+                                </td>
+                                <td class="d-none d-md-table-cell">
                                     <?php echo $item->created > 0 ? HTMLHelper::_('date', $item->created, Text::_('DATE_FORMAT_LC4')) : '-'; ?>
                                 </td>
                                 <td class="text-center d-none d-md-table-cell">
@@ -140,6 +158,7 @@ endif;
                 <?php endif; ?>
                 <input type="hidden" name="task" value="">
                 <input type="hidden" name="boxchecked" value="0">
+                <input type="hidden" name="group_id" value="<?php echo (int) $this->groupId ?>">
                 <?php echo HTMLHelper::_('form.token'); ?>
             </div>
         </div>
