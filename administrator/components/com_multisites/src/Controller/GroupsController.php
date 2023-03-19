@@ -86,9 +86,9 @@ class GroupsController extends AdminController
         $cid = array_filter($cid);
 
         if (empty($cid)) {
-            $this->setMessage(Text::_('COM_WORKFLOW_NO_ITEM_SELECTED'), 'warning');
+            $this->setMessage(Text::_('COM_MULTISITES_GROUPS_NO_ITEM_SELECTED'), 'warning');
         } elseif (count($cid) > 1) {
-            $this->setMessage(Text::_('COM_WORKFLOW_TOO_MANY_STAGES'), 'error');
+            $this->setMessage(Text::_('COM_MULTISITES_GROUP_TOO_MANY_WEBSITES'), 'error');
         } else {
             // Get the model.
             $model = $this->getModel();
