@@ -126,6 +126,7 @@ class WebsitesModel extends ListModel
                     [
                         'a.id',
                         'a.title',
+                        'a.default',
                         'a.checked_out',
                         'a.checked_out_time',
                         'a.state',

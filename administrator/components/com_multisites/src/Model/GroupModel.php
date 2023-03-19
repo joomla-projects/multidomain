@@ -166,6 +166,7 @@ class GroupModel extends AdminModel
 
 				return $data;
 		}
+
 		/**
 		 * Method to change the default state of one item.
 		 *
