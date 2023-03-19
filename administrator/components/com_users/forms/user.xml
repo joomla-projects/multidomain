@@ -138,7 +138,7 @@
 			type="multisitesGroups"
 			label="COM_USERS_USER_FIELD_MULTIGROUPS_LABEL"
 			default="0"
-			validate="optionss"
+			validate="options"
 		/>
 
 	</fieldset>
