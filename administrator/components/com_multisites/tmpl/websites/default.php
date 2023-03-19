@@ -103,7 +103,7 @@ endif;
                                         <?php echo HTMLHelper::_('jgrid.published', $item->state, $i, 'sites.', $canChange, 'cb'); ?>
                                     </div>
                                 </td>
-                                <th scope="row" class="small d-none d-md-table-cell">
+                                <th scope="row">
                                     <div class="break-word">
                                         <?php if ($item->checked_out) : ?>
                                             <?php echo HTMLHelper::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'sites.', $canCheckin); ?>
