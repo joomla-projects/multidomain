@@ -64,6 +64,7 @@ class UsersModel extends ListModel
                 'activation', 'a.activation',
                 'active',
                 'group_id',
+                'multisitesGroupId', 'a.multisitesGroupId',
                 'range',
                 'lastvisitrange',
                 'state',
@@ -375,6 +376,7 @@ class UsersModel extends ListModel
                             'a.password',
                             'a.block',
                             'a.sendEmail',
+                            'a.multisitesGroupId',
                             'a.registerDate',
                             'a.lastvisitDate',
                             'a.activation',
@@ -398,6 +400,20 @@ class UsersModel extends ListModel
             if (isset($groups)) {
                 $query->whereIn($db->quoteName('map2.group_id'), $groups);
             }
+        }
+
+        // Join over the multidomain groups
+        $query  ->select($db->quoteName('mg.title', 'multisitesGroupName'))
+                ->join(
+                    'LEFT',
+                    $db->quoteName('#__multisites_groups', 'mg') . ' ON ' . $db->quoteName('mg.id') . ' = ' . $db->quoteName('a.multisitesGroupId')
+                );
+
+        // Filter over multisutesGroup
+        $multisitesGroupId = $this->getState('filter.multisitesGroupId');
+
+        if (!empty($multisitesGroupId)) {
+            $query->where($db->quoteName('a.multisitesGroupId') . '=' . (int) $multisitesGroupId);
         }
 
         // Filter the items over the search string if set.
