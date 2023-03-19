@@ -57,10 +57,24 @@
 		/>
 
 		<field
+			name="image"
+			type="filelist"
+			label="COM_LANGUAGES_FIELD_IMAGE_LABEL"
+			stripext="1"
+			directory="media/mod_languages/images/"
+			hide_none="1"
+			hide_default="1"
+			fileFilter="\.gif$"
+			validate="options"
+		>
+			<option value="">JNONE</option>
+		</field>
+
+
+		<field
 			name="note"
-			type="editor"
-			label="JGLOBAL_DESCRIPTION"
-			filter="JComponentHelper::filterText"
+			type="textarea"
+			label="COM_MULTISITES_FIELD_NOTE_LABEL"
 			buttons="true"
 		/>
 
@@ -80,8 +94,56 @@
 		</field>
 	</fieldset>
 
-	<fieldset name="general" label="JGLOBAL_FIELDSET_CONTENT">
-		<!-- MVC_LANDMARK_FIELDS -->
+	<fieldset name="language" label="COM_MULTISITES_FIELDSET_LANGUAGE">
+		<field
+			name="image"
+			type="filelist"
+			label="COM_MULTISITES_FIELD_IMAGE_LABEL"
+			stripext="1"
+			directory="media/mod_languages/images/"
+			hide_none="1"
+			hide_default="1"
+			fileFilter="\.gif$"
+			validate="options"
+		>
+			<option value="">JNONE</option>
+		</field>
+
+		<field
+			name="langcode"
+			type="text"
+			label="COM_MULTISITES_FIELD_LANGCODE_LABEL"
+			description="COM_MULTISITES_FIELD_LANGCODE_DESC"
+			maxlength="7"
+			required="true"
+		/>
+	</fieldset>
+
+	<fieldset name="metadata" label="JGLOBAL_FIELDSET_METADATA_OPTIONS">
+		<field
+			name="metadesc"
+			type="textarea"
+			label="JFIELD_META_DESCRIPTION_LABEL"
+			rows="3"
+			cols="30"
+			maxlength="160"
+			charcounter="true"
+		/>
+
+		<field
+				name="metakey"
+				type="textarea"
+				label="JFIELD_META_KEYWORDS_LABEL"
+				rows="3"
+				cols="40"
+		/>
+
+		<field
+			name="sitename"
+			type="text"
+			label="COM_MULTISITES_FIELD_SITE_NAME_LABEL"
+			filter="string"
+		/>
 	</fieldset>
 
 	<fieldset name="publishing" label="JGLOBAL_FIELDSET_PUBLISHING">
@@ -123,22 +185,6 @@
 			validate="UserId"
 		/>
 	</fieldset>
-
-	<fields name="params">
-		<fieldset name="display" label="JGLOBAL_FIELDSET_DISPLAY_OPTIONS">
-			<fieldset name="basic" label="JGLOBAL_FIELDSET_DISPLAY_OPTIONS">
-				<field
-					name="site_layout"
-					type="componentlayout"
-					label="JFIELD_ALT_LAYOUT_LABEL"
-					class="form-select"
-					extension="com_multisites"
-					view="website"
-					useglobal="true"
-				/>
-			</fieldset>
-		</fieldset>
-	</fields>
 
 	<fieldset name="permissions" label="JCONFIG_PERMISSIONS_LABEL">
 		<field

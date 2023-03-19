@@ -51,7 +51,6 @@ $this->ignore_fieldsets = ['general'];
                     <?php echo $this->form->renderField('title_native'); ?>
                     <?php echo $this->form->renderField('baseurl'); ?>
                     <?php echo $this->form->renderField('group_id'); ?>
-                    <?php echo $this->form->renderField('note'); ?>
                     <?php echo $this->form->renderField('description'); ?>
                 </fieldset>
             </div>

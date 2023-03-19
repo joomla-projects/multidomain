@@ -747,7 +747,6 @@ CREATE TABLE IF NOT EXISTS "#__multisites_groups" (
 	"note" text DEFAULT '' NOT NULL,
 	-- MVC_LANDMARK_SiteFIELDS
 	"state" smallint DEFAULT 0 NOT NULL,
-	"params" text DEFAULT '' NOT NULL,
 	"checked_out" integer,
 	"checked_out_time" timestamp without time zone,
 	"created" timestamp without time zone NOT NULL,
@@ -767,12 +766,11 @@ CREATE TABLE IF NOT EXISTS "#__multisites_websites" (
 	"title" varchar(255) DEFAULT '' NOT NULL,
 	"title_native" varchar(255) DEFAULT '' NOT NULL,
 	"baseurl" varchar(400) DEFAULT '' NOT NULL,
-  "group_id" integer,
+	"group_id" integer,
 	"type" smallint DEFAULT 1 NOT NULL,
 	"note" text DEFAULT '' NOT NULL,
 	-- MVC_LANDMARK_DomainFIELDS
 	"state" smallint DEFAULT 0 NOT NULL,
-	"params" text DEFAULT '' NOT NULL,
 	"metakey" text DEFAULT '' NOT NULL,
 	"metadesc" text DEFAULT '' NOT NULL,
 	"sitename" varchar(255) DEFAULT '' NOT NULL,
