@@ -117,6 +117,8 @@ class WebsitesModel extends ListModel
         $db    = $this->getDatabase();
         $query = $db->getQuery(true);
 
+        $groupId = $this->getState('filter.group_id');
+
         // Select the required fields from the table.
         $query
             ->select(
@@ -180,7 +182,7 @@ class WebsitesModel extends ListModel
                 )
             )
             ->where($db->quoteName('a.group_id') . ' = :groupId')
-            ->bind(':groupId', $this->getState('filter.group_id'), ParameterType::INTEGER);
+            ->bind(':groupId', $groupId, ParameterType::INTEGER);
 
         $state = (string) $this->getState('filter.state');
 
