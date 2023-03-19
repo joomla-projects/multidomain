@@ -165,11 +165,11 @@ class InstallationController extends JSONController
     }
 
     /**
-     * Cleanup the Database or add custom data generated via PHP
+     * Populate the multidomain websites
      *
      * @return void
      */
-    public function cleanup()
+    public function populatesite()
     {
         $this->checkValidToken();
 
@@ -178,7 +178,7 @@ class InstallationController extends JSONController
         /** @var \Joomla\CMS\Installation\Model\DatabaseModel $model */
         $model = $this->getModel('Database');
 
-        if (!$model->cleanup()) {
+        if (!$model->populatesite()) {
             $r->view = 'setup';
         }
 

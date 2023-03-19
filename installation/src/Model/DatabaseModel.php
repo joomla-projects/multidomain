@@ -333,11 +333,11 @@ class DatabaseModel extends BaseInstallationModel
     }
 
     /**
-     * Add different variable data and cleanup the database
+     * Add websites for multidomain
      *
      * @return boolean  True on success.
      */
-    public function cleanup()
+    public function populatesite()
     {
         if (!$db = $this->initialise()) {
             return false;
@@ -360,8 +360,9 @@ class DatabaseModel extends BaseInstallationModel
         $website->metadesc          = '';
         $website->sitename          = '';
         $website->image             = 'en_gb';
-        $website->langcode          = 'en-gb';
+        $website->lang_code         = 'en-gb';
         $website->language          = 'en-GB';
+        $website->sef               = 'en';
         $website->checked_out       = null;
         $website->checked_out_time  = null;
         $website->created           = Factory::getDate()->toSql();

@@ -499,8 +499,9 @@ class LanguagesModel extends BaseInstallationModel implements DatabaseAwareInter
                 $updateWebsite->title        = $langTable->name;
                 $updateWebsite->title_native = $langTable->name;
                 $updateWebsite->image        = strtolower($langTable->element);
-                $updateWebsite->langcode     = strtolower($langTable->element);
+                $updateWebsite->lang_code    = strtolower($langTable->element);
                 $updateWebsite->language     = $langTable->element;
+                $updateWebsite->sef          = substr($langTable->element, 0, 2);
 
                 $this->getDatabase()->updateObject('#__multisites_websites', $updateWebsite, 'id');
             }
