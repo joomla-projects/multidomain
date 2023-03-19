@@ -12,10 +12,11 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
-use Joomla\CMS\Language\Multilanguage;
+use Joomla\CMS\Multisites\Multisite;
 use Joomla\CMS\Language\Text;
 
 $app       = Factory::getApplication();
+$db        = Factory::getDbo();
 $form      = $displayData->getForm();
 $input     = $app->getInput();
 $component = $input->getCmd('option', 'com_content');
@@ -36,7 +37,7 @@ $fields = $displayData->get('fields') ?: [
     'featured',
     'sticky',
     'access',
-    'language',
+    'website_id',
     'tags',
     'note',
     'version_note',
@@ -48,9 +49,9 @@ if (!$saveHistory) {
     $hiddenFields[] = 'version_note';
 }
 
-if (!Multilanguage::isEnabled()) {
-    $hiddenFields[] = 'language';
-    $form->setFieldAttribute('language', 'default', '*');
+if (!Multisites::isEnabled($app, $db)) {
+	$hiddenFields[] = 'website_id';
+	$form->setFieldAttribute('website_id', 'default', '1'); //TODO set value with new method @harald
 }
 
 $html   = [];

@@ -231,11 +231,11 @@
 		/>
 
 		<field
-			name="language"
-			type="contentlanguage"
-			label="JFIELD_LANGUAGE_LABEL"
+			name="website_id"
+			type="website"
+			label="JFIELD_WEBSITE_LABEL"
 			>
-			<option value="*">JALL</option>
+			<option value="">JOPTION_SELECT_WEBSITE</option>
 		</field>
 
 		<field

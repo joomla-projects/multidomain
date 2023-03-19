@@ -162,7 +162,7 @@ if (!empty($editor)) {
 
         <input type="hidden" name="task" value="">
         <input type="hidden" name="boxchecked" value="0">
-        <input type="hidden" name="forcedLanguage" value="<?php echo $app->getInput()->get('forcedLanguage', '', 'CMD'); ?>">
+        <input type="hidden" name="forcedWebsite" value="<?php echo $app->getInput()->get('forcedWebsite', '', 'CMD'); ?>">
         <?php echo HTMLHelper::_('form.token'); ?>
 
     </form>

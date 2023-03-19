@@ -185,7 +185,7 @@ CREATE TABLE IF NOT EXISTS `#__content` (
   `hits` int unsigned NOT NULL DEFAULT 0,
   `metadata` text NOT NULL,
   `featured` tinyint unsigned NOT NULL DEFAULT 0 COMMENT 'Set if article is featured.',
-  `language` char(7) NOT NULL COMMENT 'The language code for the article.',
+  `website_id` int(11) unsigned NOT NULL DEFAULT 0 COMMENT 'FK to the #__multisites_websites table.',
   `note` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `idx_access` (`access`),
@@ -194,7 +194,7 @@ CREATE TABLE IF NOT EXISTS `#__content` (
   KEY `idx_catid` (`catid`),
   KEY `idx_createdby` (`created_by`),
   KEY `idx_featured_catid` (`featured`,`catid`),
-  KEY `idx_language` (`language`),
+  KEY `idx_website_id` (`website_id`),
   KEY `idx_alias` (`alias`(191))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 

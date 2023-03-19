@@ -17,7 +17,7 @@ use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Associations;
-use Joomla\CMS\Language\Multilanguage;
+use Joomla\CMS\Multisites\Multisite;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
@@ -32,6 +32,7 @@ $wa->useScript('table.columns')
 
 $app       = Factory::getApplication();
 $user      = Factory::getUser();
+$db        = Factory::getDbo();
 $userId    = $user->get('id');
 $listOrder = $this->escape($this->state->get('list.ordering'));
 $listDirn  = $this->escape($this->state->get('list.direction'));
@@ -121,9 +122,9 @@ $assoc = Associations::isEnabled();
                                         <?php echo HTMLHelper::_('searchtools.sort', 'COM_CONTENT_HEADING_ASSOCIATION', 'association', $listDirn, $listOrder); ?>
                                     </th>
                                 <?php endif; ?>
-                                <?php if (Multilanguage::isEnabled()) : ?>
+                                <?php if (Multisite::isEnabled($app, $db)) : ?>
                                     <th scope="col" class="w-10 d-none d-md-table-cell">
-                                        <?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_LANGUAGE', 'language', $listDirn, $listOrder); ?>
+                                        <?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_WEBSITE', 'website_title', $listDirn, $listOrder); ?>
                                     </th>
                                 <?php endif; ?>
                                 <th scope="col" class="w-10 d-none d-md-table-cell text-center">
@@ -327,7 +328,7 @@ $assoc = Associations::isEnabled();
                                         <?php endif; ?>
                                     </td>
                                 <?php endif; ?>
-                                <?php if (Multilanguage::isEnabled()) : ?>
+                                <?php if (Multisite::isEnabled($app, $db)) : ?>
                                     <td class="small d-none d-md-table-cell">
                                         <?php echo LayoutHelper::render('joomla.content.language', $item); ?>
                                     </td>

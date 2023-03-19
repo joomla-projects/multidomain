@@ -202,7 +202,8 @@ class Content extends Table implements VersionableTableInterface, TaggableTableI
             $this->alias = $this->title;
         }
 
-        $this->alias = ApplicationHelper::stringURLSafe($this->alias, $this->language);
+		$language = MultiSites::getLanguage($this->website_id);
+        $this->alias = ApplicationHelper::stringURLSafe($this->alias, $language->lang_code);
 
         if (trim(str_replace('-', '', $this->alias)) == '') {
             $this->alias = Factory::getDate()->format('Y-m-d-H-i-s');
@@ -214,6 +215,13 @@ class Content extends Table implements VersionableTableInterface, TaggableTableI
 
             return false;
         }
+
+	    // Check for a valid website.
+	    if (!$this->website_id = (int) $this->website_id) {
+		    $this->setError(Text::_('JLIB_DATABASE_ERROR_WEBSITE_REQUIRED'));
+
+		    return false;
+	    }
 
         if (trim(str_replace('&nbsp;', '', $this->fulltext)) == '') {
             $this->fulltext = '';
@@ -345,7 +353,7 @@ class Content extends Table implements VersionableTableInterface, TaggableTableI
         // Verify that the alias is unique
         $table = Table::getInstance('Content', 'JTable', ['dbo' => $this->getDbo()]);
 
-        if ($table->load(['alias' => $this->alias, 'catid' => $this->catid]) && ($table->id != $this->id || $this->id == 0)) {
+        if ($table->load(['alias' => $this->alias, 'catid' => $this->catid, 'website_id' => $this->website_id]) && ($table->id != $this->id || $this->id == 0)) {
             // Is the existing article trashed?
             $this->setError(Text::_('COM_CONTENT_ERROR_UNIQUE_ALIAS'));
 

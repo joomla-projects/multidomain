@@ -61,7 +61,7 @@ class ArticlesModel extends ListModel
                 'featured', 'a.featured',
                 'featured_up', 'fp.featured_up',
                 'featured_down', 'fp.featured_down',
-                'language', 'a.language',
+                'website_id', 'a.website_id', 'website_title',
                 'hits', 'a.hits',
                 'publish_up', 'a.publish_up',
                 'publish_down', 'a.publish_down',
@@ -128,16 +128,16 @@ class ArticlesModel extends ListModel
         $app   = Factory::getApplication();
         $input = $app->getInput();
 
-        $forcedLanguage = $input->get('forcedLanguage', '', 'cmd');
+	    $forcedWebsite = $input->get('forcedWebsite', '', 'int');
 
         // Adjust the context to support modal layouts.
         if ($layout = $input->get('layout')) {
             $this->context .= '.' . $layout;
         }
 
-        // Adjust the context to support forced languages.
-        if ($forcedLanguage) {
-            $this->context .= '.' . $forcedLanguage;
+        // Adjust the context to support forced sites.
+        if ($forcedWebsite) {
+            $this->context .= '.' . $forcedWebsite;
         }
 
         $search = $this->getUserStateFromRequest($this->context . '.filter.search', 'filter_search');
@@ -152,8 +152,8 @@ class ArticlesModel extends ListModel
         $level = $this->getUserStateFromRequest($this->context . '.filter.level', 'filter_level');
         $this->setState('filter.level', $level);
 
-        $language = $this->getUserStateFromRequest($this->context . '.filter.language', 'filter_language', '');
-        $this->setState('filter.language', $language);
+        $websiteId = $this->getUserStateFromRequest($this->context . '.filter.website_id', 'filter_website_id', '');
+        $this->setState('filter.website_id', $websiteId);
 
         $formSubmitted = $input->post->get('form_submitted');
 
@@ -180,10 +180,10 @@ class ArticlesModel extends ListModel
         // List state information.
         parent::populateState($ordering, $direction);
 
-        // Force a language
-        if (!empty($forcedLanguage)) {
-            $this->setState('filter.language', $forcedLanguage);
-            $this->setState('filter.forcedLanguage', $forcedLanguage);
+        // Force a website
+        if (!empty($forcedWebsite)) {
+            $this->setState('filter.website_id', $forcedWebsite);
+            $this->setState('filter.forcedWebsite', $forcedWebsite);
         }
     }
 
@@ -208,7 +208,7 @@ class ArticlesModel extends ListModel
         $id .= ':' . $this->getState('filter.published');
         $id .= ':' . serialize($this->getState('filter.category_id'));
         $id .= ':' . serialize($this->getState('filter.author_id'));
-        $id .= ':' . $this->getState('filter.language');
+        $id .= ':' . $this->getState('filter.website_id');
         $id .= ':' . serialize($this->getState('filter.tag'));
 
         return parent::getStoreId($id);
@@ -250,7 +250,7 @@ class ArticlesModel extends ListModel
                     $db->quoteName('a.modified'),
                     $db->quoteName('a.ordering'),
                     $db->quoteName('a.featured'),
-                    $db->quoteName('a.language'),
+                    $db->quoteName('a.website_id'),
                     $db->quoteName('a.hits'),
                     $db->quoteName('a.publish_up'),
                     $db->quoteName('a.publish_down'),
@@ -269,8 +269,8 @@ class ArticlesModel extends ListModel
                 [
                     $db->quoteName('fp.featured_up'),
                     $db->quoteName('fp.featured_down'),
-                    $db->quoteName('l.title', 'language_title'),
-                    $db->quoteName('l.image', 'language_image'),
+                    $db->quoteName('mw.title', 'website_title'),
+                    $db->quoteName('mw.image', 'website_image'),
                     $db->quoteName('uc.name', 'editor'),
                     $db->quoteName('ag.title', 'access_level'),
                     $db->quoteName('c.title', 'category_title'),
@@ -290,7 +290,7 @@ class ArticlesModel extends ListModel
             )
             ->from($db->quoteName('#__content', 'a'))
             ->where($db->quoteName('wa.extension') . ' = ' . $db->quote('com_content.article'))
-            ->join('LEFT', $db->quoteName('#__languages', 'l'), $db->quoteName('l.lang_code') . ' = ' . $db->quoteName('a.language'))
+            ->join('LEFT', $db->quoteName('#__multisites_websites', 'mw'), $db->quoteName('mw.id') . ' = ' . $db->quoteName('a.website_id'))
             ->join('LEFT', $db->quoteName('#__content_frontpage', 'fp'), $db->quoteName('fp.content_id') . ' = ' . $db->quoteName('a.id'))
             ->join('LEFT', $db->quoteName('#__users', 'uc'), $db->quoteName('uc.id') . ' = ' . $db->quoteName('a.checked_out'))
             ->join('LEFT', $db->quoteName('#__viewlevels', 'ag'), $db->quoteName('ag.id') . ' = ' . $db->quoteName('a.access'))
@@ -471,10 +471,10 @@ class ArticlesModel extends ListModel
             }
         }
 
-        // Filter on the language.
-        if ($language = $this->getState('filter.language')) {
-            $query->where($db->quoteName('a.language') . ' = :language')
-                ->bind(':language', $language);
+        // Filter on the website.
+        if ($websiteId = $this->getState('filter.website_id')) {
+            $query->where($db->quoteName('a.website_id') . ' = :websiteId')
+                ->bind(':websiteId', $websiteId);
         }
 
         // Filter by a single or group of tags.

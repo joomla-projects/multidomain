@@ -176,7 +176,7 @@ CREATE TABLE IF NOT EXISTS "#__content" (
   "hits" bigint DEFAULT 0 NOT NULL,
   "metadata" text NOT NULL,
   "featured" smallint DEFAULT 0 NOT NULL,
-  "language" varchar(7) DEFAULT '' NOT NULL,
+  "website_id" bigint DEFAULT 0 NOT NULL,
   "note" varchar(255) DEFAULT '' NOT NULL,
   PRIMARY KEY ("id")
 );
@@ -186,12 +186,12 @@ CREATE INDEX "#__content_idx_state" ON "#__content" ("state");
 CREATE INDEX "#__content_idx_catid" ON "#__content" ("catid");
 CREATE INDEX "#__content_idx_createdby" ON "#__content" ("created_by");
 CREATE INDEX "#__content_idx_featured_catid" ON "#__content" ("featured", "catid");
-CREATE INDEX "#__content_idx_language" ON "#__content" ("language");
+CREATE INDEX "#__content_idx_website_id" ON "#__content" ("website_id");
 CREATE INDEX "#__content_idx_alias" ON "#__content" ("alias");
 
 COMMENT ON COLUMN "#__content"."asset_id" IS 'FK to the #__assets table.';
 COMMENT ON COLUMN "#__content"."featured" IS 'Set if article is featured.';
-COMMENT ON COLUMN "#__content"."language" IS 'The language code for the article.';
+COMMENT ON COLUMN "#__content"."website_id" IS 'FK to the #__multisites_websites table.';
 
 
 --
