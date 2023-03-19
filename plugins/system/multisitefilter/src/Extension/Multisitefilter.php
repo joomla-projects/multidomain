@@ -185,6 +185,7 @@ final class Multisitefilter extends CMSPlugin implements SubscriberInterface
         }
 
         // Attach parse rule.
+        $router->attachParseRule([$this, 'detectWebsiteRule'], Router::PROCESS_BEFORE);
         $router->attachParseRule([$this, 'parseRule'], Router::PROCESS_BEFORE);
     }
 
@@ -297,13 +298,40 @@ final class Multisitefilter extends CMSPlugin implements SubscriberInterface
      *
      * @since   __DEPLOY_VERSION__
      */
-    public function detectSiteRule(&$router, &$uri)
+    public function detectWebsiteRule(&$router, &$uri)
     {
         // Did we find the current and existing website yet?
         $found = false;
 
+        $host = $uri->getHost();
+        $port = $uri->getPort();
+        $path = $uri->getPath();
+        $hostQuery = '%' . $host . '%';
 
+        $db = Factory::getDbo();
+        $query = $db->getQuery(true);
+        $query->select('*')
+            ->from('#__multisites_websites')
+            ->where('baseurl like :host')
+            ->bind(':host', $hostQuery);
 
+        $db->setQuery($query);
+        $websites = $db->loadAssocList();
+
+        if (count($websites) === 0) {
+            throw new \Exception('No matching website found');
+        }
+
+        foreach($websites as $website) {
+            if (
+                $website['host'] !== $host
+            ) {
+                continue;
+            }
+            $this->websiteId = $website['id'];
+            break;
+
+        }
     }
 
     /**
