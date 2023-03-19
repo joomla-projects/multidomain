@@ -49,7 +49,7 @@ if (!$saveHistory) {
     $hiddenFields[] = 'version_note';
 }
 
-if (!Multisites::isEnabled($app, $db)) {
+if (!Multisite::isEnabled($app, $db)) {
 	$hiddenFields[] = 'website_id';
 	$form->setFieldAttribute('website_id', 'default', '1'); //TODO set value with new method @harald
 }
