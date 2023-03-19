@@ -47,6 +47,19 @@ class HtmlView extends ListView
     }
 
     /**
+     * Prepare view data
+     *
+     * @return  void
+     */
+    protected function initializeView(){
+        parent::initializeView();
+
+        if (!\count($this->items) && $this->isEmptyState = $this->get('IsEmptyState')) {
+            $this->setLayout('emptystate');
+        }
+    }
+
+    /**
      * Add the group title and toolbar.
      *
      * @return  void
@@ -59,7 +72,7 @@ class HtmlView extends ListView
         $user = $this->getCurrentUser();
         $toolbar = Toolbar::getInstance();
 
-        // Add a shortcut to the styles list view.
+        // Add a shortcut to the websites list view.
         $toolbar->linkButton('', 'COM_MULTISITES_MANAGER_WEBSITE_NEW')
             ->url('index.php?option=com_multisites&view=websites')
             ->icon('icon-brush thememanager');
