@@ -565,7 +565,7 @@ final class SiteApplication extends CMSApplication
             $user->groups   = [$guestUsergroup];
         }
 
-        if ($plugin = PluginHelper::getPlugin('system', 'languagefilter')) {
+        if ($plugin = PluginHelper::getPlugin('system', 'multisitefilter')) {
             $pluginParams = new Registry($plugin->params);
             $this->setLanguageFilter(true);
             $this->setDetectBrowser($pluginParams->get('detect_browser', 1) == 1);

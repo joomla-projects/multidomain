@@ -119,13 +119,13 @@ class PlgSampledataMultilang extends CMSPlugin
             return $response;
         }
 
-        if (!$this->enablePlugin('plg_system_languagefilter')) {
+        if (!$this->enablePlugin('plg_system_multisitefilter')) {
             $response            = [];
             $response['success'] = false;
 
             $lang = $this->app->getLanguage();
-            $lang->load('plg_system_languagefilter', JPATH_ADMINISTRATOR);
-            $message = $lang->_('PLG_SYSTEM_LANGUAGEFILTER');
+            $lang->load('plg_system_multisitefilter', JPATH_ADMINISTRATOR);
+            $message = $lang->_('PLG_SYSTEM_MULTISITEFILTER');
 
             $response['message'] = Text::sprintf('PLG_SAMPLEDATA_MULTILANG_ERROR_LANGFILTER', 2, $message);
 
@@ -480,7 +480,7 @@ class PlgSampledataMultilang extends CMSPlugin
         }
 
         // Store language filter plugin parameters.
-        if ($pluginName == 'plg_system_languagefilter') {
+        if ($pluginName == 'plg_system_multisitefilter') {
             $params = '{'
                 . '"detect_browser":"0",'
                 . '"automatic_change":"1",'
@@ -493,7 +493,7 @@ class PlgSampledataMultilang extends CMSPlugin
                 ->clear()
                 ->update($db->quoteName('#__extensions'))
                 ->set($db->quoteName('params') . ' = :params')
-                ->where($db->quoteName('name') . ' = ' . $db->quote('plg_system_languagefilter'))
+                ->where($db->quoteName('name') . ' = ' . $db->quote('plg_system_multisitefilter'))
                 ->where($db->quoteName('type') . ' = ' . $db->quote('plugin'))
                 ->bind(':params', $params);
 
