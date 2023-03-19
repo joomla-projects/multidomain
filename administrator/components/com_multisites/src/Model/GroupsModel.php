@@ -36,12 +36,11 @@ class GroupsModel extends ListModel
 		{
 				if (empty($config['filter_fields'])) {
 						$config['filter_fields'] = [
-							'id',
-							'a.id',
-							'state',
-							'a.state',
-							'ordering',
-							'a.ordering',
+							'id', 'a.id',
+                            'default', 'a.default',
+                            'types', 'a.types',
+							'state', 'a.state',
+							'ordering', 'a.ordering',
 						];
 				}
 
@@ -160,6 +159,11 @@ class GroupsModel extends ListModel
 				} else {
 						$query->where($db->quoteName('a.state') . ' IN (0, 1)');
 				}
+
+                $default = (int)$this->getState('filter.default');
+                if($default === 1){
+                    $query->where($db->quoteName('a.default') . ' = 1');
+                }
 
 				// Filter by search in title
 				$search = $this->getState('filter.search');
