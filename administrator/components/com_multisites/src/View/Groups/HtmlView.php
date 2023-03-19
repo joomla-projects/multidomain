@@ -72,7 +72,7 @@ class HtmlView extends ListView
         $user = $this->getCurrentUser();
         $toolbar = Toolbar::getInstance();
 
-        // Add a shortcut to the websites list view.
+        // Add a shortcut to the styles list view.
         $toolbar->linkButton('', 'COM_MULTISITES_MANAGER_WEBSITE_NEW')
             ->url('index.php?option=com_multisites&view=websites')
             ->icon('icon-brush thememanager');
