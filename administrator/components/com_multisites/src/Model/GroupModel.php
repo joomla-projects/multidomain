@@ -166,6 +166,62 @@ class GroupModel extends AdminModel
 
 				return $data;
 		}
+		/**
+		 * Method to change the default state of one item.
+		 *
+		 * @param   array    $pk     A list of the primary keys to change.
+		 * @param   integer  $value  The value of the home state.
+		 *
+		 * @return  boolean  True on success.
+		 *
+		 * @since  __DEPLOY_VERSION__
+		 */
+		public function setDefault($pk, $value = 1)
+		{
+			$table = $this->getTable();
+	
+			if ($table->load($pk)) {
+				if ($table->state !== 1) {
+					$this->setError(Text::_('COM_MULTISITE_DEFAULT_ITEM_HAS_TO_BE_PUBLISHED'));
+	
+					return false;
+				}
+			}
+	
+			if (empty($table->id) || !$this->canEditState($table)) {
+				Log::add(Text::_('JLIB_APPLICATION_ERROR_EDITSTATE_NOT_PERMITTED'), Log::WARNING, 'jerror');
+	
+				return false;
+			}
+	
+			$date = Factory::getDate()->toSql();
+	
+			if ($value) {
+				// Unset other default item
+				if (
+					$table->load(
+						[
+						'default' => '1',
+						]
+					)
+				) {
+					$table->default  = 0;
+					$table->modified = $date;
+					$table->store();
+				}
+			}
+	
+			if ($table->load($pk)) {
+				$table->modified = $date;
+				$table->default  = $value;
+				$table->store();
+			}
+	
+			// Clean the cache
+			$this->cleanCache();
+	
+			return true;
+		}
 
 		/**
 		 * Method to validate the form data.
