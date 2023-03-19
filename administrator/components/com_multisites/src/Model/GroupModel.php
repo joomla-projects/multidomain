@@ -208,6 +208,7 @@ class GroupModel extends AdminModel
                 'e.enabled'
             ]))
                 ->from($db->quoteName('#__extensions', 'e'))
+                ->where($db->quoteName('e.protected') . ' = 0')
                 ->whereIn('type', array_keys($extensions), ParameterType::STRING);
 
             $rows = $db->setQuery($query)->loadObjectList();

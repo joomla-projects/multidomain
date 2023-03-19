@@ -40,10 +40,11 @@
 		<field
 			name="extensionassignment"
 			type="list"
+			validate="options"
+			filter="int"
 			label="COM_MULTISITES_FIELD_ASSIGNMENT_LABEL"
 		>
 			<option value="0">COM_MULTISITES_OPTION_ASSIGNMENT_ALL</option>
-			<option value="1">COM_MULTISITES_OPTION_ASSIGNMENT_INCLUDE</option>
 			<option value="-1">COM_MULTISITES_OPTION_ASSIGNMENT_EXCLUDE</option>
 		</field>
 

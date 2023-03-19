@@ -63,16 +63,14 @@ $this->document->getWebAssetManager()
 
                                         $selected = 0;
                                         if ($this->item->assignment == 0) {
-                                            $selected = 1;
-                                        } elseif ($this->item->assignment < 0) {
+                                            $selected = 0;
+                                        } else {
                                             $selected = in_array(-$extension->extension_id, $this->item->extensionsassigned);
-                                        } elseif ($this->item->assignment > 0) {
-                                            $selected = in_array($extension->extension_id, $this->item->extensionsassigned);
                                         }
                                         ?>
-                                        <input type="checkbox" class="novalidate form-check-input" name="jform[extensionsassigned][]" id="<?php echo $id . $extension->extension_id; ?>" value="<?php echo (int) $extension->extension_id; ?>"<?php echo $selected ? ' checked="checked"' : ''; ?>
+                                        <input type="checkbox" class="novalidate form-check-input" name="jform[extensionsassigned][]" id="<?php echo $id . $extension->extension_id; ?>" value="<?php echo (int) $extension->extension_id; ?>"<?php echo $selected ? ' checked="checked"' : ''; ?> />
                                         <label for="<?php echo $id . $extension->extension_id; ?>" class="">
-                                            <?php echo $extension->name; ?>
+                                            <?php echo Text::_(strtoupper($extension->name)); ?>
                                             <?php if ($extension->enabled == 0) : ?>
                                                 <?php echo ' <span class="badge bg-secondary">' . Text::_('JUNPUBLISHED') . '</span>'; ?>
                                             <?php endif; ?>

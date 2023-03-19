@@ -30,7 +30,7 @@ class GroupTable extends Table
 		 * @since  __DEPLOY_VERSION__
 		 */
 		protected $_jsonEncode = [
-			'params'
+            'extensionsassigned'
 		];
 
 		/**
@@ -56,7 +56,7 @@ class GroupTable extends Table
 				$this->setColumnAlias('published', 'state');
 		}
 
-		/**
+    /**
 		 * Stores a Group.
 		 *
 		 * @param boolean $updateNulls True to update fields even if they are null.

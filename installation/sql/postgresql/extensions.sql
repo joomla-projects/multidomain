@@ -745,7 +745,8 @@ CREATE TABLE IF NOT EXISTS "#__multisites_groups" (
 	"title" varchar(255) DEFAULT '' NOT NULL,
 	"alias" varchar(400) DEFAULT '' NOT NULL,
 	"note" text DEFAULT '' NOT NULL,
-	-- MVC_LANDMARK_SiteFIELDS
+	"extensionassignment" smallint DEFAULT 0 NOT NULL,
+	"extensionsassigned" text DEFAULT '' NOT NULL,
 	"state" smallint DEFAULT 0 NOT NULL,
 	"checked_out" integer,
 	"checked_out_time" timestamp without time zone,
