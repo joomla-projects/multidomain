@@ -130,6 +130,10 @@ class GroupTable extends Table
 					$this->modified_by = $this->created_by;
 			}
 
+			if (empty($this->params)) {
+				$this->params = '{}';
+			}
+
 			// The default website has to be published
 			if (!empty($this->default)) {
 				if ((int) $this->state !== 1) {

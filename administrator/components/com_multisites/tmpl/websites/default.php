@@ -60,6 +60,9 @@ endif;
                                 <th scope="col" class="w-5 text-center">
                                     <?php echo HTMLHelper::_('searchtools.sort', 'JSTATUS', 'a.state', $listDirn, $listOrder); ?>
                                 </th>
+                                <th scope="col" class="w-5 text-center">
+                                    <?php echo HTMLHelper::_('searchtools.sort', 'JDEFAULT', 'a.default', $listDirn, $listOrder); ?>
+                                </th>
                                 <th scope="col">
                                     <?php echo HTMLHelper::_('searchtools.sort', 'COM_MULTISITES_HEADING_TITLE', 'a.title', $listDirn, $listOrder); ?>
                                 </th>
@@ -102,6 +105,9 @@ endif;
                                     <div class="btn-group">
                                         <?php echo HTMLHelper::_('jgrid.published', $item->state, $i, 'sites.', $canChange, 'cb'); ?>
                                     </div>
+                                </td>
+                                <td class="text-center">
+                                    <?php echo HTMLHelper::_('jgrid.isdefault', $item->default, $i, 'websites.', $canChange); ?>
                                 </td>
                                 <th scope="row">
                                     <div class="break-word">

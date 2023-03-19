@@ -56,7 +56,7 @@ class HtmlView extends ListView
     protected function initializeView(){
         parent::initializeView();
 
-        if (!\count($this->items) && $this->isEmptyState = $this->get('IsEmptyState')) {
+        if (empty($this->items) && $this->isEmptyState = $this->get('IsEmptyState')) {
             $this->setLayout('emptystate');
         }
     }
@@ -66,7 +66,7 @@ class HtmlView extends ListView
      *
      * @return  void
      *
-     * @since   1.6
+     * @since   __DEPLOY_VERSION__
      */
     protected function addToolbar()
     {
@@ -74,7 +74,7 @@ class HtmlView extends ListView
         $user = $this->getCurrentUser();
         $toolbar = Toolbar::getInstance();
 
-        ToolbarHelper::title(Text::_('COM_MULTISITES_MANAGER_GROUPS'), 'copy websites');
+        ToolbarHelper::title(Text::_('COM_MULTISITES_MANAGER_WEBSITES'), 'copy websites');
 
         $arrow  = Factory::getApplication()->getLanguage()->isRtl() ? 'arrow-right' : 'arrow-left';
 
@@ -104,10 +104,7 @@ class HtmlView extends ListView
 
                 $childBar->unpublish('websites.unpublish')->listCheck(true);
 
-                $childBar->standardButton('featured', 'JFEATURE', 'websites.featured')
-                    ->listCheck(true);
-
-                $childBar->standardButton('unfeatured', 'JUNFEATURE', 'websites.unfeatured')
+                $childBar->standardButton('featured', 'JDEFAULT', 'websites.default')
                     ->listCheck(true);
 
                 $childBar->archive('websites.archive')->listCheck(true);

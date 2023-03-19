@@ -63,7 +63,7 @@ class WebsitesModel extends ListModel
     {
         $app = Factory::getApplication();
 
-        $groupId = $app->getUserStateFromRequest($this->context . '.filter.group_id', 'group_id', 0, 'int');
+        $groupId = $app->getUserStateFromRequest('com_multisites.websites.filter.group_id', 'group_id', 0, 'int');
 
         if ($groupId) {
             $table = $this->getTable('Group', 'Administrator');
@@ -124,6 +124,7 @@ class WebsitesModel extends ListModel
                     [
                         'a.id',
                         'a.title',
+                        'a.default',
                         'a.checked_out',
                         'a.checked_out_time',
                         'a.state',

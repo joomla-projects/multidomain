@@ -59,6 +59,14 @@
 			>
 			<option value="">COM_USERS_OPTION_FILTER_DATE</option>
 		</field>
+		<field
+			name="multisitesGroupId"
+			type="multisitesGroups"
+			label="COM_USERS_MULTISITES_GROUPS"
+			class="js-select-submit-on-change"
+			>
+			<option value="">COM_USERS_OPTION_FILTER_MULTISITESGROUPS</option>
+		</field>
 	</fields>
 	<fields name="list">
 		<field

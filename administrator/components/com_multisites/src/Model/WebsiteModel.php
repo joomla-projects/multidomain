@@ -12,6 +12,8 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\Registry;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Log\Log;
 use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\Object\CMSObject;
 
@@ -139,6 +141,64 @@ class WebsiteModel extends AdminModel
 		}
 
 		/**
+		 * Method to change the default state of one item.
+		 *
+		 * @param   array    $pk     A list of the primary keys to change.
+		 * @param   integer  $value  The value of the home state.
+		 *
+		 * @return  boolean  True on success.
+		 *
+		 * @since  __DEPLOY_VERSION__
+		 */
+		public function setDefault($pk, $value = 1)
+		{
+			$table = $this->getTable();
+	
+			if ($table->load($pk)) {
+				if ($table->state !== 1) {
+					$this->setError(Text::_('COM_MULTISITE_DEFAULT_ITEM_HAS_TO_BE_PUBLISHED'));
+	
+					return false;
+				}
+			}
+	
+			if (empty($table->id) || !$this->canEditState($table)) {
+				Log::add(Text::_('JLIB_APPLICATION_ERROR_EDITSTATE_NOT_PERMITTED'), Log::WARNING, 'jerror');
+	
+				return false;
+			}
+	
+			$date = Factory::getDate()->toSql();
+	
+			if ($value) {
+				// Unset other default item
+				if (
+					$table->load(
+						[
+						'default' => '1',
+						'group_id' => (int) $table->group_id
+						]
+					)
+				) {
+					$table->default  = 0;
+					$table->modified = $date;
+					$table->store();
+				}
+			}
+	
+			if ($table->load($pk)) {
+				$table->modified = $date;
+				$table->default  = $value;
+				$table->store();
+			}
+	
+			// Clean the cache
+			$this->cleanCache();
+	
+			return true;
+		}
+
+		/**
 		 * Method to save the form data.
 		 *
 		 * @param   array  $data  The form data.
@@ -220,6 +280,8 @@ class WebsiteModel extends AdminModel
 
 				return $data;
 		}
+
+
 
 		/**
 		 * Method to validate the form data.
