@@ -43,7 +43,7 @@ endif;
                         <?php echo Text::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
                     </div>
                 <?php else : ?>
-                    <table class="table itemList" id="articleList">
+                    <table class="table itemList" id="websiteList">
                         <caption class="visually-hidden">
                             <?php echo Text::_('COM_MULTISITES_TABLE_CAPTION'); ?>
                             <span id="orderedBy"><?php echo Text::_('JGLOBAL_SORTED_BY'); ?> </span>,
@@ -60,8 +60,20 @@ endif;
                                 <th scope="col" class="w-5 text-center">
                                     <?php echo HTMLHelper::_('searchtools.sort', 'JSTATUS', 'a.state', $listDirn, $listOrder); ?>
                                 </th>
+                                <th scope="col" class="w-5 text-center">
+                                    <?php echo HTMLHelper::_('searchtools.sort', 'JDEFAULT', 'a.default', $listDirn, $listOrder); ?>
+                                </th>
                                 <th scope="col">
                                     <?php echo HTMLHelper::_('searchtools.sort', 'COM_MULTISITES_HEADING_TITLE', 'a.title', $listDirn, $listOrder); ?>
+                                </th>
+                                <th scope="col">
+                                    <?php echo HTMLHelper::_('searchtools.sort', 'COM_MULTISITES_HEADING_BASEURL', 'a.baseurl', $listDirn, $listOrder); ?>
+                                </th>
+                                <th scope="col">
+                                    <?php echo HTMLHelper::_('searchtools.sort', 'COM_MULTISITES_HEADING_LANG_CODE', 'a.lang_code', $listDirn, $listOrder); ?>
+                                </th>
+                                <th scope="col">
+                                    <?php echo HTMLHelper::_('searchtools.sort', 'COM_MULTISITES_HEADING_LANGUAGE', 'a.language', $listDirn, $listOrder); ?>
                                 </th>
                                 <th scope="col" class="w-5">
                                     <?php echo HTMLHelper::_('searchtools.sort', 'COM_MULTISITES_HEADING_CREATED', 'a.created', $listDirn, $listOrder); ?>
@@ -103,6 +115,9 @@ endif;
                                         <?php echo HTMLHelper::_('jgrid.published', $item->state, $i, 'sites.', $canChange, 'cb'); ?>
                                     </div>
                                 </td>
+                                <td class="text-center">
+                                    <?php echo HTMLHelper::_('jgrid.isdefault', $item->default, $i, 'websites.', $canChange); ?>
+                                </td>
                                 <th scope="row">
                                     <div class="break-word">
                                         <?php if ($item->checked_out) : ?>
@@ -117,6 +132,15 @@ endif;
                                         <?php endif; ?>
                                     </div>
                                 </th>
+                                <td class="d-none d-md-table-cell">
+                                    <?php echo $this->escape($item->baseurl); ?>
+                                </td>
+                                <td class="d-none d-md-table-cell">
+                                    <?php echo $this->escape($item->lang_code); ?>
+                                </td>
+                                <td class="d-none d-md-table-cell">
+                                    <?php echo $this->escape($item->language); ?>
+                                </td>
                                 <td class="d-none d-md-table-cell">
                                     <?php echo $item->created > 0 ? HTMLHelper::_('date', $item->created, Text::_('DATE_FORMAT_LC4')) : '-'; ?>
                                 </td>
@@ -134,6 +158,7 @@ endif;
                 <?php endif; ?>
                 <input type="hidden" name="task" value="">
                 <input type="hidden" name="boxchecked" value="0">
+                <input type="hidden" name="group_id" value="<?php echo (int) $this->groupId ?>">
                 <?php echo HTMLHelper::_('form.token'); ?>
             </div>
         </div>

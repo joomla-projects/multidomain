@@ -43,7 +43,7 @@ endif;
                         <?php echo Text::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
                     </div>
                 <?php else : ?>
-                    <table class="table itemList" id="articleList">
+                    <table class="table itemList" id="groupsList">
                         <caption class="visually-hidden">
                             <?php echo Text::_('COM_MULTISITES_TABLE_CAPTION'); ?>
                             <span id="orderedBy"><?php echo Text::_('JGLOBAL_SORTED_BY'); ?> </span>,
@@ -59,6 +59,9 @@ endif;
                                 </th>
                                 <th scope="col" class="w-5 text-center">
                                     <?php echo HTMLHelper::_('searchtools.sort', 'JSTATUS', 'a.state', $listDirn, $listOrder); ?>
+                                </th>
+                                <th scope="col" class="w-5 text-center">
+                                    <?php echo HTMLHelper::_('searchtools.sort', 'JDEFAULT', 'a.default', $listDirn, $listOrder); ?>
                                 </th>
                                 <th scope="col">
                                     <?php echo HTMLHelper::_('searchtools.sort', 'COM_MULTISITES_HEADING_TITLE', 'a.title', $listDirn, $listOrder); ?>
@@ -103,25 +106,28 @@ endif;
                                     <input type="text" name="order[]" size="5" value="<?php echo $item->ordering; ?>" class="width-20 text-area-order hidden">
                                     <?php endif; ?>
                                 </td>
-                                    <td class="text-center">
-                                        <div class="btn-group">
-                                            <?php echo HTMLHelper::_('jgrid.published', $item->state, $i, 'groups.', $canChange, 'cb'); ?>
-                                        </div>
-                                    </td>
-                                    <th scope="row">
-                                        <div class="break-word">
-                                            <?php if ($item->checked_out) : ?>
-                                            <?php echo HTMLHelper::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'groups.', $canCheckin); ?>
-                                            <?php endif; ?>
-                                            <?php if ($canEdit || $canEditOwn) : ?>
-                                            <a href="<?php echo Route::_('index.php?option=com_multisites&task=group.edit&id=' . $item->id); ?>" title="<?php echo Text::_('JACTION_EDIT'); ?> <?php echo $this->escape($item->title); ?>">
-                                                <?php echo $this->escape($item->title); ?>
-                                            </a>
-                                            <?php else : ?>
-                                            <span><?php echo $this->escape($item->title); ?></span>
-                                            <?php endif; ?>
-                                         </div>
-                                    </th>
+                                <td class="text-center">
+                                    <div class="btn-group">
+                                        <?php echo HTMLHelper::_('jgrid.published', $item->state, $i, 'groups.', $canChange, 'cb'); ?>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <?php echo HTMLHelper::_('jgrid.isdefault', $item->default, $i, 'groups.', $canChange); ?>
+                                </td>
+                                <th scope="row">
+                                    <div class="break-word">
+                                        <?php if ($item->checked_out) : ?>
+                                        <?php echo HTMLHelper::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'groups.', $canCheckin); ?>
+                                        <?php endif; ?>
+                                        <?php if ($canEdit || $canEditOwn) : ?>
+                                        <a href="<?php echo Route::_('index.php?option=com_multisites&task=group.edit&id=' . $item->id); ?>" title="<?php echo Text::_('JACTION_EDIT'); ?> <?php echo $this->escape($item->title); ?>">
+                                            <?php echo $this->escape($item->title); ?>
+                                        </a>
+                                        <?php else : ?>
+                                        <span><?php echo $this->escape($item->title); ?></span>
+                                        <?php endif; ?>
+                                    </div>
+                                </th>
                                 <td class="text-center btns d-none d-md-table-cell itemnumber">
                                     <a class="btn <?php echo ($item->count_websites > 0) ? 'btn-warning' : 'btn-secondary'; ?>"
                                         href="<?php echo Route::_('index.php?option=com_multisites&view=websites&group_id=' . (int) $item->id); ?>"

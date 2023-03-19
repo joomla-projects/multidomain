@@ -34,31 +34,41 @@ $tmpl    = $isModal || $input->get('tmpl', '', 'cmd') === 'component' ? '&tmpl=c
 
 // Load formfields
 $fieldsets = $this->form->getFieldsets();
-$this->ignore_fieldsets = ['general'];
+$this->ignore_fieldsets = ['language', 'metadata'];
 ?>
 <form action="<?php echo Route::_('index.php?option=com_multisites&layout=' . $layout . $tmpl . '&id=' . $this->item->id); ?>" method="post" name="adminForm" id="item-form" class="form-validate">
-    <?php echo LayoutHelper::render('joomla.edit.title_alias', $this); ?>
+    <div class="row title-alias form-vertical mb-3">
+        <div class="col-12 col-md-6">
+			<?php echo $this->form->renderField('title'); ?>
+        </div>
+        <div class="col-12 col-md-6">
+	        <?php echo $this->form->renderField('baseurl'); ?>
+        </div>
+    </div>
 
     <div class="main-card">
         <?php echo HTMLHelper::_('uitab.startTabSet', 'myTab', ['active' => 'general', 'recall' => true, 'breakpoint' => 768]); ?>
-        <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'general', Text::_($fieldsets['general']->label ??'JGLOBAL_FIELDSET_CONTENT')); ?>
+        <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'general', Text::_('COM_MULTISITES_FIELDSET_LANGUAGE')); ?>
         <div class="row">
             <div class="col-lg-7">
                 <fieldset>
-                    <?php echo $this->form->renderFieldset('general'); ?>
-                </fieldset>
-                <fieldset class="form-vertical">
-                    <?php echo $this->form->renderField('title_native'); ?>
-                    <?php echo $this->form->renderField('baseurl'); ?>
-                    <?php echo $this->form->renderField('group_id'); ?>
-                    <?php echo $this->form->renderField('description'); ?>
+                    <?php echo $this->form->renderFieldset('language'); ?>
                 </fieldset>
             </div>
             <div class="col-lg-3 ms-lg-auto">
                 <?php echo LayoutHelper::render('joomla.edit.global', $this); ?>
             </div>
         </div>
+        <?php echo HTMLHelper::_('uitab.endTab'); ?>
 
+        <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'metadata',  Text::_('JGLOBAL_FIELDSET_METADATA_OPTIONS')); ?>
+        <div class="row">
+            <div class="col-lg-12">
+                <fieldset>
+				    <?php echo $this->form->renderFieldset('metadata'); ?>
+                </fieldset>
+            </div>
+        </div>
         <?php echo HTMLHelper::_('uitab.endTab'); ?>
 
         <?php echo LayoutHelper::render('joomla.edit.params', $this); ?>

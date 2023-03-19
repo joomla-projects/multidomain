@@ -10,9 +10,11 @@ namespace Joomla\Component\Multisites\Administrator\View\Websites;
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\ContentHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\ListView;
+use Joomla\CMS\Router\Route;
 use Joomla\CMS\Toolbar\Button\DropdownButton;
 use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
@@ -25,6 +27,12 @@ use Joomla\Component\Content\Administrator\Extension\ContentComponent;
  */
 class HtmlView extends ListView
 {
+    /**
+     * The ID of the group we're in
+     *
+     * @var int
+     */
+    protected $groupId;
 
     /**
      * Constructor
@@ -47,11 +55,32 @@ class HtmlView extends ListView
     }
 
     /**
+     * Prepare view data
+     *
+     * @return  void
+     */
+    protected function initializeView(){
+        parent::initializeView();
+
+        $group = $this->get('Group');
+
+        if (empty($group->id)) {
+            throw new \Exception(Text::_('JERROR_ALERTNOAUTHOR'), 403);
+        }
+
+        $this->groupId = $group->id;
+
+        if (empty($this->items) && $this->isEmptyState = $this->get('IsEmptyState')) {
+            $this->setLayout('emptystate');
+        }
+    }
+
+    /**
      * Add the websites title and toolbar.
      *
      * @return  void
      *
-     * @since   1.6
+     * @since   __DEPLOY_VERSION__
      */
     protected function addToolbar()
     {
@@ -59,7 +88,15 @@ class HtmlView extends ListView
         $user = $this->getCurrentUser();
         $toolbar = Toolbar::getInstance();
 
-        ToolbarHelper::title(Text::_('COM_MULTISITES_MANAGER_GROUPS'), 'copy websites');
+        ToolbarHelper::title(Text::_('COM_MULTISITES_MANAGER_WEBSITES'), 'copy websites');
+
+        $arrow  = Factory::getApplication()->getLanguage()->isRtl() ? 'arrow-right' : 'arrow-left';
+
+        $toolbar->link(
+            'JTOOLBAR_BACK',
+            Route::_('index.php?option=com_multisites&view=groups')
+        )
+            ->icon('icon-' . $arrow);
 
         if ($canDo->get('core.create')) {
             $toolbar->addNew('website.add');
@@ -81,10 +118,7 @@ class HtmlView extends ListView
 
                 $childBar->unpublish('websites.unpublish')->listCheck(true);
 
-                $childBar->standardButton('featured', 'JFEATURE', 'websites.featured')
-                    ->listCheck(true);
-
-                $childBar->standardButton('unfeatured', 'JUNFEATURE', 'websites.unfeatured')
+                $childBar->standardButton('featured', 'JDEFAULT', 'websites.default')
                     ->listCheck(true);
 
                 $childBar->archive('websites.archive')->listCheck(true);

@@ -107,30 +107,67 @@ class GroupTable extends Table
 		 */
 		public function check()
 		{
-				try {
-						parent::check();
-				} catch (\Exception $e) {
-						$this->setError($e->getMessage());
+			try {
+					parent::check();
+			} catch (\Exception $e) {
+					$this->setError($e->getMessage());
 
-						return false;
+					return false;
+			}
+
+			// Check for valid title
+			if (trim($this->title) == '') {
+					$this->setError(Text::_('COM_MULTISITES_WARNING_PROVIDE_VALID_TITLE'));
+
+					return false;
+			}
+
+			if (!$this->modified) {
+					$this->modified = $this->created;
+			}
+
+			if (empty($this->modified_by)) {
+					$this->modified_by = $this->created_by;
+			}
+
+			if (empty($this->params)) {
+				$this->params = '{}';
+			}
+
+			// The default website has to be published
+			if (!empty($this->default)) {
+				if ((int) $this->state !== 1) {
+					$this->setError(Text::_('COM_MULTISITES_WEBSITE_MUST_PUBLISHED'));
+	
+					return false;
 				}
+			} else {
+				$db    = $this->getDbo();
+				$query = $db->getQuery(true);
+	
+				$query
+					->select($db->quoteName('id'))
+					->from($db->quoteName('#__multisites_groups'))
+					->where(
+						[
+							$db->quoteName('default') . ' = 1',
+						]
+					);
 
-				// Check for valid title
-				if (trim($this->title) == '') {
-						$this->setError(Text::_('COM_MULTISITES_WARNING_PROVIDE_VALID_TITLE'));
+				$id = $db->setQuery($query)->loadResult();
 
-						return false;
+				// If there is no default stage => set the current to default to recover
+				if (empty($id)) {
+					$this->default = '1';
+				} elseif ($id === $this->id) {
+					// This stage is the default, but someone has tried to disable it => not allowed
+					$this->setError(Text::_('COM_MULTISITES_GROUP_CANNOT_DISABLE_DEFAULT'));
+	
+					return false;
 				}
+			}
 
-				if (!$this->modified) {
-						$this->modified = $this->created;
-				}
-
-				if (empty($this->modified_by)) {
-						$this->modified_by = $this->created_by;
-				}
-
-				return true;
+			return true;
 		}
 
 		/**
