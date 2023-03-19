@@ -37,6 +37,7 @@ $fields = $displayData->get('fields') ?: [
     'sticky',
     'access',
     'tags',
+    'website_id',
     'note',
     'version_note',
 ];
