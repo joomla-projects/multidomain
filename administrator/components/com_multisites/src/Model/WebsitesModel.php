@@ -126,7 +126,7 @@ class WebsitesModel extends ListModel
                         'a.title',
                         'a.default',
                         'a.baseurl',
-                        'a.langcode',
+                        'a.lang_code',
                         'a.language',
                         'a.checked_out',
                         'a.checked_out_time',

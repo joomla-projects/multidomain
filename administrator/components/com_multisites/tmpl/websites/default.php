@@ -70,7 +70,7 @@ endif;
                                     <?php echo HTMLHelper::_('searchtools.sort', 'COM_MULTISITES_HEADING_BASEURL', 'a.baseurl', $listDirn, $listOrder); ?>
                                 </th>
                                 <th scope="col">
-                                    <?php echo HTMLHelper::_('searchtools.sort', 'COM_MULTISITES_HEADING_LANGCODE', 'a.langcode', $listDirn, $listOrder); ?>
+                                    <?php echo HTMLHelper::_('searchtools.sort', 'COM_MULTISITES_HEADING_LANG_CODE', 'a.lang_code', $listDirn, $listOrder); ?>
                                 </th>
                                 <th scope="col">
                                     <?php echo HTMLHelper::_('searchtools.sort', 'COM_MULTISITES_HEADING_LANGUAGE', 'a.language', $listDirn, $listOrder); ?>
@@ -136,7 +136,7 @@ endif;
                                     <?php echo $this->escape($item->baseurl); ?>
                                 </td>
                                 <td class="d-none d-md-table-cell">
-                                    <?php echo $this->escape($item->langcode); ?>
+                                    <?php echo $this->escape($item->lang_code); ?>
                                 </td>
                                 <td class="d-none d-md-table-cell">
                                     <?php echo $this->escape($item->language); ?>
