@@ -789,6 +789,7 @@ CREATE TABLE IF NOT EXISTS `#__multisites_groups` (
   `alias` varchar(400) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '',
   `note` text NOT NULL,
   `state` tinyint NOT NULL DEFAULT 0,
+  `default` tinyint NOT NULL DEFAULT 0,
   `checked_out` int unsigned,
   `checked_out_time` datetime,
   `created` datetime NOT NULL,
@@ -820,6 +821,7 @@ CREATE TABLE IF NOT EXISTS `#__multisites_websites` (
   `sitename` varchar(1024) DEFAULT '' NOT NULL,
   `image` varchar(50) NOT NULL,
   `langcode` varchar(7) NOT NULL,
+  `language` char(7) NOT NULL DEFAULT '',
   `checked_out` int unsigned,
   `checked_out_time` datetime,
   `created` datetime NOT NULL,
@@ -831,7 +833,8 @@ CREATE TABLE IF NOT EXISTS `#__multisites_websites` (
   KEY `idx_type` (`type`),
   KEY `idx_state` (`state`,`type`),
   KEY `idx_base_url` (`baseurl`),
-  KEY `idx_langcode` (`langcode`)
+  KEY `idx_langcode` (`langcode`),
+  KEY `idx_language` (`language`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
