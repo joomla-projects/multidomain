@@ -23,6 +23,7 @@ use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Router\SiteRouter;
 use Joomla\CMS\Uri\Uri;
+use Joomla\Database\DatabaseDriver;
 use Joomla\DI\Container;
 use Joomla\Registry\Registry;
 use Joomla\String\StringHelper;
@@ -64,6 +65,16 @@ final class SiteApplication extends CMSApplication
      * @since  4.3.0
      */
     public $registeredurlparams;
+
+    /**
+     * @var int The current website id
+     */
+    protected int $websiteId;
+
+    /**
+     * @var int The current network id
+     */
+    protected int $networkId;
 
     /**
      * Class constructor.
@@ -565,6 +576,15 @@ final class SiteApplication extends CMSApplication
             $user->groups   = [$guestUsergroup];
         }
 
+        $languages = $this->detectWebsiteAndLanguage();
+
+        if (!empty($languages)) {
+            if (count($languages) === 1) {
+                $website = current($languages);
+                $options['language'] = $website['lang_code'];
+            }
+        }
+
         if ($plugin = PluginHelper::getPlugin('system', 'multisitefilter')) {
             $pluginParams = new Registry($plugin->params);
             $this->setLanguageFilter(true);
@@ -576,7 +596,7 @@ final class SiteApplication extends CMSApplication
             $lang = $this->input->getString('language', null);
 
             // Make sure that the user's language exists
-            if ($lang && LanguageHelper::exists($lang)) {
+            if ($lang && !empty($languages[$lang])) {
                 $options['language'] = $lang;
             }
         }
@@ -586,7 +606,7 @@ final class SiteApplication extends CMSApplication
             $lang = $this->input->cookie->get(md5($this->get('secret') . 'language'), null, 'string');
 
             // Make sure that the user's language exists
-            if ($lang && LanguageHelper::exists($lang)) {
+            if ($lang && !empty($languages[$lang])) {
                 $options['language'] = $lang;
             }
         }
@@ -596,7 +616,7 @@ final class SiteApplication extends CMSApplication
             $lang = $user->getParam('language');
 
             // Make sure that the user's language exists
-            if ($lang && LanguageHelper::exists($lang)) {
+            if ($lang && !empty($languages[$lang])) {
                 $options['language'] = $lang;
             }
         }
@@ -606,7 +626,7 @@ final class SiteApplication extends CMSApplication
             $lang = LanguageHelper::detectLanguage();
 
             // Make sure that the user's language exists
-            if ($lang && LanguageHelper::exists($lang)) {
+            if ($lang && !empty($languages[$lang])) {
                 $options['language'] = $lang;
             }
         }
@@ -618,10 +638,10 @@ final class SiteApplication extends CMSApplication
         }
 
         // One last check to make sure we have something
-        if (!LanguageHelper::exists($options['language'])) {
+        if (empty($languages[$options['language']])) {
             $lang = $this->config->get('language', 'en-GB');
 
-            if (LanguageHelper::exists($lang)) {
+            if (!empty($languages[$lang])) {
                 $options['language'] = $lang;
             } else {
                 // As a last ditch fail to english
@@ -631,6 +651,45 @@ final class SiteApplication extends CMSApplication
 
         // Finish initialisation
         parent::initialiseApp($options);
+    }
+
+    protected function detectWebsiteAndLanguage(): array
+    {
+        $uri = Uri::getInstance();
+
+        $host = $uri->getHost();
+        $port = $uri->getPort();
+        $path = '/' . ltrim($uri->getPath(), '/');
+        $hostQuery = '%' . $host . '%';
+
+        $db    = Factory::getContainer()->get(DatabaseDriver::class);
+        $query = $db->getQuery(true);
+        $query->select('*')
+            ->from($db->quoteName('#__multisites_websites'))
+            ->where($db->quoteName('baseurl') . ' like :host')
+            ->bind(':host', $hostQuery);
+
+        $db->setQuery($query);
+        $websites = $db->loadAssocList();
+
+        if (count($websites) === 0) {
+            throw new \Exception('No matching website found');
+        }
+
+        $languages = [];
+
+        foreach($websites as $website) {
+            if (
+                str_starts_with($host . ':' . $port . $path, $website['baseurl'])
+                || str_starts_with($host . $path, $website['baseurl'])
+            ) {
+                $this->websiteId = $website['id'];
+                $this->networkId = $website['group_id'];
+                $languages[$website['lang_code']] = $website;
+            }
+        }
+
+        return $languages;
     }
 
     /**
