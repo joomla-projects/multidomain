@@ -49,6 +49,19 @@ class HtmlView extends ListView
     }
 
     /**
+     * Prepare view data
+     *
+     * @return  void
+     */
+    protected function initializeView(){
+        parent::initializeView();
+
+        if (!\count($this->items) && $this->isEmptyState = $this->get('IsEmptyState')) {
+            $this->setLayout('emptystate');
+        }
+    }
+
+    /**
      * Add the websites title and toolbar.
      *
      * @return  void

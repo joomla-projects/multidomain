@@ -47,6 +47,19 @@ class HtmlView extends ListView
     }
 
     /**
+     * Prepare view data
+     *
+     * @return  void
+     */
+    protected function initializeView(){
+        parent::initializeView();
+
+        if (!\count($this->items) && $this->isEmptyState = $this->get('IsEmptyState')) {
+            $this->setLayout('emptystate');
+        }
+    }
+
+    /**
      * Add the group title and toolbar.
      *
      * @return  void
@@ -58,6 +71,11 @@ class HtmlView extends ListView
         $canDo = \Joomla\Component\Content\Administrator\Helper\ContentHelper::getActions('com_multisites');
         $user = $this->getCurrentUser();
         $toolbar = Toolbar::getInstance();
+
+        // Add a shortcut to the styles list view.
+        $toolbar->linkButton('', 'COM_MULTISITES_MANAGER_WEBSITE_NEW')
+            ->url('index.php?option=com_multisites&view=websites')
+            ->icon('icon-brush thememanager');
 
         ToolbarHelper::title(Text::_('COM_MULTISITES_MANAGER_GROUPS'), 'copy groups');
 
