@@ -52,6 +52,10 @@ $this->ignore_fieldsets = ['general'];
                     <?php echo $this->form->renderField('baseurl'); ?>
                     <?php echo $this->form->renderField('group_id'); ?>
                     <?php echo $this->form->renderField('note'); ?>
+                    <?php echo $this->form->renderField('metakey'); ?>
+                    <?php echo $this->form->renderField('metadesc'); ?>
+                    <?php echo $this->form->renderField('image'); ?>
+                    <?php echo $this->form->renderField('langcode'); ?>
                     <?php echo $this->form->renderField('description'); ?>
                 </fieldset>
             </div>
