@@ -79,6 +79,35 @@
 		/>
 
 		<field
+			name="metakey"
+			type="text"
+			label="COM_MULTISITES_FIELD_METAKEY_LABEL"
+			description="COM_MULTISITES_FIELD_METAKEY_DESC"
+			maxlength="200"
+		/>
+
+		<field
+			name="metadesc"
+			type="text"
+			label="COM_MULTISITES_FIELD_METADESC_LABEL"
+			description="COM_MULTISITES_FIELD_METADESC_DESC"
+			maxlength="200"
+		/>
+
+		<field
+			name="image"
+			type="media"
+			label="COM_MULTISITES_FIELD_IMAGE_LABEL"
+		/>
+
+		<field
+			name="langcode"
+			type="text"
+			label="COM_MULTISITES_FIELD_LANGCODE_LABEL"
+			maxlength="200"
+		/>
+
+		<field
 			name="state"
 			type="list"
 			label="JSTATUS"
