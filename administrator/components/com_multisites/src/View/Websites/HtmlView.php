@@ -74,7 +74,7 @@ class HtmlView extends ListView
         $user = $this->getCurrentUser();
         $toolbar = Toolbar::getInstance();
 
-        ToolbarHelper::title(Text::_('COM_MULTISITES_MANAGER_GROUPS'), 'copy websites');
+        ToolbarHelper::title(Text::_('COM_MULTISITES_MANAGER_WEBSITES'), 'copy websites');
 
         $arrow  = Factory::getApplication()->getLanguage()->isRtl() ? 'arrow-right' : 'arrow-left';
 
