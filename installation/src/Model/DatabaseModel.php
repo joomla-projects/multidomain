@@ -15,6 +15,7 @@ use Joomla\CMS\Installation\Helper\DatabaseHelper;
 use Joomla\CMS\Language\LanguageHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Object\CMSObject;
+use Joomla\CMS\Uri\Uri;
 use Joomla\Database\DatabaseDriver;
 use Joomla\Database\DatabaseInterface;
 use Joomla\Utilities\ArrayHelper;
@@ -325,6 +326,52 @@ class DatabaseModel extends BaseInstallationModel
 
         // Attempt to import the database schema.
         if (!$this->populateDatabase($db, $schemaFile)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Add different variable data and cleanup the database
+     *
+     * @return boolean  True on success.
+     */
+    public function cleanup()
+    {
+        if (!$db = $this->initialise()) {
+            return false;
+        }
+
+        // Remove installation folder
+        $url = rtrim(substr(Uri::base(), 0, -13), '/') . '/';
+
+        $website = new \stdClass();
+
+        $website->title             = 'English (en-GB)';
+        $website->title_native      = 'English (en-GB)';
+        $website->baseurl           = $url;
+        $website->group_id          = 1;
+        $website->default           = 1;
+        $website->type              = 1;
+        $website->note              = '';
+        $website->state             = 1;
+        $website->metakey           = '';
+        $website->metadesc          = '';
+        $website->sitename          = '';
+        $website->image             = 'en_gb';
+        $website->langcode          = 'en-gb';
+        $website->language          = 'en-GB';
+        $website->checked_out       = null;
+        $website->checked_out_time  = null;
+        $website->created           = Factory::getDate()->toSql();
+        $website->modified          = Factory::getDate()->toSql();
+        $website->access            = 1;
+
+        try {
+            $db->insertObject('#__multisites_websites', $website, 'id');
+        }
+        catch (\Exception $e) {
             return false;
         }
 

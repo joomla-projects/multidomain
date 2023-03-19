@@ -487,6 +487,26 @@ class LanguagesModel extends BaseInstallationModel implements DatabaseAwareInter
             return false;
         }
 
+        // Set the website in multisites to the new default language
+        if ($clientName == 'site') {
+
+            $langTable = Table::getInstance('extension');
+
+            if ($langTable->load(['type' => 'language', 'element' => $language, 'client_id' => 0])) {
+                $updateWebsite = new \stdClass();
+    
+                $updateWebsite->id           = 1;
+                $updateWebsite->title        = $langTable->name;
+                $updateWebsite->title_native = $langTable->name;
+                $updateWebsite->image        = strtolower($langTable->element);
+                $updateWebsite->langcode     = strtolower($langTable->element);
+                $updateWebsite->language     = $langTable->element;
+
+                $this->getDatabase()->updateObject('#__multisites_websites', $updateWebsite, 'id');
+            }
+
+        }
+
         return true;
     }
 
