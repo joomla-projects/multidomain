@@ -62,7 +62,6 @@
 			<option value="">JNONE</option>
 		</field>
 
-
 		<field
 			name="note"
 			type="textarea"
@@ -96,7 +95,8 @@
 			name="langcode"
 			type="text"
 			label="COM_MULTISITES_FIELD_LANGCODE_LABEL"
-			maxlength="200"
+			description="COM_MULTISITES_FIELD_LANGCODE_DESC"
+			maxlength="10"
 		/>
 
 		<field
@@ -110,7 +110,6 @@
 			>
 			<option value="1">JPUBLISHED</option>
 			<option value="0">JUNPUBLISHED</option>
-			<option value="2">JARCHIVED</option>
 			<option value="-2">JTRASHED</option>
 		</field>
 	</fieldset>
@@ -152,11 +151,11 @@
 		/>
 
 		<field
-				name="metakey"
-				type="textarea"
-				label="JFIELD_META_KEYWORDS_LABEL"
-				rows="3"
-				cols="40"
+			name="metakey"
+			type="textarea"
+			label="JFIELD_META_KEYWORDS_LABEL"
+			rows="3"
+			cols="40"
 		/>
 
 		<field
@@ -168,7 +167,6 @@
 	</fieldset>
 
 	<fieldset name="publishing" label="JGLOBAL_FIELDSET_PUBLISHING">
-
 		<field
 			name="created"
 			type="calendar"
@@ -178,12 +176,14 @@
 			size="22"
 			filter="user_utc"
 		/>
+
 		<field
 			name="created_by"
 			type="user"
 			label="JGLOBAL_FIELD_CREATED_BY_LABEL"
 			validate="UserId"
 		/>
+
 		<field
 			name="modified"
 			type="calendar"
@@ -213,6 +213,7 @@
 			type="hidden"
 			filter="unset"
 		/>
+
 		<field
 			name="rules"
 			type="rules"

@@ -112,6 +112,7 @@ class GroupsModel extends ListModel
 								'a.checked_out',
 								'a.checked_out_time',
 								'a.state',
+                                'a.default',
 								'a.created',
 								'a.created_by',
 								'a.modified',
