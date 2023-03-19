@@ -61,7 +61,7 @@ endif;
                                     <?php echo HTMLHelper::_('searchtools.sort', 'JSTATUS', 'a.state', $listDirn, $listOrder); ?>
                                 </th>
                                 <th scope="col" class="w-5 text-center">
-                                    <?php echo HTMLHelper::_('searchtools.sort', 'COM_MULTISITES_HEADING_DEFAULT', 'a.default', $listDirn, $listOrder); ?>
+                                    <?php echo HTMLHelper::_('searchtools.sort', 'JDEFAULT', 'a.default', $listDirn, $listOrder); ?>
                                 </th>
                                 <th scope="col">
                                     <?php echo HTMLHelper::_('searchtools.sort', 'COM_MULTISITES_HEADING_TITLE', 'a.title', $listDirn, $listOrder); ?>
