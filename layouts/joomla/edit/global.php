@@ -36,7 +36,6 @@ $fields = $displayData->get('fields') ?: [
     'featured',
     'sticky',
     'access',
-    'language',
     'tags',
     'note',
     'version_note',
@@ -48,10 +47,10 @@ if (!$saveHistory) {
     $hiddenFields[] = 'version_note';
 }
 
-if (!Multilanguage::isEnabled()) {
+/*if (!Multilanguage::isEnabled()) {
     $hiddenFields[] = 'language';
     $form->setFieldAttribute('language', 'default', '*');
-}
+}*/
 
 $html   = [];
 $html[] = '<fieldset class="form-vertical">';
