@@ -37,12 +37,10 @@ class WebsitesModel extends ListModel
     {
         if (empty($config['filter_fields'])) {
             $config['filter_fields'] = [
-                'id',
-                'a.id',
-                'state',
-                'a.state',
-                'ordering',
-                'a.ordering',
+                'id', 'a.id',
+                'state', 'a.state',
+                'default', 'a.default',
+                'ordering', 'a.ordering',
             ];
         }
 
@@ -65,7 +63,7 @@ class WebsitesModel extends ListModel
     {
         $app = Factory::getApplication();
 
-        $groupId = $app->getUserStateFromRequest($this->context . '.filter.group_id', 'group_id', 0, 'int');
+        $groupId = $app->getUserStateFromRequest('com_multisites.websites.filter.group_id', 'group_id', 0, 'int');
 
         if ($groupId) {
             $table = $this->getTable('Group', 'Administrator');
@@ -117,6 +115,8 @@ class WebsitesModel extends ListModel
         $db    = $this->getDatabase();
         $query = $db->getQuery(true);
 
+        $groupId = $this->getState('filter.group_id');
+
         // Select the required fields from the table.
         $query
             ->select(
@@ -124,6 +124,10 @@ class WebsitesModel extends ListModel
                     [
                         'a.id',
                         'a.title',
+                        'a.default',
+                        'a.baseurl',
+                        'a.langcode',
+                        'a.language',
                         'a.checked_out',
                         'a.checked_out_time',
                         'a.state',
@@ -180,7 +184,7 @@ class WebsitesModel extends ListModel
                 )
             )
             ->where($db->quoteName('a.group_id') . ' = :groupId')
-            ->bind(':groupId', $this->getState('filter.group_id'), ParameterType::INTEGER);
+            ->bind(':groupId', $groupId, ParameterType::INTEGER);
 
         $state = (string) $this->getState('filter.state');
 
@@ -190,6 +194,11 @@ class WebsitesModel extends ListModel
                 ->bind(':state', $state, ParameterType::INTEGER);
         } else {
             $query->whereIn($db->quoteName('a.state'), [0, 1]);
+        }
+
+        $default = (int)$this->getState('filter.default');
+        if($default === 1){
+            $query->where($db->quoteName('a.default') . ' = 1');
         }
 
         // Filter by search in title

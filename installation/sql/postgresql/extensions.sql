@@ -759,6 +759,12 @@ CREATE INDEX "#__website_groups_idx_title" ON "#__website_groups" ("title");
 CREATE INDEX "#__website_groups_idx_state" ON "#__website_groups" ("state");
 
 --
+-- Data for table `#__multisites_groups`
+--
+INSERT INTO "#__multisites_groups" ("id", "title", "alias", "note", "state", "default", "checked_out", "checked_out_time", "created", "created_by", "modified", "modified_by") VALUES
+(1, 'Default Group', '', '', 1, 1, NULL, NULL, CURRENT_TIMESTAMP, 0, CURRENT_TIMESTAMP, 0);
+
+--
 -- Table: #__multisites_websites
 --
 CREATE TABLE IF NOT EXISTS "#__multisites_websites" (

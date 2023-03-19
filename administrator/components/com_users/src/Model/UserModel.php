@@ -166,6 +166,11 @@ class UserModel extends AdminModel
             $form->removeField('block');
         }
 
+        // Only super users can change the assignment of multisite Groups
+        if (!$user->authorise('core.admin', 'com_users')) {
+            $form->removeField('multisitesGroupId');
+        }
+
         return $form;
     }
 

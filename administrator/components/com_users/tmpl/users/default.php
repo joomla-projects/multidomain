@@ -82,6 +82,9 @@ $mfa        = PluginHelper::isEnabled('multifactorauth');
                                     <?php echo HTMLHelper::_('searchtools.sort', 'JGLOBAL_EMAIL', 'a.email', $listDirn, $listOrder); ?>
                                 </th>
                                 <th scope="col" class="w-12 d-none d-xl-table-cell">
+                                    <?php echo HTMLHelper::_('searchtools.sort', 'COM_USERS_HEADING_MULTISITESGROUP', 'a.multisitesGroupId', $listDirn, $listOrder); ?>
+                                </th>
+                                <th scope="col" class="w-12 d-none d-xl-table-cell">
                                     <?php echo HTMLHelper::_('searchtools.sort', 'COM_USERS_HEADING_LAST_VISIT_DATE', 'a.lastvisitDate', $listDirn, $listOrder); ?>
                                 </th>
                                 <th scope="col" class="w-12 d-none d-xl-table-cell">
@@ -186,6 +189,11 @@ $mfa        = PluginHelper::isEnabled('multifactorauth');
                                 </td>
                                 <td class="d-none d-xl-table-cell break-word">
                                     <?php echo PunycodeHelper::emailToUTF8($this->escape($item->email)); ?>
+                                </td>
+                                <td class="d-none d-xl-table-cell break-word">
+                                    <?php echo $item->multisitesGroupId > 0
+                                    ? $this->escape($item->multisitesGroupName)
+                                    : TEXT::_('JALL'); ?>
                                 </td>
                                 <td class="d-none d-xl-table-cell">
                                     <?php if ($item->lastvisitDate !== null) : ?>

@@ -801,6 +801,12 @@ CREATE TABLE IF NOT EXISTS `#__multisites_groups` (
   KEY `idx_state` (`state`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Data for table `#__multisites_groups`
+--
+INSERT INTO `#__multisites_groups` (`id`, `title`, `alias`, `note`, `state`, `default`, `checked_out`, `checked_out_time`, `created`, `created_by`, `modified`, `modified_by`) VALUES
+(1, 'Default Group', '', '', 1, 1, NULL, NULL, CURRENT_TIMESTAMP(), 0, CURRENT_TIMESTAMP(), 0);
+
 -- --------------------------------------------------------
 
 --
