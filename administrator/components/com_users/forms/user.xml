@@ -136,7 +136,7 @@
 		<field
 			name="multisitesGroupId"
 			type="multisitesGroups"
-			label="COM_USERS_MULTIGROUPS_FIELD"
+			label="COM_USERS_USER_FIELD_MULTIGROUPS_LABEL"
 			default="0"
 			validate="options"
 			>
