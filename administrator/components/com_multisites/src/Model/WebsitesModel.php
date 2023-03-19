@@ -37,12 +37,10 @@ class WebsitesModel extends ListModel
     {
         if (empty($config['filter_fields'])) {
             $config['filter_fields'] = [
-                'id',
-                'a.id',
-                'state',
-                'a.state',
-                'ordering',
-                'a.ordering',
+                'id', 'a.id',
+                'state', 'a.state',
+                'default', 'a.default',
+                'ordering', 'a.ordering',
             ];
         }
 
@@ -196,6 +194,11 @@ class WebsitesModel extends ListModel
                 ->bind(':state', $state, ParameterType::INTEGER);
         } else {
             $query->whereIn($db->quoteName('a.state'), [0, 1]);
+        }
+
+        $default = (int)$this->getState('filter.default');
+        if($default === 1){
+            $query->where($db->quoteName('a.default') . ' = 1');
         }
 
         // Filter by search in title

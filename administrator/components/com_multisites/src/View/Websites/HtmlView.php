@@ -27,6 +27,12 @@ use Joomla\Component\Content\Administrator\Extension\ContentComponent;
  */
 class HtmlView extends ListView
 {
+    /**
+     * The ID of the group we're in
+     *
+     * @var int
+     */
+    protected $groupId;
 
     /**
      * Constructor
@@ -55,6 +61,14 @@ class HtmlView extends ListView
      */
     protected function initializeView(){
         parent::initializeView();
+
+        $group = $this->get('Group');
+
+        if (empty($group->id)) {
+            throw new \Exception(Text::_('JERROR_ALERTNOAUTHOR'), 403);
+        }
+
+        $this->groupId = $group->id;
 
         if (empty($this->items) && $this->isEmptyState = $this->get('IsEmptyState')) {
             $this->setLayout('emptystate');
