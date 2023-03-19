@@ -50,8 +50,8 @@ class WebsitesField extends ListField
 
         // @todo: add a filter to the model to get the correct sites
 
-        foreach ($model->getItems() as $group) {
-            $options[] = HTMLHelper::_('select.option', $group->id, $group->title);
+        foreach ($model->getItems() as $website) {
+            $options[] = HTMLHelper::_('select.option', $website->id, $website->title . ' (' . $website->language . ')');
         }
 
         return $options;
