@@ -95,6 +95,30 @@ class WebsiteTable extends Table
 					}
 			}
 
+			// Baseurl can be used only once
+			$db = $this->getDbo();
+
+			$query = $db->getQuery(true);
+
+			$query->select($db->quoteName('id'))
+				->from($db->quoteName('#__multisites_websites'))
+				->where($db->quoteName('baseurl') . ' = :baseUrl')
+				->bind(':baseUrl', $this->baseurl);
+
+			if ($this->id) {
+				$query->where($db->quoteName('id') . ' != :websiteId')
+					->bind(':websiteId', $this->id, ParameterType::INTEGER);
+			}
+
+			if ($db->setQuery($query)->loadResult() > 0) {
+				$this->setError(Text::_('COM_MULTISITES_WEBSITE_NEEDS_TO_BE_UNIQUE'));
+
+				return false;
+			}
+
+			// Enforce a trailing slash
+			$this->baseurl = rtrim($this->baseurl, '/') . '/';
+
 			return parent::store($updateNulls);
 		}
 
