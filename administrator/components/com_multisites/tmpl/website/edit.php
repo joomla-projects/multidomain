@@ -48,8 +48,8 @@ $this->ignore_fieldsets = ['general'];
                     <?php echo $this->form->renderFieldset('general'); ?>
                 </fieldset>
                 <fieldset class="form-vertical">
-                    <?php echo $this->form->renderField('title_native'); ?>
                     <?php echo $this->form->renderField('baseurl'); ?>
+                    <?php echo $this->form->renderField('title_native'); ?>
                 </fieldset>
             </div>
             <div class="col-lg-3 ms-lg-auto">
