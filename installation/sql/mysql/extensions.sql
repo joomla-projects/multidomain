@@ -813,6 +813,7 @@ CREATE TABLE IF NOT EXISTS `#__multisites_websites` (
   `title_native` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `baseurl` varchar(400) COLLATE utf8mb4_unicode_ci NOT NULL,
   `group_id` int(11) NOT NULL,
+  `default` tinyint NOT NULL DEFAULT 0,
   `type` tinyint(1) DEFAULT 1,
   `note` text NOT NULL,
   `state` tinyint NOT NULL DEFAULT 0,

@@ -767,6 +767,7 @@ CREATE TABLE IF NOT EXISTS "#__multisites_websites" (
 	"title_native" varchar(255) DEFAULT '' NOT NULL,
 	"baseurl" varchar(400) DEFAULT '' NOT NULL,
 	"group_id" integer,
+  "default" smallint DEFAULT 0 NOT NULL,
 	"type" smallint DEFAULT 1 NOT NULL,
 	"note" text DEFAULT '' NOT NULL,
 	"state" smallint DEFAULT 0 NOT NULL,
