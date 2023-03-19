@@ -54,6 +54,6 @@ class MultisitesGroupsField extends ListField
             $options[] = HTMLHelper::_('select.option', $group->id, $group->title);
         }
 
-        return $options;
+        return array_merge(parent::getOptions(), $options);
     }
 }
