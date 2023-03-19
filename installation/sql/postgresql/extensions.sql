@@ -775,7 +775,8 @@ CREATE TABLE IF NOT EXISTS "#__multisites_websites" (
 	"metadesc" text DEFAULT '' NOT NULL,
 	"sitename" varchar(255) DEFAULT '' NOT NULL,
 	"image" varchar(50) NOT NULL,
-	"langcode" varchar(7) NOT NULL,
+	"lang_code" varchar(7) NOT NULL,
+  `sef` varchar(50) NOT NULL,
   "language" char(7) DEFAULT '' NOT NULL,
 	"checked_out" integer,
 	"checked_out_time" timestamp without time zone,
@@ -789,7 +790,7 @@ CREATE TABLE IF NOT EXISTS "#__multisites_websites" (
 CREATE INDEX "#__websites_idx_type" ON "#__websites" ("type");
 CREATE INDEX "#__websites_idx_state" ON "#__websites" ("state");
 CREATE INDEX "#__websites_idx_baseurl" ON "#__websites" ("baseurl");
-CREATE INDEX "#__websites_idx_langcode" ON "#__websites" ("langcode");
+CREATE INDEX "#__websites_idx_lang_code" ON "#__websites" ("lang_code");
 CREATE INDEX "#__websites_idx_language" ON "#__websites" ("language");
 
 --

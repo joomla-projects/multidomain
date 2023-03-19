@@ -23,23 +23,6 @@
 		/>
 
 		<field
-			name="title_native"
-			type="text"
-			label="COM_MULTISITES_FIELD_TITLE_NATIVE_LABEL"
-			description="COM_MULTISITES_FIELD_TITLE_NATIVE_DESC"
-			required="true"
-			maxlength="255"
-		/>
-
-		<field
-			name="alias"
-			type="text"
-			label="JFIELD_ALIAS_LABEL"
-			description="JFIELD_ALIAS_DESC"
-			hint="JFIELD_ALIAS_PLACEHOLDER"
-		/>
-
-		<field
 			name="baseurl"
 			type="url"
 			label="COM_MULTISITES_FIELD_BASEURL_LABEL"
@@ -49,32 +32,10 @@
 		/>
 
 		<field
-			name="image"
-			type="filelist"
-			label="COM_LANGUAGES_FIELD_IMAGE_LABEL"
-			stripext="1"
-			directory="media/mod_languages/images/"
-			hide_none="1"
-			hide_default="1"
-			fileFilter="\.gif$"
-			validate="options"
-		>
-			<option value="">JNONE</option>
-		</field>
-
-		<field
 			name="note"
 			type="textarea"
 			label="COM_MULTISITES_FIELD_NOTE_LABEL"
 			buttons="true"
-		/>
-
-		<field
-			name="metakey"
-			type="text"
-			label="COM_MULTISITES_FIELD_METAKEY_LABEL"
-			description="COM_MULTISITES_FIELD_METAKEY_DESC"
-			maxlength="200"
 		/>
 
 		<field
@@ -83,20 +44,6 @@
 			label="COM_MULTISITES_FIELD_METADESC_LABEL"
 			description="COM_MULTISITES_FIELD_METADESC_DESC"
 			maxlength="200"
-		/>
-
-		<field
-			name="image"
-			type="media"
-			label="COM_MULTISITES_FIELD_IMAGE_LABEL"
-		/>
-
-		<field
-			name="langcode"
-			type="text"
-			label="COM_MULTISITES_FIELD_LANGCODE_LABEL"
-			description="COM_MULTISITES_FIELD_LANGCODE_DESC"
-			maxlength="10"
 		/>
 
 		<field
@@ -115,6 +62,45 @@
 	</fieldset>
 
 	<fieldset name="language" label="COM_MULTISITES_FIELDSET_LANGUAGE">
+
+		<field
+			name="title_native"
+			type="text"
+			label="COM_MULTISITES_FIELD_TITLE_NATIVE_LABEL"
+			description="COM_MULTISITES_FIELD_TITLE_NATIVE_DESC"
+			required="true"
+			maxlength="255"
+		/>
+
+		<field
+			name="lang_code"
+			type="text"
+			label="COM_MULTISITES_FIELD_LANG_CODE_LABEL"
+			description="COM_MULTISITES_FIELD_LANG_CODE_DESC"
+			maxlength="7"
+			required="true"
+		/>
+
+		<field
+			name="sef"
+			type="text"
+			label="COM_MULTISITES_FIELD_SEF_LABEL"
+			description="COM_MULTISITES_FIELD_SEF_DESC"
+			maxlength="50"
+			required="true"
+		/>
+
+		<field
+			name="language"
+			type="sql"
+			label="COM_MULTISITES_FIELD_LANGUAGE_LABEL"
+			description="COM_MULTISITES_FIELD_LANGUAGE_DESC"
+			query="SELECT name, element FROM #__extensions WHERE type = 'language' GROUP BY name ORDER BY name ASC"
+			key_field="element"
+			value_field="name"
+			required="true"
+		/>
+
 		<field
 			name="image"
 			type="filelist"
@@ -129,17 +115,16 @@
 			<option value="">JNONE</option>
 		</field>
 
-		<field
-			name="langcode"
-			type="text"
-			label="COM_MULTISITES_FIELD_LANGCODE_LABEL"
-			description="COM_MULTISITES_FIELD_LANGCODE_DESC"
-			maxlength="7"
-			required="true"
-		/>
 	</fieldset>
 
 	<fieldset name="metadata" label="JGLOBAL_FIELDSET_METADATA_OPTIONS">
+		<field
+			name="sitename"
+			type="text"
+			label="COM_MULTISITES_FIELD_SITE_NAME_LABEL"
+			filter="string"
+		/>
+
 		<field
 			name="metadesc"
 			type="textarea"
@@ -158,12 +143,7 @@
 			cols="40"
 		/>
 
-		<field
-			name="sitename"
-			type="text"
-			label="COM_MULTISITES_FIELD_SITE_NAME_LABEL"
-			filter="string"
-		/>
+
 	</fieldset>
 
 	<fieldset name="publishing" label="JGLOBAL_FIELDSET_PUBLISHING">
