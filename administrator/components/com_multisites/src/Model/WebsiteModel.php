@@ -154,10 +154,10 @@ class WebsiteModel extends AdminModel
 			$app        = Factory::getApplication();
 			$user       = $app->getIdentity();
 			$input      = $app->getInput();
-			$workflowID = $app->getUserStateFromRequest($context . '.filter.group_id', 'group_id', 0, 'int');
-	
+			$groupId = $app->getUserStateFromRequest('com_multisites.websites.filter.group_id', 'group_id', 0, 'int');
+
 			if (empty($data['group_id'])) {
-				$data['group_id'] = $workflowID;
+				$data['group_id'] = $groupId;
 			}
 	
 			$group = $this->getTable('Group');
