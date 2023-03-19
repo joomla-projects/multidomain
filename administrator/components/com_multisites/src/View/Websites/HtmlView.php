@@ -104,10 +104,7 @@ class HtmlView extends ListView
 
                 $childBar->unpublish('websites.unpublish')->listCheck(true);
 
-                $childBar->standardButton('featured', 'JFEATURE', 'websites.featured')
-                    ->listCheck(true);
-
-                $childBar->standardButton('unfeatured', 'JUNFEATURE', 'websites.unfeatured')
+                $childBar->standardButton('featured', 'JDEFAULT', 'websites.default')
                     ->listCheck(true);
 
                 $childBar->archive('websites.archive')->listCheck(true);

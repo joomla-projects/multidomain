@@ -56,7 +56,7 @@ class WebsitesController extends AdminController
 			parent::__construct($config, $factory, $app, $input);
 
 			$this->groupId = $app->getUserStateFromRequest('com_multisites.websites.filter.group_id', 'group_id', 0, 'int');
-	
+
 			$this->registerTask('unsetDefault', 'setDefault');
 		}
 
