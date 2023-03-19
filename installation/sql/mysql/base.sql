@@ -953,6 +953,7 @@ CREATE TABLE IF NOT EXISTS `#__users` (
   `password` varchar(100) NOT NULL DEFAULT '',
   `block` tinyint NOT NULL DEFAULT 0,
   `sendEmail` tinyint DEFAULT 0,
+  `multisitesGroupId` int NOT NULL DEFAULT '0',
   `registerDate` datetime NOT NULL,
   `lastvisitDate` datetime,
   `activation` varchar(100) NOT NULL DEFAULT '',
