@@ -43,7 +43,7 @@ class WebsitesField extends ListField
     {
         $app = Factory::getApplication();
         $options = [];
-        $options[] = HTMLHelper::_('select.option', '*', Text::_('JALL'));
+        $options[] = HTMLHelper::_('select.option', '0', Text::_('JALL'));
 
         $component = $app->bootComponent('com_multisites');
         $model = $component->getMVCFactory()->createModel('Websites', 'Administrator', ['ignore_request' => true]);
