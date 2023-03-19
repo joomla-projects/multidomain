@@ -43,7 +43,7 @@ endif;
                         <?php echo Text::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
                     </div>
                 <?php else : ?>
-                    <table class="table itemList" id="articleList">
+                    <table class="table itemList" id="groupsList">
                         <caption class="visually-hidden">
                             <?php echo Text::_('COM_MULTISITES_TABLE_CAPTION'); ?>
                             <span id="orderedBy"><?php echo Text::_('JGLOBAL_SORTED_BY'); ?> </span>,
