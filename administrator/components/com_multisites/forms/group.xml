@@ -32,9 +32,8 @@
 
 		<field
 			name="note"
-			type="editor"
-			label="JGLOBAL_DESCRIPTION"
-			filter="JComponentHelper::filterText"
+			type="textarea"
+			label="COM_MULTISITES_FIELD_NOTE_LABEL"
 			buttons="true"
 		/>
 
@@ -97,22 +96,6 @@
 			validate="UserId"
 		/>
 	</fieldset>
-
-	<fields name="params">
-		<fieldset name="display" label="JGLOBAL_FIELDSET_DISPLAY_OPTIONS">
-			<fieldset name="basic" label="JGLOBAL_FIELDSET_DISPLAY_OPTIONS">
-				<field
-					name="group_layout"
-					type="componentlayout"
-					label="JFIELD_ALT_LAYOUT_LABEL"
-					class="form-select"
-					extension="com_multisites"
-					view="group"
-					useglobal="true"
-				/>
-			</fieldset>
-		</fieldset>
-	</fields>
 
 	<fieldset name="permissions" label="JCONFIG_PERMISSIONS_LABEL">
 		<field
