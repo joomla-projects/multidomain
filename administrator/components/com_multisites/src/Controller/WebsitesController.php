@@ -49,7 +49,7 @@ class WebsitesController extends AdminController
 		 * @param   Input                $input    Input
 		 *
 		 * @since   __DEPLOY_VERSION__
-		 * @throws  \InvalidArgumentException when no extension or workflow id is set
+		 * @throws  \InvalidArgumentException when no extension or website id is set
 		 */
 		public function __construct($config = [], MVCFactoryInterface $factory = null, ?CMSApplication $app = null, ?Input $input = null)
 		{
@@ -71,13 +71,13 @@ class WebsitesController extends AdminController
 		{
 			// Check for request forgeries
 			$this->checkToken();
-	
+
 			// Get items to publish from the request.
 			$cid   = (array) $this->input->get('cid', [], 'int');
 			$data  = ['setDefault' => 1, 'unsetDefault' => 0];
 			$task  = $this->getTask();
 			$value = ArrayHelper::getValue($data, $task, 0, 'int');
-	
+
 			if (!$value) {
 				$this->setMessage(Text::_('COM_MULTISITES_CANNOT_DISABLE_DEFAULT'), 'warning');
 				$this->setRedirect(
@@ -87,24 +87,24 @@ class WebsitesController extends AdminController
 						false
 					)
 				);
-	
+
 				return;
 			}
-	
+
 			// Remove zero values resulting from input filter
 			$cid = array_filter($cid);
-	
+
 			if (empty($cid)) {
-				$this->setMessage(Text::_('COM_WORKFLOW_NO_ITEM_SELECTED'), 'warning');
+				$this->setMessage(Text::_('COM_MULTISITES_WEBSITES_NO_ITEM_SELECTED'), 'warning');
 			} elseif (count($cid) > 1) {
-				$this->setMessage(Text::_('COM_WORKFLOW_TOO_MANY_STAGES'), 'error');
+				$this->setMessage(Text::_('COM_MULTISITES_WEBSITES_TOO_MANY_WEBSITES'), 'error');
 			} else {
 				// Get the model.
 				$model = $this->getModel();
-	
+
 				// Make sure the item ids are integers
 				$id = reset($cid);
-	
+
 				// Publish the items.
 				if (!$model->setDefault($id, $value)) {
 					$this->setMessage($model->getError(), 'warning');
@@ -112,7 +112,7 @@ class WebsitesController extends AdminController
 					$this->setMessage(Text::_('COM_MULTISITE_WEBSITE_SET_DEFAULT'));
 				}
 			}
-	
+
 			$this->setRedirect(
 				Route::_(
 					'index.php?option=' . $this->option . '&view=' . $this->view_list

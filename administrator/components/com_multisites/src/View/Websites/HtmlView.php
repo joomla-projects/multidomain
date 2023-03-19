@@ -56,7 +56,7 @@ class HtmlView extends ListView
     protected function initializeView(){
         parent::initializeView();
 
-        if (!\count($this->items) && $this->isEmptyState = $this->get('IsEmptyState')) {
+        if (empty($this->items) && $this->isEmptyState = $this->get('IsEmptyState')) {
             $this->setLayout('emptystate');
         }
     }
@@ -66,7 +66,7 @@ class HtmlView extends ListView
      *
      * @return  void
      *
-     * @since   1.6
+     * @since   __DEPLOY_VERSION__
      */
     protected function addToolbar()
     {
