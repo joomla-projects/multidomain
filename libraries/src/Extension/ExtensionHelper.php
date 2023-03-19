@@ -291,7 +291,7 @@ class ExtensionHelper
         ['plugin', 'httpheaders', 'system', 0],
         ['plugin', 'jooa11y', 'system', 0],
         ['plugin', 'languagecode', 'system', 0],
-        ['plugin', 'languagefilter', 'system', 0],
+        ['plugin', 'multisitefilter', 'system', 0],
         ['plugin', 'log', 'system', 0],
         ['plugin', 'logout', 'system', 0],
         ['plugin', 'logrotation', 'system', 0],
