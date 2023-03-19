@@ -72,11 +72,6 @@ class HtmlView extends ListView
         $user = $this->getCurrentUser();
         $toolbar = Toolbar::getInstance();
 
-        // Add a shortcut to the styles list view.
-        $toolbar->linkButton('', 'COM_MULTISITES_MANAGER_WEBSITE_NEW')
-            ->url('index.php?option=com_multisites&view=websites')
-            ->icon('icon-brush thememanager');
-
         ToolbarHelper::title(Text::_('COM_MULTISITES_MANAGER_GROUPS'), 'copy groups');
 
         if ($canDo->get('core.create')) {
@@ -99,13 +94,8 @@ class HtmlView extends ListView
 
                 $childBar->unpublish('groups.unpublish')->listCheck(true);
 
-                $childBar->standardButton('featured', 'JFEATURE', 'groups.featured')
+                $childBar->standardButton('featured', 'JDEFAULT', 'groups.default')
                     ->listCheck(true);
-
-                $childBar->standardButton('unfeatured', 'JUNFEATURE', 'groups.unfeatured')
-                    ->listCheck(true);
-
-                $childBar->archive('groups.archive')->listCheck(true);
 
                 $childBar->checkin('groups.checkin');
 

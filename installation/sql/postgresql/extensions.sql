@@ -745,8 +745,8 @@ CREATE TABLE IF NOT EXISTS "#__multisites_groups" (
 	"title" varchar(255) DEFAULT '' NOT NULL,
 	"alias" varchar(400) DEFAULT '' NOT NULL,
 	"note" text DEFAULT '' NOT NULL,
-	-- MVC_LANDMARK_SiteFIELDS
 	"state" smallint DEFAULT 0 NOT NULL,
+  "default" smallint DEFAULT 0 NOT NULL,
 	"checked_out" integer,
 	"checked_out_time" timestamp without time zone,
 	"created" timestamp without time zone NOT NULL,
@@ -767,27 +767,30 @@ CREATE TABLE IF NOT EXISTS "#__multisites_websites" (
 	"title_native" varchar(255) DEFAULT '' NOT NULL,
 	"baseurl" varchar(400) DEFAULT '' NOT NULL,
 	"group_id" integer,
+  "default" smallint DEFAULT 0 NOT NULL,
 	"type" smallint DEFAULT 1 NOT NULL,
 	"note" text DEFAULT '' NOT NULL,
-	-- MVC_LANDMARK_DomainFIELDS
 	"state" smallint DEFAULT 0 NOT NULL,
 	"metakey" text DEFAULT '' NOT NULL,
 	"metadesc" text DEFAULT '' NOT NULL,
 	"sitename" varchar(255) DEFAULT '' NOT NULL,
 	"image" varchar(50) NOT NULL,
 	"langcode" varchar(7) NOT NULL,
+  "language" char(7) DEFAULT '' NOT NULL,
 	"checked_out" integer,
 	"checked_out_time" timestamp without time zone,
 	"created" timestamp without time zone NOT NULL,
 	"created_by" bigint DEFAULT 0 NOT NULL,
 	"modified" timestamp without time zone NOT NULL,
 	"modified_by" bigint DEFAULT 0 NOT NULL,
+  "access" int DEFAULT 0 NOT NULL,
 	PRIMARY KEY ("id")
 );
 CREATE INDEX "#__websites_idx_type" ON "#__websites" ("type");
 CREATE INDEX "#__websites_idx_state" ON "#__websites" ("state");
 CREATE INDEX "#__websites_idx_baseurl" ON "#__websites" ("baseurl");
 CREATE INDEX "#__websites_idx_langcode" ON "#__websites" ("langcode");
+CREATE INDEX "#__websites_idx_language" ON "#__websites" ("language");
 
 --
 -- Table: #__action_logs

@@ -15,6 +15,7 @@ use Joomla\Database\DatabaseInterface;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Table\Asset;
+use Joomla\Database\ParameterType;
 
 /**
  * Website table
@@ -67,34 +68,34 @@ class WebsiteTable extends Table
 		 */
 		public function store($updateNulls = true)
 		{
-				$date   = Factory::getDate()->toSql();
-				$userId = Factory::getApplication()->getIdentity()->id;
+			$date   = Factory::getDate()->toSql();
+			$userId = Factory::getApplication()->getIdentity()->id;
 
-				// Set created date if not set.
-				if (!(int)$this->created) {
-						$this->created = $date;
-				}
+			// Set created date if not set.
+			if (!(int)$this->created) {
+					$this->created = $date;
+			}
 
-				if ($this->{$this->_tbl_key}) {
-						// Existing item
-						$this->modified_by = $userId;
-						$this->modified    = $date;
-				} else {
-						// Field created_by field can be set by the user, so we don't touch it if it's set.
-						if (empty($this->created_by)) {
-								$this->created_by = $userId;
-						}
+			if ($this->{$this->_tbl_key}) {
+					// Existing item
+					$this->modified_by = $userId;
+					$this->modified    = $date;
+			} else {
+					// Field created_by field can be set by the user, so we don't touch it if it's set.
+					if (empty($this->created_by)) {
+							$this->created_by = $userId;
+					}
 
-						if (!(int)$this->modified) {
-								$this->modified = $date;
-						}
+					if (!(int)$this->modified) {
+							$this->modified = $date;
+					}
 
-						if (empty($this->modified_by)) {
-								$this->modified_by = $userId;
-						}
-				}
+					if (empty($this->modified_by)) {
+							$this->modified_by = $userId;
+					}
+			}
 
-				return parent::store($updateNulls);
+			return parent::store($updateNulls);
 		}
 
 		/**
@@ -107,30 +108,69 @@ class WebsiteTable extends Table
 		 */
 		public function check()
 		{
-				try {
-						parent::check();
-				} catch (\Exception $e) {
-						$this->setError($e->getMessage());
+			try {
+					parent::check();
+			} catch (\Exception $e) {
+					$this->setError($e->getMessage());
 
-						return false;
+					return false;
+			}
+
+			// Check for valid title
+			if (trim($this->title) == '') {
+					$this->setError(Text::_('COM_MULTISITES_WARNING_PROVIDE_VALID_TITLE'));
+
+					return false;
+			}
+
+			if (!$this->modified) {
+					$this->modified = $this->created;
+			}
+
+			if (empty($this->modified_by)) {
+					$this->modified_by = $this->created_by;
+			}
+
+			if (empty($this->params)) {
+				$this->params = '{}';
+			}
+
+			// The default website has to be published
+			if (!empty($this->default)) {
+				if ((int) $this->state !== 1) {
+					$this->setError(Text::_('COM_MULTISITES_WEBSITE_MUST_PUBLISHED'));
+	
+					return false;
 				}
+			} else {
+				$db    = $this->getDbo();
+				$query = $db->getQuery(true);
+	
+				$query
+					->select($db->quoteName('id'))
+					->from($db->quoteName('#__multisites_websites'))
+					->where(
+						[
+							$db->quoteName('group_id') . ' = :id',
+							$db->quoteName('default') . ' = 1',
+						]
+					)
+					->bind(':id', $this->group_id, ParameterType::INTEGER);
 
-				// Check for valid title
-				if (trim($this->title) == '') {
-						$this->setError(Text::_('COM_MULTISITES_WARNING_PROVIDE_VALID_TITLE'));
+				$id = $db->setQuery($query)->loadResult();
 
-						return false;
+				// If there is no default stage => set the current to default to recover
+				if (empty($id)) {
+					$this->default = '1';
+				} elseif ($id === $this->id) {
+					// This stage is the default, but someone has tried to disable it => not allowed
+					$this->setError(Text::_('COM_MULTISITES_WEBSITE_CANNOT_DISABLE_DEFAULT'));
+	
+					return false;
 				}
+			}
 
-				if (!$this->modified) {
-						$this->modified = $this->created;
-				}
-
-				if (empty($this->modified_by)) {
-						$this->modified_by = $this->created_by;
-				}
-
-				return true;
+			return true;
 		}
 
 		/**
