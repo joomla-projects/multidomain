@@ -74,7 +74,7 @@ class Multilanguage
                     [
                         $db->quoteName('type') . ' = ' . $db->quote('plugin'),
                         $db->quoteName('folder') . ' = ' . $db->quote('system'),
-                        $db->quoteName('element') . ' = ' . $db->quote('languagefilter'),
+                        $db->quoteName('element') . ' = ' . $db->quote('multisitefilter'),
                     ]
                 );
             $db->setQuery($query);

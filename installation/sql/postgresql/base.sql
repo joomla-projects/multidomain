@@ -196,6 +196,7 @@ INSERT INTO "#__extensions" ("package_id", "name", "type", "element", "folder", 
 (0, 'com_mails', 'component', 'com_mails', '', 1, 1, 1, 1, 1, '', '', '', 0, 0),
 (0, 'com_scheduler', 'component', 'com_scheduler', '', 1, 1, 1, 0, 1, '', '{}', '', 0, 0),
 (0, 'com_guidedtours', 'component', 'com_guidedtours', '', 1, 1, 0, 0, 1, '', '{}', '', 0, 0);
+(0, 'com_multisites', 'component', 'com_multisites', '', 1, 1, 1, 1, 1, '', '{}', '', 0, 0);
 
 -- Libraries
 INSERT INTO "#__extensions" ("package_id", "name", "type", "element", "folder", "client_id", "enabled", "access", "protected", "locked", "manifest_cache", "params", "custom_data", "ordering", "state") VALUES
@@ -345,7 +346,7 @@ INSERT INTO "#__extensions" ("package_id", "name", "type", "element", "folder", 
 (0, 'plg_system_httpheaders', 'plugin', 'httpheaders', 'system', 0, 1, 1, 0, 1, '', '{}', '', 7, 0),
 (0, 'plg_system_jooa11y', 'plugin', 'jooa11y', 'system', 0, 1, 1, 0, 1, '', '', '', 8, 0),
 (0, 'plg_system_languagecode', 'plugin', 'languagecode', 'system', 0, 0, 1, 0, 1, '', '', '', 9, 0),
-(0, 'plg_system_languagefilter', 'plugin', 'languagefilter', 'system', 0, 0, 1, 0, 1, '', '', '', 10, 0),
+(0, 'plg_system_multisitefilter', 'plugin', 'multisitefilter', 'system', 0, 0, 1, 0, 1, '', '', '', 10, 0),
 (0, 'plg_system_log', 'plugin', 'log', 'system', 0, 1, 1, 0, 1, '', '', '', 11, 0),
 (0, 'plg_system_logout', 'plugin', 'logout', 'system', 0, 1, 1, 0, 1, '', '', '', 12, 0),
 (0, 'plg_system_logrotation', 'plugin', 'logrotation', 'system', 0, 1, 1, 0, 1, '', '{}', '', 13, 0),
@@ -974,6 +975,7 @@ CREATE TABLE IF NOT EXISTS "#__users" (
   "password" varchar(100) DEFAULT '' NOT NULL,
   "block" smallint DEFAULT 0 NOT NULL,
   "sendEmail" smallint DEFAULT 0,
+  "multisitesGroupId" bigint NOT NULL DEFAULT 0,
   "registerDate" timestamp without time zone NOT NULL,
   "lastvisitDate" timestamp without time zone,
   "activation" varchar(100) DEFAULT '' NOT NULL,
@@ -985,7 +987,8 @@ CREATE TABLE IF NOT EXISTS "#__users" (
   "requireReset" smallint DEFAULT 0,
   "authProvider" varchar(100) DEFAULT '' NOT NULL,
   PRIMARY KEY ("id"),
-  CONSTRAINT "#__users_idx_username" UNIQUE ("username")
+  CONSTRAINT "#__users_idx_email_multisitesGroupId" UNIQUE ("email", "multisitesGroupId"),
+  CONSTRAINT "#__users_idx_username_multisitesGroupId" UNIQUE ("username", "multisitesGroupId")
 );
 CREATE INDEX "#__users_idx_name" ON "#__users" ("name");
 CREATE INDEX "#__users_idx_block" ON "#__users" ("block");

@@ -189,7 +189,8 @@ INSERT INTO `#__extensions` (`package_id`, `name`, `type`, `element`, `folder`, 
 (0, 'com_workflow', 'component', 'com_workflow', '', 1, 1, 0, 1, 1, '', '{}', ''),
 (0, 'com_mails', 'component', 'com_mails', '', 1, 1, 1, 1, 1, '', '', ''),
 (0, 'com_scheduler', 'component', 'com_scheduler', '', 1, 1, 1, 0, 1, '', '{}', ''),
-(0, 'com_guidedtours', 'component', 'com_guidedtours', '', 1, 1, 0, 0, 1, '', '{}', '');
+(0, 'com_guidedtours', 'component', 'com_guidedtours', '', 1, 1, 0, 0, 1, '', '{}', ''),
+(0, 'com_multisites', 'component', 'com_multisites', '', 1, 1, 1, 1, 1, '', '{}', '');
 
 -- Libraries
 INSERT INTO `#__extensions` (`package_id`, `name`, `type`, `element`, `folder`, `client_id`, `enabled`, `access`, `protected`, `locked`, `manifest_cache`, `params`, `custom_data`) VALUES
@@ -339,7 +340,7 @@ INSERT INTO `#__extensions` (`package_id`, `name`, `type`, `element`, `folder`, 
 (0, 'plg_system_httpheaders', 'plugin', 'httpheaders', 'system', 0, 1, 1, 0, 1, '', '{}', '', 7, 0),
 (0, 'plg_system_jooa11y', 'plugin', 'jooa11y', 'system', 0, 1, 1, 0, 1, '', '', '', 8, 0),
 (0, 'plg_system_languagecode', 'plugin', 'languagecode', 'system', 0, 0, 1, 0, 1, '', '', '', 9, 0),
-(0, 'plg_system_languagefilter', 'plugin', 'languagefilter', 'system', 0, 0, 1, 0, 1, '', '', '', 10, 0),
+(0, 'plg_system_multisitefilter', 'plugin', 'multisitefilter', 'system', 0, 0, 1, 0, 1, '', '', '', 10, 0),
 (0, 'plg_system_log', 'plugin', 'log', 'system', 0, 1, 1, 0, 1, '', '', '', 11, 0),
 (0, 'plg_system_logout', 'plugin', 'logout', 'system', 0, 1, 1, 0, 1, '', '', '', 12, 0),
 (0, 'plg_system_logrotation', 'plugin', 'logrotation', 'system', 0, 1, 1, 0, 1, '', '{}', '', 13, 0),
@@ -952,6 +953,7 @@ CREATE TABLE IF NOT EXISTS `#__users` (
   `password` varchar(100) NOT NULL DEFAULT '',
   `block` tinyint NOT NULL DEFAULT 0,
   `sendEmail` tinyint DEFAULT 0,
+  `multisitesGroupId` int NOT NULL DEFAULT 0,
   `registerDate` datetime NOT NULL,
   `lastvisitDate` datetime,
   `activation` varchar(100) NOT NULL DEFAULT '',
@@ -965,7 +967,8 @@ CREATE TABLE IF NOT EXISTS `#__users` (
   PRIMARY KEY (`id`),
   KEY `idx_name` (`name`(100)),
   KEY `idx_block` (`block`),
-  UNIQUE KEY `idx_username` (`username`),
+  UNIQUE KEY `idx_mailgroup` (`email`, `multisitesGroupId`),
+  UNIQUE KEY `idx_namegroup` (`username`, `multisitesGroupId`),
   KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 

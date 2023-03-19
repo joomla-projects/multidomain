@@ -165,6 +165,14 @@
 		/>
 
 		<menuitem
+			title="MOD_MENU_MANAGE_MULTISITES"
+			type="component"
+			element="com_multisites"
+			link="index.php?option=com_multisites&amp;view=groups"
+			permission="core.manage;com_multisites"
+		/>
+
+		<menuitem
 			title="MOD_MENU_MANAGE_GUIDEDTOURS"
 			type="component"
 			element="com_guidedtours"

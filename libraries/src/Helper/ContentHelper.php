@@ -208,13 +208,13 @@ class ContentHelper
 
         // Get the languagefilter parameters
         if (Multilanguage::isEnabled()) {
-            $plugin       = PluginHelper::getPlugin('system', 'languagefilter');
+            $plugin       = PluginHelper::getPlugin('system', 'multisitefilter');
             $pluginParams = new Registry($plugin->params);
 
             if ((int) $pluginParams->get('lang_cookie', 1) === 1) {
                 $langCode = $app->getInput()->cookie->getString(ApplicationHelper::getHash('language'));
             } else {
-                $langCode = $app->getSession()->get('plg_system_languagefilter.language');
+                $langCode = $app->getSession()->get('plg_system_multisitefilter.language');
             }
         }
 
