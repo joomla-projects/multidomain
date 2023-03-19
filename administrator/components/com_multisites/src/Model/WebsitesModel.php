@@ -15,8 +15,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\Database\ParameterType;
-
-use function substr;
+use Joomla\String\StringHelper;
 
 /**
  * Websites Component Multisites Model
@@ -198,11 +197,11 @@ class WebsitesModel extends ListModel
 
         if (!empty($search)) {
             if (stripos($search, 'id:') === 0) {
-                $search = (int) substr($search, 3);
+                $search = (int) \substr($search, 3);
                 $query->where($db->quoteName('a.id') . ' = :search')
                     ->bind(':search', $search, ParameterType::INTEGER);
             } elseif (stripos($search, 'author:') === 0) {
-                $search = '%' . substr($search, 7) . '%';
+                $search = '%' . \substr($search, 7) . '%';
 
                 $query->where(
                     '(' . $db->quoteName('ua.name') . ' LIKE :search1 OR '
@@ -227,6 +226,29 @@ class WebsitesModel extends ListModel
         $query->order($db->escape('a.id') . ' ' . $db->escape($orderDirn));
 
         return $query;
+    }
+
+    /**
+     * Method to change the title
+     *
+     * @param   integer  $categoryId  The id of the category.
+     * @param   string   $alias       The alias.
+     * @param   string   $title       The title.
+     *
+     * @return  array  Contains the modified title and alias.
+     *
+     * @since   __DEVELOPMENT_VERSION__
+     */
+    protected function generateNewTitle($categoryId, $alias, $title)
+    {
+        // Alter the title & alias
+        $table = $this->getTable();
+
+        while ($table->load(['title' => $title])) {
+            $title = StringHelper::increment($title);
+        }
+
+        return [$title, $alias];
     }
 
     /**
