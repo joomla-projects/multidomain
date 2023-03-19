@@ -139,6 +139,60 @@ class WebsiteModel extends AdminModel
 		}
 
 		/**
+		 * Method to save the form data.
+		 *
+		 * @param   array  $data  The form data.
+		 *
+		 * @return   boolean  True on success.
+		 *
+		 * @since  __DEPLOY_VERSION__
+		 */
+		public function save($data)
+		{
+			$table      = $this->getTable();
+			$context    = $this->option . '.' . $this->name;
+			$app        = Factory::getApplication();
+			$user       = $app->getIdentity();
+			$input      = $app->getInput();
+			$workflowID = $app->getUserStateFromRequest($context . '.filter.group_id', 'group_id', 0, 'int');
+	
+			if (empty($data['group_id'])) {
+				$data['group_id'] = $workflowID;
+			}
+	
+			$group = $this->getTable('Group');
+	
+			$group->load($data['group_id']);
+
+			// Make sure we don't change the group ID for existing items
+			$key = $table->getKeyName();
+			$pk  = (isset($data[$key])) ? $data[$key] : (int) $this->getState($this->getName() . '.id');
+	
+			if ($pk > 0) {
+				$table->load($pk);
+	
+				if ((int) $table->group_id) {
+					$data['group_id'] = (int) $table->group_id;
+				}
+			}
+	
+			if ($input->get('task') == 'save2copy') {
+				$origTable = clone $this->getTable();
+	
+				// Alter the title for save as copy
+				if ($origTable->load(['title' => $data['title']])) {
+					list($title)   = $this->generateNewTitle(0, '', $data['title']);
+					$data['title'] = $title;
+				}
+	
+				$data['published'] = 0;
+				$data['default']   = 0;
+			}
+	
+			return parent::save($data);
+		}
+
+		/**
 		 * Method to get the data that should be injected in the form.
 		 *
 		 * @return  mixed  The data for the form.

@@ -13,7 +13,7 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Layout\LayoutHelper;
 
 $displayData = [
-    'textPrefix' => 'COM_MULTISITES_SITES',
+    'textPrefix' => 'COM_MULTISITES_WEBSITES',
     'formURL'    => 'index.php?option=com_multisites&view=websites',
     'icon'       => 'icon-bookmark order',
 ];

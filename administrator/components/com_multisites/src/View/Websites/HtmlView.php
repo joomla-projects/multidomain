@@ -10,9 +10,11 @@ namespace Joomla\Component\Multisites\Administrator\View\Websites;
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\ContentHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\ListView;
+use Joomla\CMS\Router\Route;
 use Joomla\CMS\Toolbar\Button\DropdownButton;
 use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
@@ -47,6 +49,19 @@ class HtmlView extends ListView
     }
 
     /**
+     * Prepare view data
+     *
+     * @return  void
+     */
+    protected function initializeView(){
+        parent::initializeView();
+
+        if (!\count($this->items) && $this->isEmptyState = $this->get('IsEmptyState')) {
+            $this->setLayout('emptystate');
+        }
+    }
+
+    /**
      * Add the websites title and toolbar.
      *
      * @return  void
@@ -60,6 +75,14 @@ class HtmlView extends ListView
         $toolbar = Toolbar::getInstance();
 
         ToolbarHelper::title(Text::_('COM_MULTISITES_MANAGER_GROUPS'), 'copy websites');
+
+        $arrow  = Factory::getApplication()->getLanguage()->isRtl() ? 'arrow-right' : 'arrow-left';
+
+        $toolbar->link(
+            'JTOOLBAR_BACK',
+            Route::_('index.php?option=com_multisites&view=groups')
+        )
+            ->icon('icon-' . $arrow);
 
         if ($canDo->get('core.create')) {
             $toolbar->addNew('website.add');
