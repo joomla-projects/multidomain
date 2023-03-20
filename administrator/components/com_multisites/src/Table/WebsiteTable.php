@@ -95,6 +95,9 @@ class WebsiteTable extends Table
 					}
 			}
 
+			// Enforce a trailing slash
+			$this->baseurl = rtrim($this->baseurl, '/') . '/';
+
 			// Baseurl can be used only once
 			$db = $this->getDbo();
 
@@ -115,9 +118,6 @@ class WebsiteTable extends Table
 
 				return false;
 			}
-
-			// Enforce a trailing slash
-			$this->baseurl = rtrim($this->baseurl, '/') . '/';
 
 			return parent::store($updateNulls);
 		}
