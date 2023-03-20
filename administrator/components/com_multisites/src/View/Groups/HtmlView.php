@@ -94,7 +94,7 @@ class HtmlView extends ListView
 
                 $childBar->unpublish('groups.unpublish')->listCheck(true);
 
-                $childBar->standardButton('featured', 'JDEFAULT', 'groups.default')
+                $childBar->standardButton('featured', 'JDEFAULT', 'groups.setDefault')
                     ->listCheck(true);
 
                 $childBar->checkin('groups.checkin');
