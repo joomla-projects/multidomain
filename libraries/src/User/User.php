@@ -143,6 +143,14 @@ class User extends CMSObject
     public $groups = [];
 
     /**
+     * Multisite group id
+     *
+     * @var    integer
+     * @since  __DEPLOY_VERSION__
+     */
+    public $multisitesGroupId = null;
+
+    /**
      * Guest status
      *
      * @var    integer

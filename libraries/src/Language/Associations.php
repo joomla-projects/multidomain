@@ -179,7 +179,7 @@ class Associations
         if (Multilanguage::isEnabled()) {
             // If already tested, don't test again.
             if (!$tested) {
-                $plugin = PluginHelper::getPlugin('system', 'languagefilter');
+                $plugin = PluginHelper::getPlugin('system', 'multisitefilter');
 
                 if (!empty($plugin)) {
                     $params   = new Registry($plugin->params);

@@ -231,14 +231,6 @@
 		/>
 
 		<field
-			name="language"
-			type="contentlanguage"
-			label="JFIELD_LANGUAGE_LABEL"
-			>
-			<option value="*">JALL</option>
-		</field>
-
-		<field
 			name="featured"
 			type="radio"
 			label="JFEATURED"

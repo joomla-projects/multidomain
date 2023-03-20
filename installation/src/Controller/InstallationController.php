@@ -165,6 +165,27 @@ class InstallationController extends JSONController
     }
 
     /**
+     * Populate the multidomain websites
+     *
+     * @return void
+     */
+    public function populatesite()
+    {
+        $this->checkValidToken();
+
+        $r     = new \stdClass();
+
+        /** @var \Joomla\CMS\Installation\Model\DatabaseModel $model */
+        $model = $this->getModel('Database');
+
+        if (!$model->populatesite()) {
+            $r->view = 'setup';
+        }
+
+        $this->sendJsonResponse($r);
+    }
+
+    /**
      * Config task.
      *
      * @return  void

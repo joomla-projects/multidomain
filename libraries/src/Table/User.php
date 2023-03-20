@@ -250,37 +250,41 @@ class User extends Table
 
         $uid = (int) $this->id;
 
-        // Check for existing username
+        // Check for existing username and multisitesGroupId
         $query = $this->_db->getQuery(true)
             ->select($this->_db->quoteName('id'))
             ->from($this->_db->quoteName('#__users'))
             ->where($this->_db->quoteName('username') . ' = :username')
             ->where($this->_db->quoteName('id') . ' != :userid')
+            ->where($this->_db->quoteName('multisitesGroupId') . '= :sid')
             ->bind(':username', $this->username)
-            ->bind(':userid', $uid, ParameterType::INTEGER);
+            ->bind(':userid', $uid, ParameterType::INTEGER)
+            ->bind(':sid', $this->multisitesGroupId, ParameterType::INTEGER);
         $this->_db->setQuery($query);
 
         $xid = (int) $this->_db->loadResult();
 
         if ($xid && $xid != (int) $this->id) {
-            $this->setError(Text::_('JLIB_DATABASE_ERROR_USERNAME_INUSE'));
+            $this->setError(Text::_('JLIB_DATABASE_ERROR_USERNAME_MULTISITESGROUP_INUSE'));
 
             return false;
         }
 
-        // Check for existing email
+        // Check for existing email and multisitesGroupId
         $query->clear()
             ->select($this->_db->quoteName('id'))
             ->from($this->_db->quoteName('#__users'))
             ->where('LOWER(' . $this->_db->quoteName('email') . ') = LOWER(:mail)')
             ->where($this->_db->quoteName('id') . ' != :muserid')
+            ->where($this->_db->quoteName('multisitesGroupId') . '= :sid')
             ->bind(':mail', $this->email)
-            ->bind(':muserid', $uid, ParameterType::INTEGER);
+            ->bind(':muserid', $uid, ParameterType::INTEGER)
+            ->bind(':sid', $this->multisitesGroupId, ParameterType::INTEGER);
         $this->_db->setQuery($query);
         $xid = (int) $this->_db->loadResult();
 
         if ($xid && $xid != (int) $this->id) {
-            $this->setError(Text::_('JLIB_DATABASE_ERROR_EMAIL_INUSE'));
+            $this->setError(Text::_('JLIB_DATABASE_ERROR_EMAIL_MULTISITESGROUP_INUSE'));
 
             return false;
         }

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" method="upgrade">
+  <name>com_multisites</name>
+  <author>ITronic Harald Leithner</author>
+  <creationDate>March 2023</creationDate>
+  <copyright>(C) 2023 ITronic Harald Leithner</copyright>
+  <license>GNU General Public License version 3 or later; see LICENSE.txt</license>
+  <authorEmail>joomla@itronic.at</authorEmail>
+  <authorUrl>https://joomla.itronic.at</authorUrl>
+  <version>5.0.0</version>
+  <description>COM_MULTISITES_XML_DESCRIPTION</description>
+  <namespace path="src">Joomla\Component\Multisites</namespace>
+  <administration>
+    <files folder="administrator/components/com_multisites">
+      <filename>multisites.xml</filename>
+      <filename>access.xml</filename>
+      <filename>config.xml</filename>
+      <folder>forms</folder>
+      <folder>language</folder>
+      <folder>services</folder>
+      <folder>sql</folder>
+      <folder>src</folder>
+      <folder>tmpl</folder>
+    </files>
+		<languages folder="admin">
+			<language tag="en-GB">language/en-GB/com_multisites.ini</language>
+			<language tag="en-GB">language/en-GB/com_multisites.sys.ini</language>
+		</languages>
+  </administration>
+</extension>

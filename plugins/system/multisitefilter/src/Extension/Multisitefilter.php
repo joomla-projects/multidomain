@@ -1,17 +1,16 @@
 <?php
 
+namespace Joomla\Plugin\System\Multisitefilter\Extension;
+
 /**
  * @package     Joomla.Plugin
- * @subpackage  System.languagefilter
+ * @subpackage  System.multisitefilter
  *
  * @copyright   (C) 2010 Open Source Matters, Inc. <https://www.joomla.org>
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
-
- * @phpcs:disable PSR1.Classes.ClassDeclaration.MissingNamespace
  */
 
 use Joomla\CMS\Application\ApplicationHelper;
-use Joomla\CMS\Application\CMSApplication;
 use Joomla\CMS\Application\CMSWebApplicationInterface;
 use Joomla\CMS\Association\AssociationServiceInterface;
 use Joomla\CMS\Component\ComponentHelper;
@@ -28,6 +27,7 @@ use Joomla\CMS\Router\Router;
 use Joomla\CMS\Router\SiteRouter;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Component\Menus\Administrator\Helper\MenusHelper;
+use Joomla\Event\SubscriberInterface;
 use Joomla\Registry\Registry;
 use Joomla\String\StringHelper;
 
@@ -36,11 +36,11 @@ use Joomla\String\StringHelper;
 // phpcs:enable PSR1.Files.SideEffects
 
 /**
- * Joomla! Language Filter Plugin.
+ * Joomla! Multisite Filter Plugin.
  *
- * @since  1.6
+ * @since  __DEPLOY_VERSION__
  */
-class PlgSystemLanguageFilter extends CMSPlugin
+final class Multisitefilter extends CMSPlugin implements SubscriberInterface
 {
     /**
      * The routing mode.
@@ -97,6 +97,23 @@ class PlgSystemLanguageFilter extends CMSPlugin
      * @since  3.3
      */
     protected $app;
+
+    /**
+     * Returns an array of events this subscriber will listen to.
+     *
+     * @return  array
+     */
+    public static function getSubscribedEvents(): array
+    {
+        return [
+            'onAfterInitialise' => 'onAfterInitialise',
+            'onAfterRoute'      => 'onAfterRoute',
+            'onUserBeforeSave'  => 'onUserBeforeSave',
+            'onUserAfterSave'   => 'onUserAfterSave',
+            'onUserLogin'       => 'onUserLogin',
+            'onAfterDispatch'   => 'onAfterDispatch',
+        ];
+    }
 
     /**
      * Constructor.
@@ -168,6 +185,7 @@ class PlgSystemLanguageFilter extends CMSPlugin
         }
 
         // Attach parse rule.
+        $router->attachParseRule([$this, 'detectWebsiteRule'], Router::PROCESS_BEFORE);
         $router->attachParseRule([$this, 'parseRule'], Router::PROCESS_BEFORE);
     }
 
@@ -232,7 +250,7 @@ class PlgSystemLanguageFilter extends CMSPlugin
             || $lang !== $this->default_lang
             || $lang !== $this->current_lang
         ) {
-            $uri->setPath($uri->getPath() . '/' . $sef . '/');
+            $uri->setPath($uri->getPath() . 'languagefilter.php/' . $sef . '/');
         }
     }
 
@@ -278,6 +296,52 @@ class PlgSystemLanguageFilter extends CMSPlugin
      *
      * @return  void
      *
+     * @since   __DEPLOY_VERSION__
+     */
+    public function detectWebsiteRule(&$router, &$uri)
+    {
+        // Did we find the current and existing website yet?
+        $found = false;
+
+        $host = $uri->getHost();
+        $port = $uri->getPort();
+        $path = $uri->getPath();
+        $hostQuery = '%' . $host . '%';
+
+        $db = Factory::getDbo();
+        $query = $db->getQuery(true);
+        $query->select('*')
+            ->from('#__multisites_websites')
+            ->where('baseurl like :host')
+            ->bind(':host', $hostQuery);
+
+        $db->setQuery($query);
+        $websites = $db->loadAssocList();
+
+        if (count($websites) === 0) {
+            throw new \Exception('No matching website found');
+        }
+
+        foreach($websites as $website) {
+            if (
+                $website['host'] !== $host
+            ) {
+                continue;
+            }
+            $this->websiteId = $website['id'];
+            break;
+
+        }
+    }
+
+    /**
+     * Add parse rule to router.
+     *
+     * @param   Router  &$router  Router object.
+     * @param   Uri     &$uri     Uri object.
+     *
+     * @return  void
+     *
      * @since   1.6
      */
     public function parseRule(&$router, &$uri)
@@ -298,7 +362,7 @@ class PlgSystemLanguageFilter extends CMSPlugin
                 if ($this->params->get('remove_default_prefix', 0)) {
                     if ($parts[0]) {
                         // We load a default site language page
-                        $lang_code = $this->default_lang;
+                        $lang_code = $this->defaulparseRult_lang;
                     } else {
                         // We check for an existing language cookie
                         $lang_code = $this->getLanguageCookie();
@@ -428,7 +492,7 @@ class PlgSystemLanguageFilter extends CMSPlugin
                 $redirectUri = $uri->base() . $uri->toString(['path', 'query', 'fragment']);
             } else {
                 $uri->setVar('lang', $this->lang_codes[$lang_code]->sef);
-                $redirectUri = $uri->base() . 'index.php?' . $uri->getQuery();
+                $redirectUri = $uri->base() . 'index.php' . $uri->getQuery();
             }
 
             // Set redirect HTTP code to "302 Found".
@@ -498,8 +562,8 @@ class PlgSystemLanguageFilter extends CMSPlugin
         $this->loadLanguage();
 
         return [
-            Text::_('PLG_SYSTEM_LANGUAGEFILTER') => [
-                Text::_('PLG_SYSTEM_LANGUAGEFILTER_PRIVACY_CAPABILITY_LANGUAGE_COOKIE'),
+            Text::_('PLG_SYSTEM_MULTISITEFILTER') => [
+                Text::_('PLG_SYSTEM_MULTISITEFILTER_PRIVACY_CAPABILITY_LANGUAGE_COOKIE'),
             ],
         ];
     }
@@ -815,7 +879,7 @@ class PlgSystemLanguageFilter extends CMSPlugin
             );
         } else {
             // If not, set the user language in the session (that is already saved in a cookie).
-            $this->app->getSession()->set('plg_system_languagefilter.language', $languageCode);
+            $this->app->getSession()->set('plg_system_multisitefilter.language', $languageCode);
         }
     }
 
@@ -833,7 +897,7 @@ class PlgSystemLanguageFilter extends CMSPlugin
             $languageCode = $this->app->getInput()->cookie->get(ApplicationHelper::getHash('language'));
         } else {
             // Else get the user language from the session.
-            $languageCode = $this->app->getSession()->get('plg_system_languagefilter.language');
+            $languageCode = $this->app->getSession()->get('plg_system_multisitefilter.language');
         }
 
         // Let's be sure we got a valid language code. Fallback to null.
